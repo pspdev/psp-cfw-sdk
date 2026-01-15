@@ -24,7 +24,7 @@ extern "C"{
 
 #include <psploadcore.h>
 
-#include <ark.h>
+#include <systemctrl_ark.h>
 
 /*
  * This File contains the required headers for exported, but internally used

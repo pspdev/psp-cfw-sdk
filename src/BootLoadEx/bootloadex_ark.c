@@ -1,9 +1,9 @@
 #include <string.h>
 
-#include <ark.h>
 #include <cfwmacros.h>
 #include <systemctrl.h>
 #include <systemctrl_se.h>
+#include <systemctrl_ark.h>
 #include <bootloadex.h>
 #include <pspbtcnf.h>
 #include <rebootexconfig.h>

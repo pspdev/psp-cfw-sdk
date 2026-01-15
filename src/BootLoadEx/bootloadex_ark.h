@@ -1,7 +1,7 @@
 #ifndef _BOOTLOADEX_ARK_H_
 #define _BOOTLOADEX_ARK_H_
 
-#include <ark.h>
+#include <systemctrl_ark.h>
 #include <rebootexconfig.h>
 
 typedef struct{

@@ -15,8 +15,8 @@
  * along with PRO CFW. If not, see <http://www.gnu.org/licenses/ .
  */
 
-#ifndef _ARK_H_
-#define _ARK_H_
+#ifndef _SYSCTRL_ARK_H_
+#define _SYSCTRL_ARK_H_
 
 #include <pspsdk.h>
 

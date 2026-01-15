@@ -14,7 +14,7 @@ extern "C"{
 
 
 // interface for passing arguments to kernel functions
-struct KernelCallArg {
+typedef struct KernelCallArg {
     uint32_t arg1;
     uint32_t arg2;
     uint32_t arg3;
@@ -29,7 +29,7 @@ struct KernelCallArg {
     uint32_t arg12;
     uint32_t ret1;
     uint32_t ret2;
-};
+} KernelCallArg;
 
 /**
  * Functions to let user mode access certain functions only available in

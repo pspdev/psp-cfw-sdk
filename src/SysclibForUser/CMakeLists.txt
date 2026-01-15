@@ -1,0 +1,1 @@
+add_stub_lib(pspsysc_user SysclibForUser.S SysclibForUser 36)

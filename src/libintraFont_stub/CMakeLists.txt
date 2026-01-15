@@ -1,0 +1,1 @@
+add_stub_lib(intraFont_stub libintraFont.S intrafont 22)

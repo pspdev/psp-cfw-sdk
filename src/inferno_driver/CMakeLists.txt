@@ -1,0 +1,1 @@
+add_stub_lib(inferno_driver inferno_driver.S inferno_driver 5)

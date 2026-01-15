@@ -48,7 +48,7 @@ int _pspemuLfatOpen(BootFile* file, u32 a1, u32 a2, u32 a3, u32 t0)
     }
 
     pspemuLfatOpen(file, a1, a2, a3, t0);
-    return 0;
+    return 0; //always return 0 to allow boot with unsuccessfully loaded files
 }
 
 int UnpackBootConfigVita(char **p_buffer, int length){

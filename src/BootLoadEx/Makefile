@@ -9,9 +9,6 @@ C_OBJS = \
 	patches_vita.o \
 	bootloadex_ark.o \
 	patches_psp_ark.o \
-	patches_vita_epsp.o \
-	patches_vita_epsx.o \
-	patches_vita_vpsp.o \
 
 
 OBJS = $(C_OBJS)

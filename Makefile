@@ -2,7 +2,7 @@
 
 PSPSDK = $(shell psp-config --pspsdk-path)
 PSPDEV = $(shell psp-config --pspdev-path)
-ARKSDK = $(PSPDEV)/share/ark-dev-sdk
+CFWSDK = $(PSPDEV)/share/psp-cfw-sdk
 
 all:
 	$(MAKE) -C src/KUBridge
@@ -74,7 +74,7 @@ all:
 install: all
 	$(Q)cp -r include/* $(PSPSDK)/include/
 	$(Q)cp -r libs/* $(PSPSDK)/lib/
-	$(Q)cp -r build-tools $(ARKSDK)/
+	$(Q)cp -r build-tools $(CFWSDK)/
 
 clean:
 	$(Q)rm -rf libs

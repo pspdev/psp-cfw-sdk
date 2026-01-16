@@ -74,6 +74,7 @@ all:
 install: all
 	$(Q)cp -r include/* $(PSPSDK)/include/
 	$(Q)cp -r libs/* $(PSPSDK)/lib/
+	$(Q)mkdir -p $(CFWSDK)/build-tools
 	$(Q)cp -r build-tools $(CFWSDK)/build-tools
 
 clean:

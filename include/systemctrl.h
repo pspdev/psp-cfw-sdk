@@ -64,21 +64,21 @@ enum ToolkitType
 };
 
 // Custom Utility Modules
-#define PSP_MODULE_NET_FTP			   0x0180
-#define PSP_MODULE_AV_PNG   			 0x0380
-#define PSP_MODULE_AV_HELPER			 0x0390
-#define PSP_MODULE_VLF             0x0700
-#define PSP_MODULE_INTRAFONT_VLF   0x0701
-#define PSP_MODULE_INTRAFONT_GU    0x0702
-#define PSP_MODULE_UNARCHIVER      0x0710
-#define PSP_MODULE_USB_DEV_DRV     0x0800
-#define PSP_MODULE_IDS_REGEN       0x0801
-#define PSP_MODULE_IO_PRIVILEGED   0x0802
-#define PSP_MODULE_PSAR_DUMPER     0x0803
-#define PSP_MODULE_PSPDECRYPT      0x0804
-#define PSP_MODULE_KPSPIDENT       0x0805
-#define PSP_MODULE_IPL_UPDATER     0x0806
-#define PSP_MODULE_KBOOTI_UPDATER  0x0807
+#define PSP_MODULE_NET_FTP             0x0180
+#define PSP_MODULE_AV_PNG              0x0380
+#define PSP_MODULE_AV_HELPER           0x0390
+#define PSP_MODULE_VLF                 0x0700
+#define PSP_MODULE_INTRAFONT_VLF       0x0701
+#define PSP_MODULE_INTRAFONT_GU        0x0702
+#define PSP_MODULE_UNARCHIVER          0x0710
+#define PSP_MODULE_USB_DEV_DRV         0x0800
+#define PSP_MODULE_IDS_REGEN           0x0801
+#define PSP_MODULE_IO_PRIVILEGED       0x0802
+#define PSP_MODULE_PSAR_DUMPER         0x0803
+#define PSP_MODULE_PSPDECRYPT          0x0804
+#define PSP_MODULE_KPSPIDENT           0x0805
+#define PSP_MODULE_IPL_UPDATER         0x0806
+#define PSP_MODULE_KBOOTI_UPDATER      0x0807
 
 
 // Function Name Clones (of old but gold times)
@@ -88,7 +88,10 @@ enum ToolkitType
 typedef int (* STMOD_HANDLER)(SceModule *);
 
 // data for HijackFunction
-typedef unsigned int FunctionPatchData[5];
+typedef struct FunctionPatchData{
+    unsigned int __instr__[5];
+    unsigned int __extra_[3];
+} FunctionPatchData;
 
 // Decrypt extension functions
 typedef int (* KDEC_HANDLER)(u32 *buf, int size, int *retSize, int m);

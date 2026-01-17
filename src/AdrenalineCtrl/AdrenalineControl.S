@@ -17,3 +17,6 @@
 #ifdef F_AdrenalineCtrl_0003
 	IMPORT_FUNC  "AdrenalineCtrl",0x5FC12767,sctrlStopUsb
 #endif
+#ifdef F_AdrenalineCtrl_0004
+	IMPORT_FUNC  "AdrenalineCtrl",0x053172F8,sctrlRebootDevice
+#endif

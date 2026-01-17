@@ -119,5 +119,6 @@ enum HidePicsOpt {
 int sctrlGetUsbState();
 int sctrlStartUsb();
 int sctrlStopUsb();
+int sctrlRebootDevice();
 
 #endif

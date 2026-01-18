@@ -80,11 +80,12 @@ OBJS = \
 	SystemCtrlForUser_0074.o \
 	SystemCtrlForUser_0075.o \
 	SystemCtrlForUser_0076.o \
+	SystemCtrlForUser_0077.o \
 
 PSPSDK=$(shell psp-config --pspsdk-path)
 
 CC=psp-gcc
-INCDIR = 
+INCDIR =
 CFLAGS = -std=c99 -Os -G0 -Wall -fno-builtin-printf -I$(PSPSDK)/include
 CXXFLAGS = $(CFLAGS) -fno-exceptions -fno-rtti
 ASFLAGS = $(CFLAGS)

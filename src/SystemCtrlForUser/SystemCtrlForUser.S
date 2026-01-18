@@ -231,8 +231,11 @@
 	IMPORT_FUNC  "SystemCtrlForUser",0x46268461,sctrlHENFindFunctionInMod
 #endif
 #ifdef F_SystemCtrlForUser_0075
-	IMPORT_FUNC  "SystemCtrlForUser",0xDF306CFC,sctrlHENFindImportInMod
+	IMPORT_FUNC  "SystemCtrlForUser",0xE6B0F656,sctrlHENFindImport
 #endif
 #ifdef F_SystemCtrlForUser_0076
+	IMPORT_FUNC  "SystemCtrlForUser",0xDF306CFC,sctrlHENFindImportInMod
+#endif
+#ifdef F_SystemCtrlForUser_0077
 	IMPORT_FUNC  "SystemCtrlForUser",0xDB39A3EC,sctrlHENHijackFunction
 #endif

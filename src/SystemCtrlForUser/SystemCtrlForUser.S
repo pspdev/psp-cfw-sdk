@@ -239,3 +239,6 @@
 #ifdef F_SystemCtrlForUser_0077
 	IMPORT_FUNC  "SystemCtrlForUser",0xDB39A3EC,sctrlHENHijackFunction
 #endif
+#ifdef F_SystemCtrlForUser_0078
+	IMPORT_FUNC  "SystemCtrlForUser",0xC4D88D50,sctrlHENIsSystemBooted
+#endif

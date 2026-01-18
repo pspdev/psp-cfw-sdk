@@ -299,3 +299,6 @@
 #ifdef F_SystemCtrlForKernel_0097
     IMPORT_FUNC "SystemCtrlForKernel",0xDB39A3EC,sctrlHENHijackFunction
 #endif
+#ifdef F_SystemCtrlForKernel_0098
+    IMPORT_FUNC "SystemCtrlForKernel",0xC4D88D50,sctrlHENIsSystemBooted
+#endif

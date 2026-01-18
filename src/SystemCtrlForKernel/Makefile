@@ -101,12 +101,13 @@ OBJS = \
 	SystemCtrlForKernel_0095.o \
 	SystemCtrlForKernel_0096.o \
 	SystemCtrlForKernel_0097.o \
+	SystemCtrlForKernel_0098.o \
 
 
 PSPSDK=$(shell psp-config --pspsdk-path)
 
 CC=psp-gcc
-INCDIR = 
+INCDIR =
 CFLAGS = -std=c99 -Os -G0 -Wall -fno-builtin-printf -I$(PSPSDK)/include
 CXXFLAGS = $(CFLAGS) -fno-exceptions -fno-rtti
 ASFLAGS = $(CFLAGS)

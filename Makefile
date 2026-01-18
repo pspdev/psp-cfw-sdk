@@ -12,6 +12,7 @@ all:
 	$(MAKE) -C src/AdrenalineCtrl
 	$(MAKE) -C src/SysclibForUser
 	$(MAKE) -C src/inferno_driver
+	$(MAKE) -C src/isoCtrl_driver
 	$(MAKE) -C src/DcManager
 	$(MAKE) -C src/idsRegeneration
 	$(MAKE) -C src/idsRegeneration_driver
@@ -44,6 +45,7 @@ all:
 	$(Q)cp src/AdrenalineCtrl/*.a libs
 	$(Q)cp src/SysclibForUser/*.a libs
 	$(Q)cp src/inferno_driver/*.a libs
+	$(Q)cp src/isoCtrl_driver/*.a libs
 	$(Q)cp src/DcManager/*.a libs
 	$(Q)cp src/idsRegeneration/*.a libs
 	$(Q)cp src/idsRegeneration_driver/*.a libs
@@ -89,6 +91,7 @@ clean:
 	$(MAKE) -C src/AdrenalineCtrl clean
 	$(MAKE) -C src/SysclibForUser clean
 	$(MAKE) -C src/inferno_driver clean
+	$(MAKE) -C src/isoCtrl_driver clean
 	$(MAKE) -C src/DcManager clean
 	$(MAKE) -C src/idsRegeneration clean
 	$(MAKE) -C src/idsRegeneration_driver clean

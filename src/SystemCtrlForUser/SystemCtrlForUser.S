@@ -210,7 +210,7 @@
     IMPORT_FUNC "SystemCtrlForUser",0x22A45DB7,sctrlHENIsToolKit
 #endif
 #ifdef F_SystemCtrlForUser_0068
-	IMPORT_FUNC  "SystemCtrlForUser",0xFAC22931,sctrlFindImportLib
+	IMPORT_FUNC_WITH_ALIAS  "SystemCtrlForUser",0xFAC22931,sctrlFindImportLib,sctrlHENFindImportLib
 #endif
 #ifdef F_SystemCtrlForUser_0069
 	IMPORT_FUNC  "SystemCtrlForUser",0x9EFDE773,sctrlFindImportByNID

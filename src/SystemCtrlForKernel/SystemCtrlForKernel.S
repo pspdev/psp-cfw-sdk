@@ -96,7 +96,7 @@
 	IMPORT_FUNC  "SystemCtrlForKernel",0xB364FBB4,sctrlKernelRand
 #endif
 #ifdef F_SystemCtrlForKernel_0030
-	IMPORT_FUNC  "SystemCtrlForKernel",0xFAC22931,sctrlFindImportLib
+	IMPORT_FUNC_WITH_ALIAS  "SystemCtrlForKernel",0xFAC22931,sctrlFindImportLib,sctrlHENFindImportLib
 #endif
 #ifdef F_SystemCtrlForKernel_0031
 	IMPORT_FUNC  "SystemCtrlForKernel",0x9EFDE773,sctrlFindImportByNID

@@ -1,5 +1,5 @@
-#ifndef __COMMON_H__
-#define __COMMON_H__
+#ifndef _SYSTEMCTRL_EPI_H_
+#define _SYSTEMCTRL_EPI_H_
 
 #include <pspsdk.h>
 #include <pspkernel.h>
@@ -116,9 +116,27 @@ enum HidePicsOpt {
 	PICS_OPT_PIC1_ONLY,
 };
 
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
 int sctrlGetUsbState();
 int sctrlStartUsb();
 int sctrlStopUsb();
 int sctrlRebootDevice();
 
-#endif
+/**
+ *  Find a import library stub table.
+ *
+ * @param mod The module where to search the function.
+ * @param library The library name.
+ *
+ * @return The reference to the stub table ot NULL if not found.
+ */
+SceLibraryStubTable* sctrlHENFindImportLib(SceModule* mod, const char* library);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+
+#endif /* _SYSTEMCTRL_EPI_H_ */

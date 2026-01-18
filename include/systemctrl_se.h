@@ -188,7 +188,7 @@ typedef struct {
 	u8	skip_logo;
 	/** 0 - Disabled, 1 - Enabled */
 	u8 startup_program;
-	/** One of `SEUmdModes` */
+	/** One of `IsoUmdMode` */
 	u8 umd_mode;
 	/** One of `CpuBusSpeed` */
 	u8	vsh_cpu_speed;

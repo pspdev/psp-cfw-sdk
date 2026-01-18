@@ -116,6 +116,12 @@ enum HidePicsOpt {
 	PICS_OPT_PIC1_ONLY,
 };
 
+enum IsoUmdMode {
+	ISO_MODE_INFERNO,
+	ISO_MODE_MARCH33,
+	ISO_MODE_NP9660,
+};
+
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */

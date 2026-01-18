@@ -225,7 +225,7 @@
     IMPORT_FUNC "SystemCtrlForKernel",0xCF817542,sctrlSESetUmdFileEx
 #endif
 #ifdef F_SystemCtrlForKernel_0073
-    IMPORT_FUNC "SystemCtrlForKernel",0xCB76B778,sctrlKernelSetInitKeyConfig
+    IMPORT_FUNC_WITH_ALIAS "SystemCtrlForKernel",0xCB76B778,sctrlKernelSetInitKeyConfig, sctrlKernelSetApplicationType
 #endif
 #ifdef F_SystemCtrlForKernel_0074
     IMPORT_FUNC "SystemCtrlForKernel",0x32677DD3,sctrlKernelResolveNid

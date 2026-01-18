@@ -162,7 +162,7 @@
     IMPORT_FUNC "SystemCtrlForUser",0x78E46415,sctrlHENFindDriver
 #endif
 #ifdef F_SystemCtrlForUser_0052
-    IMPORT_FUNC "SystemCtrlForUser",0xCB76B778,sctrlKernelSetInitKeyConfig
+    IMPORT_FUNC_WITH_ALIAS "SystemCtrlForUser",0xCB76B778,sctrlKernelSetInitKeyConfig, sctrlKernelSetApplicationType
 #endif
 #ifdef F_SystemCtrlForUser_0053
     IMPORT_FUNC "SystemCtrlForUser",0x32677DD3,sctrlKernelResolveNid

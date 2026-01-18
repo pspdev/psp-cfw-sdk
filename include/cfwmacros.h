@@ -15,8 +15,8 @@
  * along with PRO CFW. If not, see <http://www.gnu.org/licenses/ .
  */
 
-#ifndef _MACROS_H_
-#define _MACROS_H_
+#ifndef _CFW_MACROS_H_
+#define _CFW_MACROS_H_
 
 // magic numbers
 #define PBP_MAGIC 0x50425000
@@ -198,5 +198,5 @@
     MAKE_CALL(a, f); \
 }
 
-#endif
+#endif /* _CFW_MACROS_H_ */
 

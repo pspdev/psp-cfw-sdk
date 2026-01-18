@@ -3,22 +3,16 @@
 
 #include <psptypes.h>
 
-#ifdef __cplusplus
-extern "C"{
-#endif
-
 /**
- * These functions are only available in SE-C and later, 
- * and they are not in HEN 
+ * These functions are only available in SE-C and later,
+ * and they are not in HEN
 */
-
-enum fakeregion
-{
+enum fakeregion {
     FAKE_REGION_DISABLED = 0,
     FAKE_REGION_JAPAN = 1,
     FAKE_REGION_AMERICA = 2,
     FAKE_REGION_EUROPE = 3,
-    FAKE_REGION_KOREA = 4, 
+    FAKE_REGION_KOREA = 4,
     FAKE_REGION_UNITED_KINGDOM = 5,
     FAKE_REGION_LATIN_AMERICA = 6,
     FAKE_REGION_AUSTRALIA = 7,
@@ -120,9 +114,9 @@ typedef struct SEConfigM33
 	int umdmode;
 	int useisofsonumdinserted;
 	int	vshcpuspeed; //dataAC10
-	int	vshbusspeed; 
-	int	umdisocpuspeed; 
-	int	umdisobusspeed; 
+	int	vshbusspeed;
+	int	umdisocpuspeed;
+	int	umdisobusspeed;
 	int fakeregion;//dataAC20
 	int freeumdregion;//executeopnssmp
 	int	hardresetHB; //data
@@ -157,7 +151,7 @@ typedef struct SEConfigPRO
 	s16 machidden;
 	s16 skipgameboot;
 	s16 hidepic;
-	s16 plugvsh; 
+	s16 plugvsh;
 	s16 pluggame;
 	s16 plugpop;
 	s16 flashprot;
@@ -184,8 +178,8 @@ typedef struct SEConfigPRO
 } SEConfigPRO;
 
 // Adrenaline's SEConfig
-#define SECONFIG_MAGIC_ADR1 0x192EFC3C
-#define SECONFIG_MAGIC_ADR2 0x17BEB6AA
+#define SECONFIG_MAGIC_EPI1 0x192EFC3C
+#define SECONFIG_MAGIC_EPI2 0x17BEB6AA
 typedef struct {
 	int magic[2];
 	/** 0 - Disabled, 1 - Enabled */
@@ -250,12 +244,12 @@ typedef struct {
 	u8 use_me2;
 	/** Hide CFW files from games. 0 - Hide, 1 - Do not hide */
 	u8 no_hide_cfw_files;
-} SEConfigADR;
-#define IS_ADR_SECONFIG(config) ((((SEConfigADR*)config)->magic[0] == SECONFIG_MAGIC_ADR1) && (((SEConfigADR*)config)->magic[1] == SECONFIG_MAGIC_ADR2))
+} SEConfigEPI;
+typedef SEConfigEPI SEConfigADR;
+#define IS_ADR_SECONFIG(config) ((((SEConfigEPI*)config)->magic[0] == SECONFIG_MAGIC_EPI1) && (((SEConfigADR*)config)->magic[1] == SECONFIG_MAGIC_EPI2))
 
 // ARK's SEConfig
-typedef struct SEConfigARK
-{
+typedef struct SEConfigARK {
     u32 magic; // ARK_CONFIG_MAGIC
     u16 iso_cache_size_kb; // in KB, automatic
     u16 iso_cache_num; // number of cache slots
@@ -291,99 +285,127 @@ typedef struct SEConfigARK
 typedef union {
     SEConfigM33 m33;
     SEConfigPRO pro;
-    SEConfigADR adr;
+    SEConfigEPI adr;
     SEConfigARK ark;
 } SEConfig;
 
+#ifdef __cplusplus
+extern "C"{
+#endif /* __cplusplus */
+
 /**
- * Gets the SE/OE version
+ * Gets the SE/OE version.
  *
- * @returns the SE version
+ * @return The SE version.
  *
  * 3.03 OE-A: 0x00000500
+ *
+ * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be available.
 */
 int sctrlSEGetVersion();
 
 /**
  * Gets the SE configuration.
- * Avoid using this function, it may corrupt your program.
- * Use sctrlSEGetCongiEx function instead.
  *
- * @param config - pointer to a SEConfig structure that receives the SE configuration
- * @returns pointer to original SEConfig structure in SystemControl
+ * Avoid using this function, it may corrupt your program.
+ * Use `sctrlSEGetCongiEx` function instead.
+ *
+ * @param[out] config A pointer to a AdrenalineConfig structure that receives the SE configuration.
+ *
+ * @return `0` on success.
+ *
+ * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be available.
 */
 int sctrlSEGetConfig(SEConfig *config);
 
 /**
  * Gets the SE configuration
  *
- * @param config - pointer to a SEConfig structure that receives the SE configuration
- * @param size - The size of the structure
- * @returns pointer to original SEConfig structure in SystemControl
+ * @param[out] config A pointer to a `AdrenalineConfig` structure that receives the SE configuration.
+ * @param size The size of the structure.
+ *
+ * @return `0` on success.
+ *
+ * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be available.
 */
 int sctrlSEGetConfigEx(SEConfig *config, int size);
 
 /**
- * Sets the SE configuration
- * This function can corrupt the configuration in flash, use
- * sctrlSESetConfigEx instead.
+ * Sets the SE configuration.
  *
- * @param config - pointer to a SEConfig structure that has the SE configuration to set
- * @returns 0 on success
+ * This function can corrupt the configuration in flash, use
+ * `sctrlSESetConfigEx` instead.
+ *
+ * @param[in] config A pointer to a `AdrenalineConfig` structure that has the SE configuration to set.
+ *
+ * @return `0` on success.
+ *
+ * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be available.
 */
 int sctrlSESetConfig(SEConfig *config);
 
 /**
- * Sets the SE configuration
+ * Sets the SE configuration.
  *
- * @param config - pointer to a SEConfig structure that has the SE configuration to set
- * @param size - the size of the structure
- * @returns 0 on success
+ * @param[in] config A pointer to a `AdrenalineConfig` structure that has the SE configuration to set.
+ * @param size The size of the structure.
+ *
+ * @return `0` on success.
+ *
+ * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be available.
 */
 int sctrlSESetConfigEx(SEConfig *config, int size);
 
 /**
  * Immediately sets the SE configuration in memory without saving to flash.
- * This function can corrupt the configuration in memory, use
- * sctrlSEApplyConfigEX instead.
  *
- * @param config - pointer to a SEConfig structure that has the SE configuration to set
+ * This function can corrupt the configuration in memory, use `sctrlSEApplyConfigEX` instead.
+ *
+ * @param[in] config A pointer to a `SEConfig` structure that has the SE configuration to set.
+ *
+ * @attention Requires linking to `pspsystemctrl_kernel` stub to be available.
 */
 void sctrlSEApplyConfig(SEConfig *conf);
 
 /**
  * Immediately sets the SE configuration in memory without saving to flash.
  *
- * @param config - pointer to a SEConfig structure that has the SE configuration to set
- * @returns 0 on success, and -1 on error
+ * @param[in] config A pointer to a `SEConfig` structure that has the SE configuration to set.
+ *
+ * @return `0` on success, and `-1` on error.
+ *
+ * @attention Requires linking to `pspsystemctrl_kernel` stub to be available.
 */
 int sctrlSEApplyConfigEX(SEConfig *conf, int size);
 
 
 /**
- * Get the CFW's internal SEConfig structure.
+ * Get the CFW's internal `SEConfig` structure.
  *
- * @returns pointer to SEConfig.
+ * @returns A pointer to the internal `SEConfig`.
+ *
+ * @attention Requires linking to `pspsystemctrl_kernel` stub to be available.
 */
 SEConfig* sctrlSEGetConfigInternal();
 
 /**
  * Initiates the emulation of a disc from an ISO9660/CSO file.
  *
- * @param file - The path of the 
- * @param noumd - Wether use noumd or not
- * @param isofs - Wether use the custom SE isofs driver or not
- * 
- * @returns 0 on success
+ * @param[in] file The path of the ISO/CISO.
+ * @param noumd Wether use noumd or not.
+ * @param isofs Wether use the custom SE isofs driver or not.
  *
- * @Note - When setting noumd to 1, isofs should also be set to 1,
- * otherwise the umd would be still required.
+ * @return `0` on success.
  *
- * @Note 2 - The function doesn't check if the file is valid or even if it exists
- * and it may return success on those cases
+ * @note 1. When setting noumd to `1`, isofs should also be set to `1`,
+ * otherwise the UMD would be still required.
  *
- * @Note 3 - This function is not available in SE for devhook
- * @Example:
+ * @note 2. The function doesn't check if the file is valid or even if it exists
+ * and it may return success on those cases.
+ *
+ * @note 3. This function is not available in SE for devhook.
+ *
+ * @example
  *
  * SEConfig config;
  *
@@ -397,75 +419,114 @@ SEConfig* sctrlSEGetConfigInternal();
  * {
  *        sctrlSEMountUmdFromFile("ms0:/ISO/mydisc.iso", 0, config.useisofsonumdinserted);
  * }
+ *
+ * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be available.
 */
 int sctrlSEMountUmdFromFile(char *file, int noumd, int isofs);
 
 /**
  * Umounts an iso.
  *
- * @returns 0 on success
+ * @return `0` on success.
+ *
+ * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be available.
 */
 int sctrlSEUmountUmd(void);
 
 /**
- * Forces the umd disc out state
+ * Forces the umd disc out state.
  *
- * @param out - non-zero for disc out, 0 otherwise
+ * @param out Non-zero for disc out, `0` otherwise.
  *
+ * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be available.
 */
 void sctrlSESetDiscOut(int out);
 
 /**
  * Sets the disctype.
  *
- * @param type - the disctype (0x10=game, 0x20=video, 0x40=audio)
- * @note: Currently only inferno available, needs reset to take effect
+ * @param type The disctype. One or more of `PspUmdTypes`.
+ *
+ * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be available.
 */
 void sctrlSESetDiscType(int type);
 
 /**
  * Get the disctype.
+ *
+ * @return The ISO disctype. One or more of `PspUmdTypes`.
+ *
+ * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be available.
 */
 int sctrlSEGetDiscType(void);
 
 /**
- * Sets the current umd file (kernel only)
+ * Gets the current UMD file (kernel only).
+ *
+ * @return The current UMD file.
+ *
+ * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be available.
 */
 char *sctrlSEGetUmdFile(void);
 char *GetUmdFile(void);
 
 /**
- * Sets the current umd file (kernel only)
+ * Sets the current UMD file (kernel only).
  *
- * @param file - The umd file
+ * @param[in] file The UMD file.
+ *
+ * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be available.
 */
 void sctrlSESetUmdFile(const char *file);
 void SetUmdFile(const char *file);
 
 
-/** 
+/**
  * Sets the boot config file for next reboot
  *
- * @param index - The index identifying the file (0 -> normal bootconf, 1 -> march33 driver bootconf, 2 -> np9660 bootcnf, 3 -> inferno bootconf), 4 -> inferno vsh mount
+ * @param index - The index identifying the file. One of `SEUmdModes`.
+ *
+ * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be available.
 */
 void sctrlSESetBootConfFileIndex(int index);
 
 /**
- * Get the boot config index
- */
+ * Gets the boot config file for next reboot.
+ *
+ * @return The index identifying the file. One of `SEUmdModes`.
+ *
+ * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be available.
+*/
 unsigned int sctrlSEGetBootConfFileIndex(void);
 
-// Allocate Memory in kernel space
+/**
+ * Helper function to allocate memory on P1 (kernel memory).
+ *
+ * @param size The amount of bytes to allocate.
+ *
+ * @return A pointer to allocated buffer, or NULL on error.
+ */
 void * oe_malloc(unsigned int size);
 
-// Allocate Memory in kernel space with alignment
+/**
+ * Helper function to allocate aligned memory on P1 (user memory).
+ *
+ * @param align The alignment.
+ * @param size The amount of bytes to allocate.
+ *
+ * @return A pointer to allocated buffer, or `NULL` on error.
+ */
 void * oe_memalign(unsigned int align, unsigned int size);
 
-// Free memory
+/**
+ * Deallocate memory allocated by oe_malloc.
+ *
+ * @param[in] ptr A pointer to the allocated memory.
+ */
 void oe_free(void * p);
 
 #ifdef __cplusplus
 }
-#endif
+#endif /* __cplusplus */
 
-#endif
+#endif /* __SCTRLLIBRARY_SE_H__ */

@@ -36,9 +36,9 @@
     Yet it wasn't fully binary compatible with PRO's rebootex config.
     Now we are using a different magic number to identify ARK's rebootconfig vs PRO's.
     This allows ARK SystemControl to work with PRO's reboot buffer configuration.
-    
+
     If ARK can't detect rebootex configuration, several CFW functions that work with it will be disabled
-        (such as being able to change ISO driver, ISO path, reboot module and such). 
+        (such as being able to change ISO driver, ISO path, reboot module and such).
 */
 
 // ARK Rebootex config
@@ -64,7 +64,7 @@ typedef struct RebootexConfigARK {
     } last_played;
 } RebootexConfigARK;
 
-typedef struct RebootexConfigADR{
+typedef struct RebootexConfigEPI {
     int bootfileindex;
     u8 iso_disc_type;
 
@@ -82,7 +82,8 @@ typedef struct RebootexConfigADR{
     // Maybe make it generic for the whole SEConfigADR
     u8 overwrite_use_psposk;
     u8 overwrite_use_psposk_to;
-} RebootexConfigADR;
+} RebootexConfigEPI;
+typedef RebootexConfigEPI RebootexConfigADR;
 
 // L/ME
 typedef struct RebootexConfigLME {
@@ -115,11 +116,11 @@ typedef struct RebootexConfigPRO {
     u8 iso_disc_type;
 } RebootexConfigPRO;
 
-typedef union{
+typedef union {
     RebootexConfigLME lme;
     RebootexConfigPRO pro;
     RebootexConfigARK ark;
-    RebootexConfigADR adr;
+    RebootexConfigEPI adr;
 } RebootexConfig;
 
 

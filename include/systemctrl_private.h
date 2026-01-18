@@ -35,8 +35,6 @@ extern ARKConfig* ark_config;
 
 extern int (* DisplaySetFrameBuf)(void*, int, int, int);
 
-extern int isSystemBooted(void);
-
 extern int isLoadingPlugins();
 
 extern int msstorCacheInit(const char* driver);

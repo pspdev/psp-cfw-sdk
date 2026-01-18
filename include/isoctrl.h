@@ -33,7 +33,9 @@
 
 #include <psptypes.h>
 
-#ifdef __KERNEL__
+#ifdef __cplusplus
+extern "C"{
+#endif /* __cplusplus */
 
 /**
  * Issue a direct ISO/CSO read request to the UMDemu ISO driver.
@@ -43,6 +45,8 @@
  * @param size The amount of bytes to read.
  *
  * @return The amount of bytes read, `< 0` on error.
+ *
+ * @attention Requires linking to `pspisoctrl_driver` stub to be available.
  */
 int isoReadUmdFile(u32 offset, void *buf, u32 size);
 
@@ -52,6 +56,7 @@ int isoReadUmdFile(u32 offset, void *buf, u32 size);
  * @param seek The seek delay factor. `0` to disable, `> 0` to enable, the higher the value the slower the seek time.
  * @param speed The read speed delay factor. `0` to disable, `> 0` to enable, the higher the value the slower the read time.
  *
+ * @attention Requires linking to `pspisoctrl_driver` stub to be available.
  */
 void isoSetUmdDelay(int seek, int speed);
 
@@ -61,9 +66,13 @@ void isoSetUmdDelay(int seek, int speed);
  * @param title_id The string buffer to write the data into
  *
  * @return `0` if getting the Title ID fails, `1` if succeeded.
+ *
+ * @attention Requires linking to `pspisoctrl_driver` stub to be available.
  */
 int isoGetTitleId(char title_id[10]);
 
-#endif // __KERNEL__
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif // ISO_CTRL_H

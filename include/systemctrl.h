@@ -46,8 +46,7 @@ enum {
     PSP_11000 = 10, // 11g
 };
 
-enum BootLoadFlags
-{
+enum BootLoadFlags {
     BOOTLOAD_VSH = 1,
     BOOTLOAD_GAME = 2,
     BOOTLOAD_UPDATER = 4,
@@ -56,8 +55,7 @@ enum BootLoadFlags
 };
 
 // Console type (value returned by sctrlHENIsToolKit)
-enum ToolkitType
-{
+enum ToolkitType {
     PSP_TOOLKIT_TYPE_RETAIL = 0, // retail unit (not a toolkit)
     PSP_TOOLKIT_TYPE_TEST = 1, // testing tool kit
     PSP_TOOLKIT_TYPE_DEV = 2, // development tool kit
@@ -88,7 +86,7 @@ enum ToolkitType
 typedef int (* STMOD_HANDLER)(SceModule *);
 
 // data for HijackFunction
-typedef struct FunctionPatchData{
+typedef struct FunctionPatchData {
     unsigned int __instr__[5];
     unsigned int __extra_[3];
 } FunctionPatchData;
@@ -121,12 +119,12 @@ SceLibraryStubTable * sctrlFindImportLib(SceModule * pMod, char * library);
 /**
  *  Find Import Function Stub Address
  */
-unsigned int sctrlFindImportByNID(SceModule * pMod, const char * library, unsigned int nid);
+u32 sctrlFindImportByNID(SceModule * pMod, const char * library, u32 nid);
 
 /**
  *  Replace Import Function Stub
  */
-int sctrlHookImportByNID(SceModule * pMod, const char * library, unsigned int nid, void * func);
+int sctrlHookImportByNID(SceModule * pMod, const char * library, u32 nid, void * func);
 
 /**
  * Restart the vsh.
@@ -221,7 +219,7 @@ int sctrlKernelMsIsEf();
  * @param file - The file to execute, usually EBOOT.BIN inside disc0.
  * @param param - Pointer to a ::SceKernelLoadExecVSHParam structure, or NULL.
  *
- * @returns < 0 on some errors. 
+ * @returns < 0 on some errors.
  */
 int sctrlKernelLoadExecVSHDisc(const char *file, struct SceKernelLoadExecVSHParam *param);
 
@@ -242,7 +240,7 @@ int sctrlKernelExitVSH(struct SceKernelLoadExecVSHParam *param);
  * @param file - The file to execute.
  * @param param - Pointer to a ::SceKernelLoadExecVSHParam structure, or NULL.
  *
- * @returns < 0 on some errors. 
+ * @returns < 0 on some errors.
  */
 int sctrlKernelLoadExecVSHDisc(const char *file, struct SceKernelLoadExecVSHParam *param);
 
@@ -253,7 +251,7 @@ int sctrlKernelLoadExecVSHDisc(const char *file, struct SceKernelLoadExecVSHPara
  * @param file - The file to execute.
  * @param param - Pointer to a ::SceKernelLoadExecVSHParam structure, or NULL.
  *
- * @returns < 0 on some errors. 
+ * @returns < 0 on some errors.
  */
 int sctrlKernelLoadExecVSHDiscUpdater(const char *file, struct SceKernelLoadExecVSHParam *param);
 
@@ -264,7 +262,7 @@ int sctrlKernelLoadExecVSHDiscUpdater(const char *file, struct SceKernelLoadExec
  * @param file - The file to execute.
  * @param param - Pointer to a ::SceKernelLoadExecVSHParam structure, or NULL.
  *
- * @returns < 0 on some errors. 
+ * @returns < 0 on some errors.
  */
 int sctrlKernelLoadExecVSHMs1(const char *file, struct SceKernelLoadExecVSHParam *param);
 
@@ -275,7 +273,7 @@ int sctrlKernelLoadExecVSHMs1(const char *file, struct SceKernelLoadExecVSHParam
  * @param file - The file to execute.
  * @param param - Pointer to a ::SceKernelLoadExecVSHParam structure, or NULL.
  *
- * @returns < 0 on some errors. 
+ * @returns < 0 on some errors.
  */
 int sctrlKernelLoadExecVSHMs2(const char *file, struct SceKernelLoadExecVSHParam *param);
 
@@ -286,7 +284,7 @@ int sctrlKernelLoadExecVSHMs2(const char *file, struct SceKernelLoadExecVSHParam
  * @param file - The file to execute.
  * @param param - Pointer to a ::SceKernelLoadExecVSHParam structure, or NULL.
  *
- * @returns < 0 on some errors. 
+ * @returns < 0 on some errors.
  */
 int sctrlKernelLoadExecVSHEf2(const char *file, struct SceKernelLoadExecVSHParam *param);
 
@@ -297,7 +295,7 @@ int sctrlKernelLoadExecVSHEf2(const char *file, struct SceKernelLoadExecVSHParam
  * @param file - The file to execute.
  * @param param - Pointer to a ::SceKernelLoadExecVSHParam structure, or NULL.
  *
- * @returns < 0 on some errors. 
+ * @returns < 0 on some errors.
  */
 int sctrlKernelLoadExecVSHMs3(const char *file, struct SceKernelLoadExecVSHParam *param);
 
@@ -308,7 +306,7 @@ int sctrlKernelLoadExecVSHMs3(const char *file, struct SceKernelLoadExecVSHParam
  * @param file - The file to execute.
  * @param param - Pointer to a ::SceKernelLoadExecVSHParam structure, or NULL.
  *
- * @returns < 0 on some errors. 
+ * @returns < 0 on some errors.
  */
 int sctrlKernelLoadExecVSHMs4(const char *file, struct SceKernelLoadExecVSHParam *param);
 
@@ -320,12 +318,12 @@ int sctrlKernelLoadExecVSHMs4(const char *file, struct SceKernelLoadExecVSHParam
  * @param file - The file to execute.
  * @param param - Pointer to a ::SceKernelLoadExecVSHParam structure, or NULL.
  *
- * @returns < 0 on some errors. 
+ * @returns < 0 on some errors.
  */
 int sctrlKernelLoadExecVSHWithApitype(int apitype, const char *file, struct SceKernelLoadExecVSHParam *param);
 
 /**
- * Sets the api type 
+ * Sets the api type
  *
  * @param apitype - The apitype to set
  * @returns the previous apitype
@@ -361,10 +359,10 @@ int sctrlKernelSetUserLevel(int level);
 
 /**
  * Sets the devkit version
- * 
+ *
  * @param version - The devkit version to set
  * @return the previous devkit version
- * 
+ *
  */
 int sctrlKernelSetDevkitVersion(int version);
 
@@ -417,7 +415,7 @@ int sctrlHENIsToolKit();
  */
 PspIoDrv *sctrlHENFindDriver(const char *drvname);
 
-/** 
+/**
  * Finds a function.
  *
  * @param modname - The module where to search the function
@@ -427,7 +425,7 @@ PspIoDrv *sctrlHENFindDriver(const char *drvname);
  * @returns - The function address or 0 if not found
  *
  */
-unsigned int sctrlHENFindFunction(const char *modname, const char *libname, unsigned int nid);
+u32 sctrlHENFindFunction(const char *modname, const char *libname, u32 nid);
 
 /**
  * Finds an exported function in a ::SceModule.
@@ -442,9 +440,22 @@ unsigned int sctrlHENFindFunction(const char *modname, const char *libname, unsi
  * @returns - The function address or 0 if not found
  *
 */
-unsigned int sctrlHENFindFunctionInMod(SceModule * mod, const char *library, unsigned int nid);
+u32 sctrlHENFindFunctionInMod(SceModule * mod, const char *library, u32 nid);
 
-/** 
+/**
+ * Finds an exported function in the system that matches the specified library name and NID.
+ *
+ * @param library The library name.
+ * @param nid The NID of the function.
+ * @param user_mods_only Set to `1` to only receive UIDs from user mode modules. Set to `0` to receive UIDs from kernel and user loaded modules.
+ *
+ * @return The function address, or `0` if not found.
+ *
+ * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be available.
+ */
+u32 sctrlHENFindFunctionOnSystem(const char *libname, u32 nid, int user_mods_only);
+
+/**
  * Finds an import.
  *
  * @param modname - The module where to search the function
@@ -454,9 +465,9 @@ unsigned int sctrlHENFindFunctionInMod(SceModule * mod, const char *library, uns
  * @returns - The function address or 0 if not found
  *
  */
-unsigned int sctrlHENFindImport(const char *modname, const char *libname, unsigned int nid);
+u32 sctrlHENFindImport(const char *modname, const char *libname, u32 nid);
 
-/** 
+/**
  * Finds an import.
  *
  * @param mod - The module where to search the function
@@ -466,17 +477,17 @@ unsigned int sctrlHENFindImport(const char *modname, const char *libname, unsign
  * @returns - The function address or 0 if not found
  *
  */
-unsigned int sctrlHENFindImportInMod(SceModule *mod, const char *libname, unsigned int nid);
+u32 sctrlHENFindImportInMod(SceModule *mod, const char *libname, u32 nid);
 
 /**
  * Hijack a function.
  * Stackable function hijacking.
- * 
+ *
  * @param patch_data buffer to store data for the patch.
  * @param func_addr address of function to be hijacked
  * @param patch_func function that will take over
  * @param orig_func pointer to a pointer, will store pointer to call original (or next) function.
- * 
+ *
  */
 void sctrlHENHijackFunction(FunctionPatchData* patch_data, void* func_addr, void* patch_func, void** orig_func);
 
@@ -489,7 +500,7 @@ void sctrlHENHijackFunction(FunctionPatchData* patch_data, void* func_addr, void
  * @Note: because only one handler function is handled by HEN, you should
  * call the previous function in your code.
  *
- * @Example: 
+ * @Example:
  *
  * STMOD_HANDLER previous = NULL;
  *
@@ -534,7 +545,7 @@ STMOD_HANDLER sctrlHENSetStartModuleHandler(STMOD_HANDLER new_handler);
  * user RAM, which is also the available memory for the running application. So,
  * avoid excessive use of this function.
  */
-unsigned int sctrlHENMakeSyscallStub(void *function);
+u32 sctrlHENMakeSyscallStub(void *function);
 
 /**
  * Sets the speed (only for kernel usage)
@@ -566,16 +577,16 @@ int sctrlHENApplyMemory(u32 p2);
 
 /**
  * Obtain the syscall number of a given user-exported kernel function.
- * 
+ *
  * @param func_addr: absolute address of kernel function.
- * 
+ *
  * @returns syscall number on success, <0 on error.
  */
 int sctrlKernelQuerySystemCall(void *func_addr);
 
 /**
  * Obtain boot device
- * 
+ *
  * @returns boot device.
  */
 int sctrlKernelBootFrom(void);
@@ -608,7 +619,7 @@ int sctrlPatchModule(char *modname, u32 inst, u32 offset);
  * Get module text address
  *
  * @param modname - module name
- * 
+ *
  * @return text address, or 0 if not found
  */
 u32 sctrlModuleTextAddr(char *modname);
@@ -640,14 +651,14 @@ void sctrlSetCustomStartModule(int (*func)(int modid, SceSize argsize, void *arg
  * @param flags - The modes in which the module should be loaded, one of BootLoadFlags
  *
  * @Example:
- * sctrlHENLoadModuleOnReboot("/kd/usersystemlib.prx", module_buffer, module_size, BOOTLOAD_GAME | BOOTLOAD_POPS | BOOTLOAD_UMDEMU); 
+ * sctrlHENLoadModuleOnReboot("/kd/usersystemlib.prx", module_buffer, module_size, BOOTLOAD_GAME | BOOTLOAD_POPS | BOOTLOAD_UMDEMU);
  *
  * This will load the module contained in module_buffer just before /kd/usersystemlib.prx in the next reboot, if the mode of next reboot is game, pops or umdemu
  *
  * @Remarks: Don't use too early modules in first param like "/kd/init.prx" or "/kd/systemctrl.prx", or your module may not load properly
- * Only one module will be loaded on reboot with this function. 
+ * Only one module will be loaded on reboot with this function.
  * If this function is called many times, only the last one will be considered.
- * By making a module to load itself using this function, and calling 
+ * By making a module to load itself using this function, and calling
  * sctrlHENLoadModuleOnReboot on module_start, a prx can cause itself to be resident in the modes choosen by flags.
  * If all flags are selected, the module will stay resident until a psp shutdown, or until sctrlHENLoadModuleOnReboot is not called.
  */
@@ -699,14 +710,14 @@ RebootexConfig* sctrlHENGetRebootexConfig(RebootexConfig*);
 /**
  * Resolve a NID.
  * Obtains the new version of a NID given the older version.
- * 
+ *
  * @param libName library name
  * @param nid old NID
- * 
+ *
  * @return new NID
- * 
+ *
  */
-unsigned int sctrlKernelResolveNid(const char * libName, unsigned int nid);
+u32 sctrlKernelResolveNid(const char * libName, u32 nid);
 
 
 #ifdef __cplusplus

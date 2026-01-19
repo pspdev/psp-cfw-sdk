@@ -159,24 +159,13 @@ u32 sctrlFindImportByNID(SceModule * pMod, const char * library, u32 nid);
 int sctrlHookImportByNID(SceModule * mod, const char * library, u32 nid, void * func);
 
 /**
- * Restart the vsh.
- *
- * @param[in] param A pointer to a `SceKernelLoadExecVSHParam` structure, or `NULL`.
- *
- * @return `< 0` on some errors.
- *
- * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be available.
-*/
-int sctrlKernelExitVSH(struct SceKernelLoadExecVSHParam *param);
-
-/**
  * Calculate Random Number via KIRK.
  *
  * @return A random number.
  *
  * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be available.
  */
-unsigned int sctrlKernelRand(void);
+u32 sctrlKernelRand(void);
 
 /**
  * Register Custom init.prx sceKernelStartModule Handler, returns previous handler (if any)

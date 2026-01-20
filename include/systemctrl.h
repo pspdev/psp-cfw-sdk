@@ -168,9 +168,6 @@ int sctrlHookImportByNID(SceModule * mod, const char * library, u32 nid, void * 
 u32 sctrlKernelRand(void);
 
 /**
- * Register Custom init.prx sceKernelStartModule Handler, returns previous handler (if any)
- */
-/**
  * Set custom start module handler.
  *
  * This function register custom `init.prx` `sceKernelStartModule` handler.
@@ -243,11 +240,6 @@ int sctrlGetThreadContextByName(const char * name, SceKernelThreadKInfo * ctx);
  * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be available.
  */
 void sctrlFlushCache(void);
-
-/**
- * Missing PSPSDK Functions
- */
-u32 sceKernelQuerySystemCall(void * function);
 
 /**
  * Register the default VRAM handler for PSX exploit, returns the previous handler

@@ -1,11 +1,12 @@
 #include <string.h>
 
 #include <cfwmacros.h>
+#include <pspbtcnf.h>
 #include <systemctrl.h>
 #include <systemctrl_se.h>
 #include <systemctrl_ark.h>
 #include <bootloadex.h>
-#include <pspbtcnf.h>
+#include <bootloadex_ark.h>
 #include <rebootexconfig.h>
 
 RebootexConfigARK* reboot_conf = (RebootexConfigARK*)REBOOTEX_CONFIG;
@@ -28,4 +29,20 @@ void initArkRebootConfig(BootLoadExConfig* ble_config){
             }
         }
     }
+}
+
+int findArkFlashFile(BootFile* file, const char* path){
+    u32 nfiles = *(u32*)(VITA_FLASH_ARK);
+    ArkFlashFile* cur = (ArkFlashFile*)((size_t)(VITA_FLASH_ARK)+4);
+
+    for (int i=0; i<nfiles; i++){
+        size_t filesize = (cur->filesize[0]) + (cur->filesize[1]<<8) + (cur->filesize[2]<<16) + (cur->filesize[3]<<24);
+        if (strncmp(path, cur->name, cur->namelen) == 0){
+            file->buffer = (void*)((size_t)(&(cur->name[0])) + cur->namelen);
+            file->size = filesize;
+            return 0;
+        }
+        cur = (ArkFlashFile*)((size_t)(cur)+filesize+cur->namelen+5);
+    }
+    return -1;
 }

@@ -75,6 +75,31 @@ static void decompress_cso2(void* src, int src_len, void* dst, int dst_len, uint
     else zlib_inflate(dst, dst_len, src);
 }
 
+
+static void ciso_finish_open(CisoFile* file){
+
+    // calculate total number of ciso blocks
+    file->total_blocks = file->uncompressed_size / file->block_size;
+    
+    // allocate memory if needed
+    if (file->dec_buf == NULL){
+        file->dec_buf = file->memalign(64, file->com_size);
+    }
+
+    if (file->block_buf == NULL){
+        file->block_buf = file->memalign(64, file->com_size);
+    }
+
+    if (file->idx_cache == NULL){
+        // for files with higher block sizes, we can reduce block cache size
+        int ratio = file->block_size/ISO_SECTOR_SIZE;
+        file->idx_cache_num = CISO_IDX_MAX_ENTRIES/ratio;
+        file->idx_cache = file->memalign(64, file->idx_cache_num * 4);
+        file->idx_start_block = -1;
+    }
+}
+
+
 int ciso_open(CisoFile* file)
 {
     if (file == NULL || file->read_data == NULL)
@@ -93,64 +118,47 @@ int ciso_open(CisoFile* file)
     }
 
     uint32_t magic = *((uint32_t*)&header);
-    if (magic == CSO_MAGIC || magic == ZSO_MAGIC || magic == DAX_MAGIC || magic == JSO_MAGIC) { // CISO or ZISO or JISO or DAX
-        uint32_t com_size = 0;
-        // set reader and decompressor functions according to format
-        if (magic == DAX_MAGIC){
-            file->header_size = sizeof(DAXHeader);
-            file->block_size = DAX_BLOCK_SIZE; // DAX uses static block size (8K)
-            file->uncompressed_size = header.dax.uncompressed_size;
-            file->block_header = 2; // skip over the zlib header (2 bytes)
-            file->align = 0; // no alignment for DAX
-            com_size = DAX_COMP_BUF;
-            file->decompressor = (header.dax.version >= 1)? &decompress_dax1 : &decompress_dax0;
-        }
-        else if (magic == JSO_MAGIC){
-            file->header_size = sizeof(JISOHeader);
-            file->block_size = header.jiso.block_size;
-            file->uncompressed_size = header.jiso.uncompressed_size;
-            file->block_header = 4*header.jiso.block_headers; // if set to 1, each block has a 4 byte header, 0 otherwise
-            file->align = 0; // no alignment for JISO
-            com_size = header.jiso.block_size;
-            file->decompressor = (header.jiso.method)? &decompress_dax1 : &decompress_jiso; //  zlib or lzo, depends on method
-        }
-        else{ // CSO/ZSO/v2
-            file->header_size = sizeof(CISOHeader);
-            file->block_size = header.ciso.block_size;
-            file->uncompressed_size = header.ciso.total_bytes;
-            file->block_header = 0; // CSO/ZSO uses raw blocks
-            file->align = header.ciso.align;
-            com_size = file->block_size + (1 << header.ciso.align);
-            if (header.ciso.ver == 2) file->decompressor = &decompress_cso2; // CSOv2 uses both zlib and lz4
-            else file->decompressor = (magic == ZSO_MAGIC)? &decompress_ziso : &decompress_ciso; // CSO/ZSO v1 (zlib or lz4)
-        }
-
-        // for files with higher block sizes, we can reduce block cache size
-        int ratio = file->block_size/ISO_SECTOR_SIZE;
-        file->idx_cache_num = CISO_IDX_MAX_ENTRIES/ratio;
-
-        // calculate total number of ciso blocks
-        file->total_blocks = file->uncompressed_size / file->block_size;
-        
-        // allocate memory if needed
-        if (file->dec_buf == NULL){
-            file->dec_buf = file->memalign(64, com_size);
-        }
-
-        if (file->block_buf == NULL){
-            file->block_buf = file->memalign(64, com_size);
-        }
-
-        if (file->idx_cache == NULL){
-            file->idx_cache = file->memalign(64, file->idx_cache_num * 4);
-            file->idx_start_block = -1;
-        }
-
-        // all done
-        return 1;
+    
+    // DAX file
+    if (magic == DAX_MAGIC){
+        file->header_size = sizeof(DAXHeader);
+        file->block_size = DAX_BLOCK_SIZE; // DAX uses static block size (8K)
+        file->uncompressed_size = header.dax.uncompressed_size;
+        file->block_header = 2; // skip over the zlib header (2 bytes)
+        file->align = 0; // no alignment for DAX
+        file->com_size = DAX_COMP_BUF;
+        file->decompressor = (header.dax.version >= 1)? &decompress_dax1 : &decompress_dax0;
+        ciso_finish_open(file);
+        return CISO_OK;
     }
+    // JISO file
+    else if (magic == JSO_MAGIC){
+        file->header_size = sizeof(JISOHeader);
+        file->block_size = header.jiso.block_size;
+        file->uncompressed_size = header.jiso.uncompressed_size;
+        file->block_header = 4*header.jiso.block_headers; // if set to 1, each block has a 4 byte header, 0 otherwise
+        file->align = 0; // no alignment for JISO
+        file->com_size = header.jiso.block_size;
+        file->decompressor = (header.jiso.method)? &decompress_dax1 : &decompress_jiso; //  zlib or lzo, depends on method
+        ciso_finish_open(file);
+        return CISO_OK;
+    }
+    // CISO or ZISO
+    else if (magic == CSO_MAGIC || magic == ZSO_MAGIC) { // CSO/ZSO/v2
+        file->header_size = sizeof(CISOHeader);
+        file->block_size = header.ciso.block_size;
+        file->uncompressed_size = header.ciso.total_bytes;
+        file->block_header = 0; // CSO/ZSO uses raw blocks
+        file->align = header.ciso.align;
+        file->com_size = file->block_size + (1 << header.ciso.align);
+        if (header.ciso.ver == 2) file->decompressor = &decompress_cso2; // CSOv2 uses both zlib and lz4
+        else file->decompressor = (magic == ZSO_MAGIC)? &decompress_ziso : &decompress_ciso; // CSO/ZSO v1 (zlib or lz4)
+        ciso_finish_open(file);
+        return CISO_OK;
+    }
+
     // not a valid file
-    return 0;
+    return CISO_NOT_VALID;
 }
 
 int ciso_read(CisoFile* file, uint8_t* addr, uint32_t size, uint32_t offset)

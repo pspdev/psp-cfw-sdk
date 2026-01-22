@@ -74,6 +74,7 @@ typedef struct {
     uint32_t block_header;
     uint32_t align;
     uint32_t total_blocks;
+    uint32_t com_size;
 } CisoFile;
 
 enum CisoErrors{
@@ -101,7 +102,7 @@ enum CisoErrors{
  * example 2: with statically allocated buffers
  * 
  * 
- *   unsigned char block_buf[DAX_COMP_BUF];
+ *   unsigned char block_buf[DAX_COMP_BUF]; // 8K blocks
  *   unsigned char dec_buf[DAX_COMP_BUF];
  *   unsigned int idx_cache[CISO_IDX_MAX_ENTRIES];
  * 
@@ -111,6 +112,7 @@ enum CisoErrors{
  *      .dec_buf = dec_buf,
  *      .idx_cache = idx_cache,
  *      .idx_start_block = -1, // this is important when doing static buffers
+ *      .idx_cache_num = CISO_IDX_MAX_ENTRIES,
  *   };
  * 
  */

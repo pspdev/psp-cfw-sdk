@@ -947,6 +947,17 @@ RebootexConfig* sctrlHENGetRebootexConfig(RebootexConfig*);
 u32 sctrlKernelResolveNid(const char * libName, u32 nid);
 
 
+/**
+ *  Find a import library stub table.
+ *
+ * @param mod The module where to search the function.
+ * @param library The library name.
+ *
+ * @return The reference to the stub table ot NULL if not found.
+ */
+SceLibraryStubTable* sctrlHENFindImportLib(SceModule* mod, const char* library);
+
+
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */

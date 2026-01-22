@@ -20,3 +20,6 @@
 #ifdef F_AdrenalineCtrl_0004
 	IMPORT_FUNC  "AdrenalineCtrl",0x053172F8,sctrlRebootDevice
 #endif
+#ifdef F_AdrenalineCtrl_0005
+	IMPORT_FUNC  "AdrenalineCtrl",0xA93CFE9E,sctrlPentazeminConfigure
+#endif

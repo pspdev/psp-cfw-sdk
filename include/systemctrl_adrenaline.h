@@ -3,6 +3,10 @@
 
 #include <psploadcore.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
 enum InfernoCacheConf {
 	CACHE_CONFIG_LRU,
     CACHE_CONFIG_RR,
@@ -75,14 +79,26 @@ enum IsoUmdMode {
 	ISO_MODE_NP9660,
 };
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
+enum OskTypes {
+	OSK_TYPE_VITA,
+	OSK_TYPE_PSP,
+};
+
+enum GeType {
+	GE_TYPE_1,
+	GE_TYPE_2,
+};
+
+enum MeType {
+	ME_TYPE_1,
+	ME_TYPE_2,
+};
 
 int sctrlGetUsbState();
 int sctrlStartUsb();
 int sctrlStopUsb();
 int sctrlRebootDevice();
+void sctrlPentazeminConfigure(int osk_type, int ge_type, int me_type);
 
 /**
  *  Find a import library stub table.

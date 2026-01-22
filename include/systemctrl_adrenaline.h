@@ -94,11 +94,17 @@ enum MeType {
 	ME_TYPE_2,
 };
 
+typedef struct PentazeminConfig {
+	int osk_type;
+	int ge_type;
+	int me_type;
+} PentazeminConfig;
+
 int sctrlGetUsbState();
 int sctrlStartUsb();
 int sctrlStopUsb();
 int sctrlRebootDevice();
-void sctrlPentazeminConfigure(int osk_type, int ge_type, int me_type);
+void sctrlPentazeminConfigure(PentazeminConfig* conf);
 
 /**
  *  Find a import library stub table.

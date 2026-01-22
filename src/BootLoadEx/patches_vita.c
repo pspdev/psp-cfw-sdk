@@ -1,9 +1,11 @@
 #include <string.h>
+#include <pspsysmem_kernel.h>
 
-#include <systemctrl_ark.h>
 #include <cfwmacros.h>
 #include <bootloadex.h>
 #include <pspbtcnf.h>
+#include <systemctrl_ark.h>
+
 
 int (*pspemuLfatOpen)(BootFile* filename, u32 a1, u32 a2, u32 a3, u32 t0) = NULL;
 int (*SetMemoryPartitionTable)(void *sysmem_config, SceSysmemPartTable *table) = NULL;

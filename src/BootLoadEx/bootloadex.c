@@ -16,13 +16,14 @@
  */
 
 #include <string.h>
+#include <pspextratypes.h>
 
-#include <systemctrl_ark.h>
 #include <cfwmacros.h>
 #include <systemctrl.h>
 #include <systemctrl_se.h>
 #include <bootloadex.h>
 #include <rebootexconfig.h>
+#include <systemctrl_ark.h>
 
 
 int psp_model = PSP_1000;
@@ -63,7 +64,7 @@ void flushCache(void)
 }
 
 // Custom PRX Support
-int PRXDecryptPatched(PSP_Header* prx, unsigned int size, unsigned int * newsize)
+int PRXDecryptPatched(PSPHeader* prx, unsigned int size, unsigned int * newsize)
 {
     // Custom Packed PRX File
     if ( (_lb((u32)prx + 0x150) == 0x1F && _lb((u32)prx + 0x151) == 0x8B) // GZIP

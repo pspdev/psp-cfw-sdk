@@ -296,3 +296,9 @@
 #ifdef F_SystemCtrlForKernel_0096
     IMPORT_FUNC "SystemCtrlForKernel",0x7F5FBFCC,sctrlHENMakeSyscallStub
 #endif
+#ifdef F_SystemCtrlForKernel_0097
+    IMPORT_FUNC "SystemCtrlForKernel",0xE5ACCCD1,sctrlMsCacheInit
+#endif
+#ifdef F_SystemCtrlForKernel_0098
+    IMPORT_FUNC "SystemCtrlForKernel",0x8C8606FD,sctrlIsLoadingPlugins
+#endif

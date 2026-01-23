@@ -28,7 +28,14 @@
 
 #include <rebootexconfig.h>
 
+
+// game id is 9 bytes long
 #define GAME_ID_MINIMUM_BUFFER_SIZE 10
+
+// Not much of a difference when past 4Kb
+#define MSCACHE_BUFSIZE_MIN (4  *1024)
+#define MSCACHE_BUFSIZE_MED (8  *1024)
+#define MSCACHE_BUFSIZE_MAX (16 * 1024)
 
 // Different PSP models
 enum {
@@ -957,6 +964,23 @@ u32 sctrlKernelResolveNid(const char * libName, u32 nid);
  */
 SceLibraryStubTable* sctrlHENFindImportLib(SceModule* mod, const char* library);
 
+
+/**
+ * Initialize or stop Memory Stick cache.
+ * 
+ * @param driver
+ * @param cache_size
+ * 
+ */
+int sctrlMsCacheInit(const char* driver, int cache_size);
+
+/**
+ * Checks if CFW is currently loading plugin modules.
+ * 
+ * @return boolean
+ * 
+ */
+int sctrlIsLoadingPlugins();
 
 #ifdef __cplusplus
 }

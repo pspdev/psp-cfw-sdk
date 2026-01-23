@@ -93,7 +93,7 @@
 	IMPORT_FUNC  "SystemCtrlForUser",0xFCE44FB8,sctrlGetInitPARAM
 #endif
 #ifdef F_SystemCtrlForUser_0029
-	IMPORT_FUNC  "SystemCtrlForUser",0xB00B1E55,sctrlArkGetConfig
+	IMPORT_FUNC  "SystemCtrlForUser",0xC4D88D50,sctrlHENIsSystemBooted
 #endif
 #ifdef F_SystemCtrlForUser_0030
 	IMPORT_FUNC  "SystemCtrlForUser",0x2794CCF4,sctrlKernelExitVSH
@@ -198,7 +198,7 @@
     IMPORT_FUNC "SystemCtrlForUser",0xE918D837,sctrlHENSetTestingTool
 #endif
 #ifdef F_SystemCtrlForUser_0064
-    IMPORT_FUNC "SystemCtrlForUser",0x8476E2F1,sctrlArkExitLauncher
+    IMPORT_FUNC "SystemCtrlForUser",0xDB39A3EC,sctrlHENHijackFunction
 #endif
 #ifdef F_SystemCtrlForUser_0065
     IMPORT_FUNC "SystemCtrlForUser",0xDA05C1E5,sctrlHENFakeDevkitVersion
@@ -235,10 +235,4 @@
 #endif
 #ifdef F_SystemCtrlForUser_0076
 	IMPORT_FUNC  "SystemCtrlForUser",0xDF306CFC,sctrlHENFindImportInMod
-#endif
-#ifdef F_SystemCtrlForUser_0077
-	IMPORT_FUNC  "SystemCtrlForUser",0xDB39A3EC,sctrlHENHijackFunction
-#endif
-#ifdef F_SystemCtrlForUser_0078
-	IMPORT_FUNC  "SystemCtrlForUser",0xC4D88D50,sctrlHENIsSystemBooted
 #endif

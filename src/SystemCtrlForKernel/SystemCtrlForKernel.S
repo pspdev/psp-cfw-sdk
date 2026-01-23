@@ -147,7 +147,7 @@
 	IMPORT_FUNC  "SystemCtrlForKernel",0x39DF1C8B,sctrlHENFindImport
 #endif
 #ifdef F_SystemCtrlForKernel_0047
-	IMPORT_FUNC  "SystemCtrlForKernel",0xB00B1E55,sctrlArkGetConfig
+	IMPORT_FUNC  "SystemCtrlForKernel",0xC4D88D50,sctrlHENIsSystemBooted
 #endif
 #ifdef F_SystemCtrlForKernel_0048
 	IMPORT_FUNC  "SystemCtrlForKernel",0x16100529,LZ4_decompress_fast
@@ -270,7 +270,7 @@
     IMPORT_FUNC "SystemCtrlForKernel",0x23833651,sctrlGetThreadUIDByName
 #endif
 #ifdef F_SystemCtrlForKernel_0088
-    IMPORT_FUNC "SystemCtrlForKernel",0x8476E2F1,sctrlArkExitLauncher
+    IMPORT_FUNC "SystemCtrlForKernel",0xDB39A3EC,sctrlHENHijackFunction
 #endif
 #ifdef F_SystemCtrlForKernel_0089
     IMPORT_FUNC "SystemCtrlForKernel",0xC68F9EF8,sctrlHENFindJALGeneric
@@ -295,10 +295,4 @@
 #endif
 #ifdef F_SystemCtrlForKernel_0096
     IMPORT_FUNC "SystemCtrlForKernel",0x7F5FBFCC,sctrlHENMakeSyscallStub
-#endif
-#ifdef F_SystemCtrlForKernel_0097
-    IMPORT_FUNC "SystemCtrlForKernel",0xDB39A3EC,sctrlHENHijackFunction
-#endif
-#ifdef F_SystemCtrlForKernel_0098
-    IMPORT_FUNC "SystemCtrlForKernel",0xC4D88D50,sctrlHENIsSystemBooted
 #endif

@@ -24,12 +24,6 @@
 extern "C" {
 #endif
 
-// ARK Version
-#define ARK_MAJOR_VERSION 5
-#define ARK_MINOR_VERSION 3
-#define ARK_MICRO_VERSION 0
-#define ARK_REVISION      0
-
 // Pointers and sizes
 #define ARK_PATH_SIZE 128
 #define ARK_CONFIG 0x08800010 // ARK Runtime configuration backup address

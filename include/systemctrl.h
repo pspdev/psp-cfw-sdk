@@ -967,18 +967,22 @@ SceLibraryStubTable* sctrlHENFindImportLib(SceModule* mod, const char* library);
 
 /**
  * Initialize or stop Memory Stick cache.
- * 
- * @param driver
- * @param cache_size
- * 
+ *
+ * @param[in] driver A driver name (e.g. `"ms"`) to initialize the cache, or `NULL` to deactivate it.
+ * @param cache_size The cache size to use. The caller can use one of `MSCACHE_BUFSIZE_*` as suggested values.
+ *
+ * @return `0` on success, `< 0` on error.
+ *
+ * @attention Requires linking to `pspsystemctrl_kernel` stubs to be available.
  */
 int sctrlMsCacheInit(const char* driver, int cache_size);
 
 /**
  * Checks if CFW is currently loading plugin modules.
- * 
- * @return boolean
- * 
+ *
+ * @return `1` if the CFW is currently loading plugin modules, `0` otherwise.
+ *
+ * @attention Requires linking to `pspsystemctrl_kernel` stubs to be available.
  */
 int sctrlIsLoadingPlugins();
 

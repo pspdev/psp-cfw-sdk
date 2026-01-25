@@ -179,10 +179,18 @@ enum MeTypes {
 	ME_TYPE_2,
 };
 
+/**
+ * Configuration for the `Pentazemin` module.
+ */
 typedef struct PentazeminConfig {
-	int osk_type;
-	int ge_type;
-	int me_type;
+	/** The On System Keyboard module to load. One of `OskTypes`. */
+	u8 osk_type;
+	/** The implementation of the GE module to load. One of `GeTypes`. */
+	u8 ge_type;
+	/** The implementation of the ME module to load. One of `MeTypes`. */
+	u8 me_type;
+	/** Whether to patch the stdio to output in the TTY in the VITA-side (used to output debug log). Boolean. */
+	u8 patch_stdio;
 } PentazeminConfig;
 
 

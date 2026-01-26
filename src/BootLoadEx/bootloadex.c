@@ -193,11 +193,6 @@ void findBootFunctions(){
             do {a-=4;} while (_lw(a) != 0x40088000);
             sceBootIcacheInvalidateAll = (void*)a;
         }
-        else if ((data == _lw(addr+4)) && (data & 0xFC000000) == 0xAC000000){ // Patch ~PSP header check
-            // Returns size of the buffer on loading whatever modules
-            _sw(0xAFA50000, addr+4); // sw a1, 0(sp)
-            _sw(0x20A30000, addr+8); // move v1, a1
-        }
         else if (strcmp("ApplyPspRelSection", (char*)addr) == 0 || strcmp("StopBoot", (char*)addr) == 0){
             reboot_end = (addr & -0x4); // found end of reboot buffer
             break;

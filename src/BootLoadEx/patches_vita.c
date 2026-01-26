@@ -168,6 +168,10 @@ void patchBootVita(){
         else if ((data & 0x0000FFFF) == 0x8B00 && redirect_flash){
             _sb(0xA0, addr); // Link Filesystem Buffer to 0x8BA00000
         }
+        else if ((data == _lw(addr+4)) && (data & 0xFC000000) == 0xAC000000){ // Patch ~PSP header check
+            // Returns zero on loading whatever modules
+            _sw(0x20030000, addr+8); // move v1, zero
+        }
         else {
             if (ble_config->boot_type == TYPE_PAYLOADEX){
                 // Find sceBoot

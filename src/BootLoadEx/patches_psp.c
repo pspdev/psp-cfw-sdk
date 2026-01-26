@@ -243,6 +243,11 @@ void patchBootPSP(){
             _sw(JAL(_sceBootLfatOpen), addr-4);
             patches--;
         }
+        else if ((data == _lw(addr+4)) && (data & 0xFC000000) == 0xAC000000){ // Patch ~PSP header check
+            // Returns size of the buffer on loading whatever modules
+            _sw(0xAFA50000, addr+4); // sw a1, 0(sp)
+            _sw(0x20A30000, addr+8); // move v1, a1
+        }
         else if (data == 0xAE840004 || data == 0xAEA30004){ // FatRead
             addr += 4;
             while (!IS_JAL(_lw(addr))) { addr += 4; }

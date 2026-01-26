@@ -109,25 +109,25 @@ int PatchSysMem(void *a0, void *sysmem_config)
 }
 
 /*
-	0x89FF0000: Apitype
-	0x89FF0004: vsh: 2, update: 3, pops: 4, licence: 5, app: 6, umd: 7, mlnapp: 8
-	0x89FF0008: Path #1
-	0x89FF0048: Path #2
-	0x89FF0088: Path #3
-	0x89FF00C8: SFO buffer
-	0x89FF14C8: 0x000001F4
-	0x89FF14CC: 0x000000DC
-	0x89FF14D0: 0x00060313
-	0x89FF1510: TITLEID
-	0x89FF1520: 0x00000003
-	0x89FF1540: Path #4
-	0x89FF1590: Version
+    0x89FF0000: Apitype
+    0x89FF0004: vsh: 2, update: 3, pops: 4, licence: 5, app: 6, umd: 7, mlnapp: 8
+    0x89FF0008: Path #1
+    0x89FF0048: Path #2
+    0x89FF0088: Path #3
+    0x89FF00C8: SFO buffer
+    0x89FF14C8: 0x000001F4
+    0x89FF14CC: 0x000000DC
+    0x89FF14D0: 0x00060313
+    0x89FF1510: TITLEID
+    0x89FF1520: 0x00000003
+    0x89FF1540: Path #4
+    0x89FF1590: Version
 */
 int loadParamsPatched(int a0) {
-	int v0 = _lw(a0 + 12);
-	int v1 = _lw(a0 + 16);
-	_sw(_lw(0x89FF0000), (v1 + (v0 << 5)) - 12);
-	return 0;
+    int v0 = _lw(a0 + 12);
+    int v1 = _lw(a0 + 16);
+    _sw(_lw(0x89FF0000), (v1 + (v0 << 5)) - 12);
+    return 0;
 }
 
 // patch reboot on ps vita
@@ -135,7 +135,7 @@ void patchBootVita(){
 
     if (ble_config->boot_type == TYPE_PAYLOADEX){
         *(u32 *)0x89FF0000 = 0x200;
-	    *(u32 *)0x89FF0004 = 0x2;
+        *(u32 *)0x89FF0004 = 0x2;
     }
 
     // hijack UnpackBootConfig to insert modules at runtime
@@ -147,8 +147,8 @@ void patchBootVita(){
     for (u32 addr = REBOOT_TEXT; addr<reboot_end; addr+=4){
         u32 data = _lw(addr);
         if (data == 0xAFBF0000 && _lw(addr + 8) == 0x00000000) {
-        	pspemuLfatOpen = (void *)K_EXTRACT_CALL(addr + 4);
-        	_sw(JAL(_pspemuLfatOpen), addr + 4);
+            pspemuLfatOpen = (void *)K_EXTRACT_CALL(addr + 4);
+            _sw(JAL(_pspemuLfatOpen), addr + 4);
         }
         else if (data == 0x00600008){ // found loadcore jump on Vita
             // Move LoadCore module_start Address into third Argument
@@ -157,8 +157,13 @@ void patchBootVita(){
             _sw(JUMP(loadcoreModuleStartVita), addr+8);
         }
         else if (data == 0x24040004) {
-            _sw(0x02402021, addr); //move $a0, $s2
-            _sw(JAL(PatchSysMem), addr + 0x64); // Patch call to SysMem module_bootstart
+            if (ble_config->boot_type == TYPE_PAYLOADEX) {
+                MAKE_INSTRUCTION(addr, 0x02202021); // move $a0, $s1
+                MAKE_CALL(addr - 4, PatchSysMem);
+            } else {
+                MAKE_INSTRUCTION(addr, 0x02402021); // move $a0, $s2
+                MAKE_CALL(addr + 0x64, PatchSysMem);
+            }
         }
         else if ((data & 0x0000FFFF) == 0x8B00 && redirect_flash){
             _sb(0xA0, addr); // Link Filesystem Buffer to 0x8BA00000

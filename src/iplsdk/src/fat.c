@@ -1,5 +1,6 @@
 #include <pspsdk.h>
 #include <string.h>
+#include <strings.h>
 
 #include "ms.h"
 #include "fat.h"
@@ -278,7 +279,7 @@ int MsFatFindFile(u32 dir_cluster, char *filename, int rootcase, MsFatFile *file
 
         				if (lfn)
         				{
-        					if (strcmp(filename, ++p) == 0)
+        					if (strcasecmp(filename, ++p) == 0)
         					{
         						// Found
         						MsFatFillFileStruct(entry, file);
@@ -319,7 +320,7 @@ int MsFatFindFile(u32 dir_cluster, char *filename, int rootcase, MsFatFile *file
         						filename2[i+1+j-8] = 0; 
         					}							
 
-        					if (strcmp(filename, filename2) == 0)
+        					if (strcasecmp(filename, filename2) == 0)
         					{
         						// Found
         						MsFatFillFileStruct(entry, file);

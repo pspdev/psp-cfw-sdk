@@ -225,7 +225,7 @@ void patchBootPSP(){
     _sw(JAL(UnpackBootConfigPSP), UnpackBootConfigCall); // Hook UnpackBootConfig
 
     // make sure we read as little ram as possible
-    int patches = (ble_config->boot_storage == MS_BOOT)? 9:8;
+    int patches = (ble_config->boot_storage == MS_BOOT)? 10:9;
     
     for (u32 addr = REBOOT_TEXT; addr<reboot_end && patches; addr+=4){
         u32 data = _lw(addr);
@@ -247,6 +247,8 @@ void patchBootPSP(){
             // Returns size of the buffer on loading whatever modules
             _sw(0xAFA50000, addr+4); // sw a1, 0(sp)
             _sw(0x20A30000, addr+8); // move v1, a1
+            patches--;
+            addr += 8;
         }
         else if (data == 0xAE840004 || data == 0xAEA30004){ // FatRead
             addr += 4;

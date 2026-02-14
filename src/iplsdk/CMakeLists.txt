@@ -1,4 +1,4 @@
-add_library(iplsdk STATIC)
+add_sdk_library(iplsdk STATIC)
 
 target_include_directories(iplsdk PUBLIC include)
 
@@ -43,9 +43,7 @@ target_sources(iplsdk PRIVATE
    src/utils.c
 )
 
-target_compile_options(iplsdk PRIVATE -Os -G0 -Wall -fno-pic -std=c99 -fdata-sections -ffunction-sections -Wl,--gc-sections)
-
-add_dependencies(iplsdk CopyPrebuiltSdkLibs)
+target_compile_options(iplsdk PRIVATE -fdata-sections -ffunction-sections -Wl,--gc-sections)
 
 add_custom_command(TARGET iplsdk POST_BUILD
    COMMAND ${CMAKE_COMMAND} -E make_directory "${SDK_INCLUDE_DIR}/iplsdk"

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(arkdevsdk VERSION 1.0 LANGUAGES C ASM)
+project(pspcfwsdk VERSION 1.0 LANGUAGES C ASM)
 
 set(SDK_INCLUDE_DIR "${CMAKE_CURRENT_LIST_DIR}/include")
 set(SDK_LIBS_DIR "${CMAKE_CURRENT_LIST_DIR}/libs")

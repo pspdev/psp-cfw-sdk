@@ -1,1 +1,1 @@
-add_stub_lib(guglue libguglue.S libguglue 14)
+add_stub_lib(guglue libguglue.S libguglue)

@@ -32,6 +32,9 @@
 #ifdef F_libpng_0008
 	IMPORT_FUNC  "libpng",0x42001996,png_set_compression_buffer_size
 #endif
+#ifdef F_libpng_0009
+	IMPORT_FUNC  "libpng",0xA95E38D3,png_set_IHDR
+#endif
 #ifdef F_libpng_0010
 	IMPORT_FUNC  "libpng",0xC2CF0FF7,png_set_longjmp_fn
 #endif
@@ -237,11 +240,8 @@
 	IMPORT_FUNC  "libpng",0x1C5575D5,png_init_io
 #endif
 #ifdef F_libpng_0078
-	IMPORT_FUNC  "libpng",0xA95E38D3,png_set_IHDR
-#endif
-#ifdef F_libpng_0079
 	IMPORT_FUNC  "libpng",0xAAB30565,png_read_row
 #endif
-#ifdef F_libpng_0080
+#ifdef F_libpng_0079
 	IMPORT_FUNC  "libpng",0xB2290D1A,png_read_end
 #endif

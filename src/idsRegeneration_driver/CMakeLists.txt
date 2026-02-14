@@ -1,1 +1,1 @@
-add_stub_lib(idsRegeneration_driver idsRegeneration_driver.S idsRegeneration_driver 19)
+add_stub_lib(idsRegeneration_driver idsRegeneration_driver.S idsRegeneration_driver)

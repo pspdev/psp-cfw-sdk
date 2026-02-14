@@ -68,9 +68,7 @@ all:
 	$(Q)cp src/LibPspExploit/*.a libs
 	$(Q)cp src/LibPspExploit/*.h include/
 	$(Q)cp src/BootLoadEx/*.a libs
-	$(Q)cp src/BootLoadEx/bootloadex*.h include/
 	$(Q)cp src/LibCisoRead/*.a libs
-	$(Q)cp src/LibCisoRead/ciso*.h include/
 	$(Q)cp src/iplsdk/*.a libs
 	$(Q)cp src/iplsdk/include/*.h include/iplsdk
 	$(Q)cp src/microlz/*.a libs
@@ -84,8 +82,6 @@ install: all
 clean:
 	$(Q)rm -rf libs
 	$(Q)rm -rf include/iplsdk
-	$(Q)rm -f include/bootloadex*.h
-	$(Q)rm -f include/ciso*.h
 	$(MAKE) -C src/KUBridge clean
 	$(MAKE) -C src/SystemCtrlForUser clean
 	$(MAKE) -C src/SystemCtrlForKernel clean

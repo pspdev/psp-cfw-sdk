@@ -1,0 +1,6 @@
+build/**
+include/iplsdk/**
+libs/**
+*.o
+lib*.a
+!src/pre-built/**

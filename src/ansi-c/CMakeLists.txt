@@ -1,4 +1,4 @@
-add_library(ansic STATIC)
+add_sdk_library(ansic)
 
 target_sources(ansic PRIVATE
    memmove.c
@@ -6,24 +6,31 @@ target_sources(ansic PRIVATE
    memcpy.c
    memset.c
    strcpy.c
+   strcat.c
    strlen.c
+   strnlen.c
    strchr.c
+   strrchr.c
    strcmp.c
+   strncmp.c
    strstr.c
-   memfind.c
+   stristr.c
+   strspn.c
+   strcspn.c
+   strtok.c
+   memfindsz.c
+   memfindu32.c
    strhex32.c
-   strsafe.c
+   strncpy.c
+   strncat.c
+   strncat_s.c
+   strncpy_s.c
    strbeginswith.c
    strreplaceall.c
    strcasecmp.c
+   tolower.c
    lowerstring.c
+   setlongjmp.S
 )
 
-target_compile_options(ansic PRIVATE -std=c99 -Wall -Os -G0 -fno-pic)
-
-add_dependencies(ansic CopyPrebuiltSdkLibs)
-
-add_custom_command(TARGET ansic POST_BUILD
-   COMMAND cp "$<TARGET_FILE:ansic>" "${SDK_LIBS_DIR}/"
-   COMMENT "Copying to libs folder"
-)
+target_compile_options(ansic PRIVATE -fno-builtin)

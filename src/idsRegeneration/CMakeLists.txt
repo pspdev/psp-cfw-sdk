@@ -1,1 +1,1 @@
-add_stub_lib(idsRegeneration idsRegeneration.S idsRegeneration 19)
+add_stub_lib(idsRegeneration idsRegeneration.S idsRegeneration)

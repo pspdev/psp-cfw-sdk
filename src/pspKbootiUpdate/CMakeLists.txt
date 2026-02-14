@@ -1,0 +1,1 @@
+add_stub_lib(pspkbootiupdate libpspKbootiUpdate.S libpspKbootiUpdate)

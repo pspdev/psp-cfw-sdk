@@ -12,7 +12,7 @@ function(add_sdk_library name)
 
    add_custom_command(TARGET ${name} POST_BUILD
       COMMAND cp "$<TARGET_FILE:${name}>" "${SDK_LIBS_DIR}/"
-      COMMENT "Copying $<TARGET_FILE_NAME:${LIB_NAME}> to libs/"
+      COMMENT "Copying $<TARGET_FILE_NAME:${name}> to libs/"
 )
 endfunction()
 
@@ -26,6 +26,7 @@ add_subdirectory(SystemCtrlForUser)
 add_subdirectory(SystemCtrlForKernel)
 add_subdirectory(VshCtrl)
 add_subdirectory(SysclibForUser)
+add_subdirectory(bootloadex)
 add_subdirectory(idsRegeneration)
 add_subdirectory(idsRegeneration_driver)
 add_subdirectory(isoCtrl_driver)

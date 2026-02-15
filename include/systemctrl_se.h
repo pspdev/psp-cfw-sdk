@@ -203,6 +203,8 @@ typedef struct {
 	u8 use_me2;
 	/** Hide CFW files from games. 0 - Hide, 1 - Do not hide */
 	u8 no_hide_cfw_files;
+	/** Fakes the maximum amount of free memory for games. One of `FakeMaxFreeMemOpt`  */
+	u8 fake_max_free_mem;
 } SEConfigEPI;
 typedef SEConfigEPI SEConfigADR;
 #define IS_ADR_SECONFIG(config) ((((SEConfigEPI*)config)->magic[0] == SECONFIG_MAGIC_EPI1) && (((SEConfigADR*)config)->magic[1] == SECONFIG_MAGIC_EPI2))

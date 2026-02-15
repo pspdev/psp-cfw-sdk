@@ -179,6 +179,18 @@ enum MeTypes {
 	ME_TYPE_2,
 };
 
+enum FakeMaxFreeMemOpt {
+	FAKE_MAX_FREE_MEM_AUTO,
+	FAKE_MAX_FREE_MEM_16MB,
+	FAKE_MAX_FREE_MEM_24MB,
+	FAKE_MAX_FREE_MEM_32MB,
+	FAKE_MAX_FREE_MEM_40MB,
+	FAKE_MAX_FREE_MEM_48MB,
+	FAKE_MAX_FREE_MEM_52MB,
+	FAKE_MAX_FREE_MEM_60MB,
+	FAKE_MAX_FREE_MEM_64MB,
+};
+
 /**
  * Configuration for the `Pentazemin` module.
  */

@@ -12,4 +12,4 @@ target_sources(bootloadex PRIVATE
 )
 
 target_link_libraries(bootloadex PUBLIC iplsdk)
-target_link_options(bootloadex INTERFACE -nostdlib -T${CMAKE_CURRENT_LIST_DIR}/linkfile.l)
+target_link_options(bootloadex INTERFACE -nostdlib -T${PROJECT_SOURCE_DIR}/build-tools/bootloadex.l)

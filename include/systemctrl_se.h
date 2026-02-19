@@ -29,7 +29,7 @@ enum SEUmdModes
     MODE_UMD = 0,
     MODE_OE_LEGACY, // not available anymore, will default to inferno
     MODE_MARCH33,
-    MODE_NP9660, // (Galaxy) if not available, will default to inferno for iso/cso or np9660 for PBP
+    MODE_NP9660, // (Galaxy) if not available on ARK-4, will default to inferno for iso/cso or np9660 for PBP
     MODE_INFERNO,
     MODE_ME,
     MODE_VSHUMD,
@@ -57,6 +57,15 @@ enum umdregion
     UMD_REGION_AMERICA,
     UMD_REGION_EUROPE,
     UMD_REGION_JAPAN,
+};
+
+enum cpubus_clocks
+{
+	CPU_BUS_CLOCK_DEFAULT,
+	CPU_BUS_CLOCK_333,
+	CPU_BUS_CLOCK_222,
+	CPU_BUS_CLOCK_133,
+	CPU_BUS_CLOCK_CUSTOM,
 };
 
 // M33's SEConfig (also used by L/ME)
@@ -242,6 +251,8 @@ typedef struct SEConfigARK {
     u8 wpa2; // patch to use wpa2
     u8 force_high_memory;
     u8 custom_update;
+	u16 custom_cpu_clock;
+	u16 custom_bus_clock;
 } SEConfigARK;
 
 // Forward declaration

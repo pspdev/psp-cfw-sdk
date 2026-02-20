@@ -25,3 +25,12 @@ foreach(script pack)
    )
    set_property(TARGET tool_${script} PROPERTY EXEC ${CMAKE_CURRENT_SOURCE_DIR}/pack/${script}.py)
 endforeach()
+
+function(create_raw_binary TARGET)
+   add_custom_command(
+      TARGET ${TARGET}
+      POST_BUILD
+      COMMAND psp-strip -s ${TARGET}
+      COMMAND psp-objcopy -O binary ${TARGET} ${TARGET}.bin
+   )
+endfunction()

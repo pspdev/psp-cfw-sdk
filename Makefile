@@ -82,6 +82,7 @@ install: all
 clean:
 	$(Q)rm -rf libs
 	$(Q)rm -rf include/iplsdk
+	$(Q)rm -f  include/libpspexploit.h
 	$(MAKE) -C src/KUBridge clean
 	$(MAKE) -C src/SystemCtrlForUser clean
 	$(MAKE) -C src/SystemCtrlForKernel clean

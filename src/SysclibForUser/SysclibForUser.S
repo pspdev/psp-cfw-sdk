@@ -116,3 +116,6 @@
 #ifdef F_SysclibForUser_0036
 	IMPORT_FUNC  "SysclibForUser",0xBC7554DF,strcasecmp
 #endif
+#ifdef F_SysclibForUser_0037
+	IMPORT_FUNC  "SysclibForUser",0xC2145E80,snprintf
+#endif

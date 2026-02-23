@@ -40,6 +40,7 @@ OBJS = \
 	SysclibForUser_0034.o \
 	SysclibForUser_0035.o \
 	SysclibForUser_0036.o \
+	SysclibForUser_0037.o \
 
 PSPSDK=$(shell psp-config --pspsdk-path)
 

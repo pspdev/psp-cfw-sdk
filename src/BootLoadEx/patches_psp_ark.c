@@ -32,7 +32,7 @@ int patch_bootconf_vsh(char *buffer, int length)
     if (newsize > 0) result = newsize;
 
     newsize = AddPRX(buffer, "/kd/vshbridge_tool.prx", PATH_VSHCTRL+sizeof(FLASH0_PATH)-2, VSH_RUNLEVEL );
-    if (newsize > 0){
+    if (newsize > 0) {
         ark_config->exec_mode = PSP_TOOL;
         result = newsize;
     }
@@ -119,7 +119,7 @@ int patch_bootconf_vshumd(char *buffer, int length)
     int i; for(i=0; i<NELEMS(vshumd_del_mods); ++i) {
         RemovePrx(buffer, vshumd_del_mods[i].prxname, vshumd_del_mods[i].flags);
     }
-    
+
     for(i=0; i<NELEMS(vshumd_add_mods); ++i) {
         newsize = MovePrx(buffer, vshumd_add_mods[i].insertbefore, vshumd_add_mods[i].prxname, vshumd_add_mods[i].flags);
 
@@ -150,7 +150,7 @@ int patch_bootconf_updaterumd(char *buffer, int length)
     int i; for(i=0; i<NELEMS(updaterumd_del_mods); ++i) {
         RemovePrx(buffer, updaterumd_del_mods[i].prxname, updaterumd_del_mods[i].flags);
     }
-    
+
     for(i=0; i<NELEMS(updaterumd_add_mods); ++i) {
         newsize = MovePrx(buffer, updaterumd_add_mods[i].insertbefore, updaterumd_add_mods[i].prxname, updaterumd_add_mods[i].flags);
 
@@ -169,15 +169,15 @@ int UnpackBootConfigArkPSP(char *buffer, int length)
     // Insert SystemControl
     newsize = AddPRX(buffer, "/kd/init.prx", PATH_SYSTEMCTRL+sizeof(FLASH0_PATH)-2, 0x000000EF);
     if (newsize > 0) result = newsize;
-    
+
     // Insert compat layer
     newsize = AddPRX(buffer, "/kd/init.prx", PATH_PSPCOMPAT+sizeof(FLASH0_PATH)-2, 0x000000EF);
     if (newsize > 0) result = newsize;
-    
+
     // Insert Stargate No-DRM Engine
     newsize = AddPRX(buffer, "/kd/me_wrapper.prx", PATH_STARGATE+sizeof(FLASH0_PATH)-2, GAME_RUNLEVEL | UMDEMU_RUNLEVEL);
     if (newsize > 0) result = newsize;
-    
+
     // Insert VSHControl
     if (SearchPrx(buffer, "/vsh/module/vshmain.prx") >= 0) {
         newsize = patch_bootconf_vsh(buffer, result);
@@ -192,7 +192,7 @@ int UnpackBootConfigArkPSP(char *buffer, int length)
     initArkRebootConfig(ble_config);
 
     // Configure boot mode
-    if (ble_config->boot_type == TYPE_REBOOTEX && IS_ARK_CONFIG(reboot_conf)){
+    if (ble_config->boot_type == TYPE_REBOOTEX && IS_ARK_CONFIG(reboot_conf)) {
         switch(reboot_conf->iso_mode) {
             default:
                 break;
@@ -220,6 +220,6 @@ int UnpackBootConfigArkPSP(char *buffer, int length)
 
     // disable fatms371 mod in recovery mode
     if (ark_config->recovery) ble_config->extra_io.psp_io.use_fatms371 = 0;
-    
+
     return result;
 }

@@ -9,6 +9,8 @@
 #include "printf.h"
 #endif
 
+#define MIN(a,b) (((a)<(b))?(a):(b))
+
 u8    sector_buf[0x200];
 u32    boot_sector;
 u32    rootdir_sectors;
@@ -203,15 +205,18 @@ int MsFatIsValidCluster(u32 cluster)
 static void MsFatFillFileStruct(u8 *entry, MsFatFile *file)
 {
     file->attributes = entry[0xB];
-    file->remaining_bytes = *(u32 *)&entry[0x1C];
-    file->cur_cluster = *(u16 *)&entry[0x1A];
+    file->size = *(u32 *)&entry[0x1C];
+    file->start_cluster = *(u16 *)&entry[0x1A];
     
     if (fat_type == FAT_TYPE_32)
     {
-        file->cur_cluster |= ((*(u16 *)&entry[0x14]) << 16);
+        file->start_cluster |= ((*(u16 *)&entry[0x14]) << 16);
     }
     
-    file->cur_sector = 0;    
+    file->cur_cluster = file->start_cluster;
+    file->cur_sector = 0;
+    file->cur_sector_offset = 0;
+    file->cur_offset = 0;
 }
 
 int MsFatFindFile(u32 dir_cluster, char *filename, int rootcase, MsFatFile *file)
@@ -434,39 +439,95 @@ int MsFatOpen(const char *path)
     return 0;
 }
 
+int MsFatSeek(u32 offset, int whence)
+{
+    int off = 0;
+
+    switch (whence)
+    {
+        case SEEK_SET:
+        	off = offset;
+        break;
+
+        case SEEK_CUR:
+        	off = thefile.cur_offset + offset;
+        break;
+
+        case SEEK_END:
+        	off = thefile.size + offset;
+        break;
+
+        default:
+            return -1;
+    }
+
+    if (off < 0)
+        return -1;
+
+    u32 cluster = off / (sec_per_cluster * 0x200);
+    u32 sector = (off % (sec_per_cluster * 0x200)) / 0x200;
+    u32 sector_offset = off % 0x200;
+    thefile.cur_offset = MIN(off, thefile.size);
+
+    thefile.cur_cluster = thefile.start_cluster;
+    thefile.cur_sector = sector;
+    thefile.cur_sector_offset = sector_offset;
+
+    while (cluster > 0)
+    {
+        thefile.cur_cluster = MsFatGetNextCluster(thefile.cur_cluster);
+
+        if (!MsFatIsValidCluster(thefile.cur_cluster))
+        {
+            thefile.cur_offset = thefile.size;
+            return -1;
+        }
+
+        cluster--;
+    }
+
+    return off;
+}
+
 int MsFatRead(void *buf, u32 size)
 {
-    u32 remaining = size, sector;
+    s32 remaining = MIN(size, thefile.size - thefile.cur_offset);
+    u32 sector, sector_inc = 0;
     int read = 0;
     u8 *p = buf;
 
-    if (thefile.remaining_bytes == 0)
+    if (remaining <= 0)
         return 0;
 
     sector = ((thefile.cur_cluster - 2) * sec_per_cluster) + first_data_sector + thefile.cur_sector;
 
     while (remaining > 0)
     {
-        if (thefile.remaining_bytes < 0x200)
+        u32 to_read = MIN(remaining, 0x200 - thefile.cur_sector_offset);
+
+        if (to_read < 0x200)
         {
         	if (MsFatReadLogicalSector(sector, sector_buf) < 0)
-        		return read;
+        	    break;
 
-        	memcpy(p, sector_buf, thefile.remaining_bytes);
-        	read += thefile.remaining_bytes;
-
-        	thefile.remaining_bytes = 0;
-        	break;
+            memcpy(p, &sector_buf[thefile.cur_sector_offset], to_read);
+        }
+        else {
+            if (MsFatReadLogicalSector(sector, p) < 0)
+        	    break;
         }
 
-        if (MsFatReadLogicalSector(sector, p) < 0)
-        	break;
+        read += to_read;
+        p += to_read;
+        remaining -= to_read;
+        thefile.cur_sector_offset += to_read;
+        thefile.cur_offset += to_read;
+        sector_inc = thefile.cur_sector_offset / 0x200;
+        thefile.cur_sector += sector_inc;
+        thefile.cur_sector_offset = thefile.cur_sector_offset % 0x200;
 
-        read += 0x200;
-        p += 0x200;
-        remaining -= 0x200;
-        thefile.remaining_bytes -= 0x200;
-        thefile.cur_sector++;
+        if (thefile.cur_offset >= thefile.size)
+            break;
 
         if (thefile.cur_sector == sec_per_cluster)
         {
@@ -475,12 +536,12 @@ int MsFatRead(void *buf, u32 size)
         	
         	if (!MsFatIsValidCluster(thefile.cur_cluster))
         	{
-        		if (thefile.remaining_bytes != 0)
+        		if (thefile.cur_offset < thefile.size)
         		{
 #ifdef FAT_DEBUG
         			printf("WTF!\n");
 #endif
-        			thefile.remaining_bytes = 0;
+        			thefile.cur_offset = thefile.size;
         		}
 
         		break;
@@ -490,7 +551,7 @@ int MsFatRead(void *buf, u32 size)
         }
         else
         {
-        	sector++;
+        	sector += sector_inc;
         }
     }
 

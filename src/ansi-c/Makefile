@@ -21,6 +21,7 @@ C_OBJS = \
 	memfindsz.o \
 	memfindu32.o \
 	strhex32.o \
+	strhex64.o \
 	strncpy.o \
 	strncat.o \
 	strncat_s.o \

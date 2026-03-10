@@ -21,6 +21,7 @@ target_sources(ansic PRIVATE
    memfindsz.c
    memfindu32.c
    strhex32.c
+   strhex64.c
    strncpy.c
    strncat.c
    strncat_s.c

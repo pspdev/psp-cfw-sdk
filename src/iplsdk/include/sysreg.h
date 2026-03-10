@@ -179,6 +179,8 @@ static inline void sysreg_busclk_disable_kirk(void)
 
 uint32_t sysreg_get_tachyon_version(void);
 
+uint64_t sysreg_get_fuse_id(void);
+
 #ifdef __cplusplus
 }
 #endif //__cplusplus

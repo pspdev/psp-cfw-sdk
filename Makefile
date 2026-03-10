@@ -36,6 +36,7 @@ all:
 	$(MAKE) -C src/LibCisoRead
 	$(MAKE) -C src/iplsdk
 	$(MAKE) -C src/microlz
+	$(MAKE) -C src/idstorage_ms
 	$(Q)mkdir -p libs
 	$(Q)mkdir -p include/iplsdk
 	$(Q)cp src/pre-built/*.a libs/
@@ -72,6 +73,7 @@ all:
 	$(Q)cp src/iplsdk/*.a libs
 	$(Q)cp src/iplsdk/include/*.h include/iplsdk
 	$(Q)cp src/microlz/*.a libs
+	$(Q)cp src/idstorage_ms/*.a libs
 
 install: all
 	$(Q)cp -r include/* $(PSPSDK)/include/
@@ -114,3 +116,4 @@ clean:
 	$(MAKE) -C src/LibCisoRead clean
 	$(MAKE) -C src/iplsdk clean
 	$(MAKE) -C src/microlz clean
+	$(MAKE) -C src/idstorage_ms clean

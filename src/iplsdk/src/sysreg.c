@@ -195,3 +195,8 @@ uint32_t sysreg_get_tachyon_version(void)
 
     return s_tachyon_version;
 }
+
+uint64_t sysreg_get_fuse_id(void)
+{
+    return ((uint64_t)*REG32(0xBC100094) << 32) | *REG32(0xBC100090);
+}

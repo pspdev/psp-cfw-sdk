@@ -41,11 +41,18 @@ OBJS = \
 	SysclibForUser_0035.o \
 	SysclibForUser_0036.o \
 	SysclibForUser_0037.o \
+	SysclibForUser_0038.o \
+	SysclibForUser_0039.o \
+	SysclibForUser_0040.o \
+	SysclibForUser_0041.o \
+	SysclibForUser_0042.o \
+	SysclibForUser_0043.o \
+	SysclibForUser_0044.o \
 
 PSPSDK=$(shell psp-config --pspsdk-path)
 
 CC=psp-gcc
-INCDIR = 
+INCDIR =
 CFLAGS = -std=c99 -Os -G0 -Wall -fno-builtin-printf -I$(PSPSDK)/include
 CXXFLAGS = $(CFLAGS) -fno-exceptions -fno-rtti
 ASFLAGS = $(CFLAGS)

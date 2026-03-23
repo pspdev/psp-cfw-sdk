@@ -45,10 +45,10 @@
 	IMPORT_FUNC  "SystemCtrlForKernel",0xCE0A654E,sctrlHENLoadModuleOnReboot
 #endif
 #ifdef F_SystemCtrlForKernel_0013
-	IMPORT_FUNC  "SystemCtrlForKernel",0xF9584CAD,oe_malloc
+	IMPORT_FUNC_WITH_ALIAS  "SystemCtrlForKernel",0xF9584CAD,oe_malloc,sctrlKernelMalloc
 #endif
 #ifdef F_SystemCtrlForKernel_0014
-	IMPORT_FUNC  "SystemCtrlForKernel",0xA65E8BC4,oe_free
+	IMPORT_FUNC_WITH_ALIAS  "SystemCtrlForKernel",0xA65E8BC4,oe_free,sctrlKernelFree
 #endif
 #ifdef F_SystemCtrlForKernel_0015
     IMPORT_FUNC "SystemCtrlForKernel",0x18B687A6,sctrlHENGetRebootexConfig

@@ -482,6 +482,7 @@ unsigned int sctrlSEGetBootConfFileIndex(void);
  * @return A pointer to allocated buffer, or NULL on error.
  */
 void * oe_malloc(unsigned int size);
+void * sctrlKernelMalloc(unsigned int size);
 
 /**
  * Helper function to allocate aligned memory on P1 (user memory).
@@ -499,6 +500,7 @@ void * oe_memalign(unsigned int align, unsigned int size);
  * @param[in] ptr A pointer to the allocated memory.
  */
 void oe_free(void * p);
+void sctrlKernelFree(void * p);
 
 #ifdef __cplusplus
 }

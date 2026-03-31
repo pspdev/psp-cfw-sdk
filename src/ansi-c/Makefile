@@ -1,6 +1,8 @@
 TARGET_LIB=libansic.a
 
 C_OBJS = \
+	malloc.o \
+	memalign.o \
 	memmove.o \
 	memcmp.o \
 	memcpy.o \
@@ -18,6 +20,8 @@ C_OBJS = \
 	strspn.o \
 	strcspn.o \
 	strtok.o \
+	strdup.o \
+	strndup.o \
 	memfindsz.o \
 	memfindu32.o \
 	strhex32.o \
@@ -31,7 +35,8 @@ C_OBJS = \
 	strcasecmp.o \
 	tolower.o \
 	lowerstring.o \
-	setlongjmp.o
+	setlongjmp.o \
+	sprintf.o
 
 OBJS = $(C_OBJS)
 

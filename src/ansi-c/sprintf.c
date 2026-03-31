@@ -81,11 +81,6 @@ int writeFormat(char *xibuff, size_t xcount, const char *xifmt, uint32_t xidata)
     {
       const char *lptr   = (const char *)xidata;
       int         lcount = 0;
-
-      /***********************************************************************/
-      /* Artificially limit %s format to 150 bytes, as a cheap way to        */
-      /* avoid log buffer overflow.                                          */
-      /***********************************************************************/
       while ((*lptr != 0) && (lcount < xcount))
       {
         *xibuff++ = *lptr++;

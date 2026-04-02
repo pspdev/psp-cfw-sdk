@@ -79,7 +79,7 @@
 #define INT_REG_BREQ            (0x20)
 #define INT_REG_CMDNK           (0x01)
 
-static int is_ready(void)
+int mspro_is_ready(void)
 {
     return (*MSPRO_STATUS_REG & STAT_RDY) != 0;
 }
@@ -101,7 +101,7 @@ static int is_interrupt_activated(void)
 
 static void mspro_wait_for_ready(void)
 {
-    while (!is_ready());
+    while (!mspro_is_ready());
 }
 
 static void mspro_wait_for_empty(void)

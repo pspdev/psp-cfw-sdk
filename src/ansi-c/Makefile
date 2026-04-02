@@ -1,6 +1,7 @@
 TARGET_LIB=libansic.a
 
 C_OBJS = \
+	arith64.o \
 	malloc.o \
 	memalign.o \
 	memmove.o \

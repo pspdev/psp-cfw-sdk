@@ -302,3 +302,6 @@
 #ifdef F_SystemCtrlForKernel_0098
     IMPORT_FUNC "SystemCtrlForKernel",0x8C8606FD,sctrlIsLoadingPlugins
 #endif
+#ifdef F_SystemCtrlForKernel_0099
+    IMPORT_FUNC "SystemCtrlForKernel",0xD888F867,sctrlGetMemoryPartition
+#endif

@@ -19,12 +19,13 @@
 #define _SYSTEMCTRL_H_
 
 #include <pspsdk.h>
-#include <psploadexec_kernel.h>
-#include <pspiofilemgr_kernel.h>
-#include <pspthreadman_kernel.h>
 #include <psploadcore.h>
 #include <pspkernel.h>
 #include <pspinit.h>
+#include <psploadexec_kernel.h>
+#include <pspiofilemgr_kernel.h>
+#include <pspthreadman_kernel.h>
+#include <pspsysmem_kernel.h>
 
 #include <rebootexconfig.h>
 
@@ -977,6 +978,7 @@ SceLibraryStubTable* sctrlHENFindImportLib(SceModule* mod, const char* library);
  */
 int sctrlMsCacheInit(const char* driver, int cache_size);
 
+
 /**
  * Checks if CFW is currently loading plugin modules.
  *
@@ -985,6 +987,18 @@ int sctrlMsCacheInit(const char* driver, int cache_size);
  * @attention Requires linking to `pspsystemctrl_kernel` stubs to be available.
  */
 int sctrlIsLoadingPlugins();
+
+
+/**
+ * Obtain the memory partition configuration in sysmem.
+ * 
+ * @param partition identifier (1=kernel, 2=user, 5=volatile, etc)
+ * 
+ * @return pointer to structure holding information about the partition.
+ * 
+ * @attention returned value is a kernel pointer, user code might have to use kubridge to properly handle it.
+ */
+PspSysMemPartition* sctrlGetMemoryPartition(int partition);
 
 #ifdef __cplusplus
 }

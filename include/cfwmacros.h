@@ -162,16 +162,16 @@
 
 #define MAKE_DUMMY_FUNCTION(a, r) \
 { \
-    u32 func = a; \
+    u32 __f__ = (u32)(a); \
     if(r == 0) \
     { \
-        _sw(JR_RA, func); \
-        _sw(0x00001021, func + 4); \
+        _sw(JR_RA, __f__); \
+        _sw(0x00001021, __f__ + 4); \
     } \
     else \
     { \
-        _sw(JR_RA, func); \
-        _sw(0x24020000 | r, func + 4); \
+        _sw(JR_RA, __f__); \
+        _sw(0x24020000 | r, __f__ + 4); \
     } \
 }
 

@@ -161,6 +161,7 @@ enum HidePicsOpt {
 enum IsoUmdMode {
 	ISO_MODE_INFERNO,
 	ISO_MODE_MARCH33,
+	ISO_MODE_ME,
 	ISO_MODE_NP9660,
 };
 

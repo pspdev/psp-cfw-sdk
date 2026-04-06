@@ -68,7 +68,7 @@ enum cpubus_clocks
 	// these are overclock values
 	CPU_BUS_CLOCK_418,
 	CPU_BUS_CLOCK_433,
-	CPU_BUS_CLOCK_466,
+	CPU_BUS_CLOCK_463,
 	CPU_BUS_CLOCK_CUSTOM,
 };
 

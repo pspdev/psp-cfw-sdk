@@ -12,6 +12,7 @@ OBJS = \
 	libpspDecrypt_0005.o \
 	libpspDecrypt_0006.o \
 	libpspDecrypt_0007.o \
+	libpspDecrypt_0008.o \
 
 PSPSDK=$(shell psp-config --pspsdk-path)
 

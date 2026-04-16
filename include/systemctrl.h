@@ -903,6 +903,11 @@ void sctrlHENLoadModuleOnReboot(char *module_after, void *buf, int size, int fla
 void sctrlHENSetRebootexOverride(const u8 *rebootex);
 
 /**
+ * Override reboot loader.
+ */
+void sctrlHENSetLoadRebootOverrideHandler(int (* func)(void * arg1, unsigned int arg2, void * arg3, unsigned int arg4));
+
+/**
  * Enable/disable NID Resolver on particular library
  *
  * @param libname The name of the library to be enabled/disabled.

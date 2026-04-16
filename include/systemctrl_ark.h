@@ -83,6 +83,7 @@ extern "C" {
 #define DEFAULT_ARK_PATH SAVEDATA_MS0 DEFAULT_ARK_FOLDER "/" // default path for ARK files
 #define DEFAULT_ARK_PATH_GO SAVEDATA_EF0 DEFAULT_ARK_FOLDER "/" // default path for ARK files
 #define ARK_DC_PATH "ms0:/TM/DCARK"
+#define ARK_DC_PATH_150 "ms0:/TM/DCARK/150"
 #define ARK_DC_IDSTOR_PATH "ms0:/TM/IDStorage/"
 #define TM_PATH_W L"\\TM\\DCARK\\"
 

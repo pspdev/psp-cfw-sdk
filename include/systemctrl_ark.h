@@ -127,10 +127,10 @@ typedef struct ARKConfig{
 
 // macros for checkig stuff
 #define IS_ARK_CONFIG(c) (*((u32*)c) == ARK_CONFIG_MAGIC)
-#define IS_PSP(_arkconfigptr_) ((_arkconfigptr_->exec_mode&DEV_MASK)==PSP_ORIG)
-#define IS_VITA(_arkconfigptr_) ((_arkconfigptr_->exec_mode&DEV_MASK)==PS_VITA)
-#define IS_VITA_ADR(_arkconfigptr_) (_arkconfigptr_->exec_mode==PSV_ADR)
-#define IS_VITA_POPS(_arkconfigptr_) (_arkconfigptr_->exec_mode==PSV_POPS)
+#define IS_PSP(_arkconfigptr_) (((_arkconfigptr_)->exec_mode&DEV_MASK)==PSP_ORIG)
+#define IS_VITA(_arkconfigptr_) (((_arkconfigptr_)->exec_mode&DEV_MASK)==PS_VITA)
+#define IS_VITA_ADR(_arkconfigptr_) ((_arkconfigptr_)->exec_mode==PSV_ADR)
+#define IS_VITA_POPS(_arkconfigptr_) ((_arkconfigptr_)->exec_mode==PSV_POPS)
 
 
 // menu configuration (launcher/vsh/etc)

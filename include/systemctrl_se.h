@@ -27,9 +27,9 @@ enum fakeregion {
 enum SEUmdModes
 {
     MODE_UMD = 0,
-    MODE_OE_LEGACY, // not available anymore, will default to inferno
-    MODE_MARCH33,
-    MODE_NP9660, // (Galaxy) if not available on ARK-4, will default to inferno for iso/cso or np9660 for PBP
+    MODE_OE_LEGACY, // iso/dax driver from OE, not available anymore, will default to inferno
+    MODE_MARCH33,  // iso/cso driver from M33
+    MODE_NP9660, // PBP driver, if Galaxy is not available for iso/cso support (i.e. ARK-4) it will default to inferno
     MODE_INFERNO,
     MODE_ME,
     MODE_VSHUMD,

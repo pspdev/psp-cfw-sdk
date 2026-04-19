@@ -758,6 +758,15 @@ u32 sctrlHENMakeSyscallStub(void *function);
 void sctrlHENSetSpeed(int cpu, int bus);
 
 /**
+ * Gets the true current speed of the cpu.
+ *
+ * @return integer representing the number of MHz of the CPU clock.
+ *
+ * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be available.
+*/
+u32 sctrlHENGetSpeed();
+
+/**
  * Sets the partition 2 and 11 memory (to unlock extra memory on partition 2) on next reboot/loadexec.
  *
  * This feature is only available in PSP 2g+ and PS Vita.

@@ -305,3 +305,6 @@
 #ifdef F_SystemCtrlForKernel_0099
     IMPORT_FUNC "SystemCtrlForKernel",0xD888F867,sctrlGetMemoryPartition
 #endif
+#ifdef F_SystemCtrlForKernel_0100
+    IMPORT_FUNC "SystemCtrlForKernel",0xFD6E46EC,sctrlHENGetSpeed
+#endif

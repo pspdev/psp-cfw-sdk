@@ -239,3 +239,6 @@
 #ifdef F_SystemCtrlForUser_0077
     IMPORT_FUNC "SystemCtrlForUser",0xD888F867,sctrlGetMemoryPartition
 #endif
+#ifdef F_SystemCtrlForUser_0078
+    IMPORT_FUNC "SystemCtrlForUser",0xFD6E46EC,sctrlHENGetSpeed
+#endif

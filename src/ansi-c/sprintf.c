@@ -1,198 +1,254 @@
-/*
- * Basic Sprintf functions thanks to Fanjita and Noobz
- */ 
+#include <psptypes.h>
 
-#include <stdint.h>
+#include <string.h>
 #include <stdarg.h>
-#include <stddef.h>
 
-void numtohex8(char *dst, int n)
-{
-   int i;
-   static char hex[]="0123456789ABCDEF";
-   for (i=0; i<8; i++)
-   {
-      dst[i]=hex[(n>>((7-i)*4))&15];
-   }
+static int itostr(char *buf, int in_data, int base, int upper, int sign) {
+	int res, len, i;
+	unsigned int data;
+	char *str;
+
+	if (base==10 && sign && in_data<0) {
+		data = -in_data;
+	} else {
+		data = in_data;
+	}
+
+	str = buf;
+	do {
+		res = data%base;
+		data = data/base;
+		if (res<10) {
+			res += '0';
+		} else {
+			if (upper) {
+				res += 'A'-10;
+			} else {
+				res += 'a'-10;
+			}
+		}
+		*str++ = res;
+	}while(data);
+	len = str-buf;
+
+	/* reverse digital order */
+	for (i=0; i<len/2; i++) {
+		res = buf[i];
+		buf[i] = buf[len-1-i];
+		buf[len-1-i] = res;
+	}
+
+	return len;
 }
 
-void numtohex4(char *dst, int n)
-{
-   int i;
-   static char hex[]="0123456789ABCDEF";
-   for (i=4; i<8; i++)
-   {
-      dst[i-4]=hex[(n>>((7-i)*4))&15];
-   }
+/*
+ * vsnprintf - Format a string and place it in a buffer
+ * @buf: The buffer to place the result into
+ * @size: The size of the buffer
+ * @fmt: The format string to use
+ * @args: Arguments for the format string
+ */
+#define OUT_C(c) \
+	if (str<end) { \
+		*str++ = (c); \
+	} else { \
+		goto exit; \
+	}
+
+static char digital_buf[32];
+int vsnprintf(char *buf, int size, char *fmt, va_list args) {
+	char ch, *s, *str, *end, *sstr;
+	int zero_pad, left_adj, add_sign, field_width, sign;
+	int i, base, upper, len;
+
+
+	if (!buf || !fmt ||!size) {
+		return 0;
+	}
+
+	str = buf;
+	end = buf+size;
+
+	while (*fmt) {
+		if (*fmt!='%') {
+			OUT_C(*fmt++);
+			continue;
+		}
+
+		/* skip '%' */
+		sstr = fmt;
+		fmt++;
+
+		/* %% */
+		if (*fmt=='%') {
+			OUT_C(*fmt++);
+			continue;
+		}
+
+		/* get flag */
+		zero_pad = ' ';
+		left_adj = 0;
+		add_sign = 0;
+		while ((ch=*fmt)) {
+
+			if (*fmt=='0') {
+				zero_pad = '0';
+			} else if (*fmt=='-') {
+				left_adj = 1;
+			} else if (*fmt=='#') {
+			} else if (*fmt==' ') {
+				if (add_sign!='+')
+					add_sign = ' ';
+			} else if (*fmt=='+') {
+				add_sign = '+';
+			} else {
+				break;
+			}
+			fmt++;
+		}
+
+		/* get field width: m.n */
+		field_width = 0;
+		/* get m */
+		while (*fmt && *fmt>'0' && *fmt<='9') {
+			field_width = field_width*10+(*fmt-'0');
+			fmt++;
+		}
+		if (*fmt && *fmt=='.') {
+			fmt++;
+			/* skip n */
+			while(*fmt && *fmt>'0' && *fmt<='9') {
+				fmt++;
+			}
+		}
+
+		/* get format char */
+		upper = 0;
+		base = 0;
+		sign = 0;
+		len = 0;
+		s = digital_buf;
+		while ((ch=*fmt)) {
+			fmt++;
+			switch(ch) {
+			/* hexadecimal */
+			case 'p':
+			case 'X':
+				upper = 1;
+			case 'x':
+				base = 16;
+				break;
+
+			/* decimal */
+			case 'd':
+			case 'i':
+				sign = 1;
+			case 'u':
+				base = 10;
+				break;
+
+			/* octal */
+			case 'o':
+				base = 8;
+				break;
+
+			/* character */
+			case 'c':
+				digital_buf[0] = (unsigned char) va_arg(args, int);
+				len = 1;
+				break;
+
+			/* string */
+			case 's':
+				s = va_arg(args, char *);
+				if (!s) s = "<NUL>";
+				len = strlen(s);
+				break;
+
+			/* float format, skip it */
+			case 'e': case 'E': case 'f': case 'F': case 'g': case 'G': case 'a': case 'A':
+				va_arg(args, double);
+				s = NULL;
+				break;
+
+			/* length modifier */
+			case 'l': case 'L': case 'h': case 'j': case 'z': case 't':
+				/* skip it */
+				continue;
+
+			/* bad format */
+			default:
+				s = sstr;
+				len = fmt-sstr;
+				break;
+			}
+			break;
+		}
+
+		if (base) {
+			i = va_arg(args, int);
+			if (base==10 && sign) {
+				if (i<0) {
+					add_sign = '-';
+				}
+			} else {
+				add_sign = 0;
+			}
+
+			len = itostr(digital_buf, i, base, upper, sign);
+		} else {
+			zero_pad = ' ';
+			add_sign = 0;
+		}
+
+		if (s) {
+			if (len>=field_width) {
+				field_width = len;
+				if (add_sign)
+					field_width++;
+			}
+			for (i=0; i<field_width; i++) {
+				if (left_adj) {
+					if (i<len) {
+						OUT_C(*s++);
+					} else {
+						OUT_C(' ');
+					}
+				} else {
+					if (add_sign && (zero_pad=='0' || i==(field_width-len-1))) {
+						OUT_C(add_sign);
+						add_sign = 0;
+						continue;
+					}
+					if (i<(field_width-len)) {
+						OUT_C(zero_pad);
+					} else {
+						OUT_C(*s++);
+					}
+				}
+			}
+		}
+	}
+
+	OUT_C(0);
+
+exit:
+	return str-buf-1;
 }
 
-void numtohex2(char *dst, int n)
-{
-   int i;
-   static char hex[]="0123456789ABCDEF";
-   for (i=6; i<8; i++)
-   {
-      dst[i-6]=hex[(n>>((7-i)*4))&15];
-   }
+int vsprintf(char *xobuff, const char *xifmt, va_list args){
+    return vsnprintf(xobuff, (size_t)-1, xifmt, args);
 }
 
-// limited sprintf function - avoids pulling in large library
-int writeFormat(char *xibuff, size_t xcount, const char *xifmt, uint32_t xidata)
-{
-  // check for empty format
-  if (xifmt[0] == '\0')
-  {
-    *xibuff = '?';
-    return(1);
-  }
-  else
-  {
-    if ((xifmt[0] == '0') &&
-        (xifmt[1] == '8') &&
-        (xifmt[2] == 'l') &&
-        (xifmt[3] == 'X') &&
-        (xcount > 8))
-    {
-      numtohex8(xibuff, xidata);
-      return(8);
-    }
-    else if ((xifmt[0] == '0') &&
-             (xifmt[1] == '4') &&
-             (xifmt[2] == 'X') &&
-             (xcount > 4))
-    {
-      numtohex4(xibuff, xidata);
-      return(4);
-    }
-    else if ((xifmt[0] == '0') &&
-             (xifmt[1] == '2') &&
-             (xifmt[2] == 'X') &&
-             (xcount > 2))
-    {
-      numtohex2(xibuff, xidata);
-      return(2);
-    }
-    else if (xifmt[0] == 'c' && xcount > 1)
-    {
-      *xibuff = (unsigned char)xidata;
-      return(1);
-    }
-    else if (xifmt[0] == 's')
-    {
-      const char *lptr   = (const char *)xidata;
-      int         lcount = 0;
-      while ((*lptr != 0) && (lcount < xcount))
-      {
-        *xibuff++ = *lptr++;
-        lcount++;
-      }
-      return(lcount);
-    }
-    else if (xifmt[0] == 'd')
-    {
-      char lbuff[15];
-      int  lnumbuff = 0;
-      int  lcount = 0;
-      int  lchar;
-      int lnum   = (int)xidata;
-      if (lnum < 0)
-      {
-        *xibuff++ = '-';
-        lcount++;
-        lnum = 0 - lnum;
-      }
-
-      lchar = lnum % 10;
-      lbuff[0] = lchar + 48;
-      lnumbuff++;
-      lnum -= lchar;
-
-      while (lnum > 0)
-      {
-        lnum  = lnum / 10;
-        lchar = lnum % 10;
-        lbuff[lnumbuff++] = lchar + 48;
-        lnum -= lchar;
-      }
-
-      while (lnumbuff > 0 && lcount < xcount)
-      {
-        *xibuff++ = lbuff[--lnumbuff];
-        lcount++;
-      }
-
-      return(lcount);
-    }
-    else if ((xifmt[0] == 'p') && xcount > 8)
-    {
-      numtohex8(xibuff, xidata);
-      return(8);
-    }
-
-    return(0);
-  }
-}
-
-void vsnprintf(char *xobuff, size_t xsize, const char *xifmt, va_list args)
-{
-  char lfmt[10];
-  char *lfmtptr;
-
-  while (*xifmt != '\0' && xsize)
-  {
-    if (*xifmt != '%')
-    {
-      *xobuff++ = *xifmt++;
-    }
-    else
-    {
-      xifmt++;  // skip the %
-      lfmtptr = lfmt;
-      while ((*xifmt == '0')
-          || (*xifmt == '2')
-          || (*xifmt == '4')
-          || (*xifmt == '8')
-          || (*xifmt == 'l')
-          || (*xifmt == 'X')
-          || (*xifmt == 'd')
-          || (*xifmt == 'p')
-          || (*xifmt == 's')
-          || (*xifmt == 'c'))
-      {
-        *lfmtptr ++ = *xifmt++;
-      }
-      *lfmtptr = '\0';
-
-      size_t xidata = va_arg(args, size_t);
-
-      int n = writeFormat(xobuff, xsize, lfmt, xidata);
-      if (n < xsize) {
-        xsize -= n;
-        xobuff += n;
-      }
-      else {
-        xsize = 0;
-      }
-
-    }
-  }
-
-  *xobuff = '\0';
-}
-
-void vsprintf(char *xobuff, const char *xifmt, va_list args){
-    vsnprintf(xobuff, (size_t)-1, xifmt, args);
-}
-
-void snprintf(char *xobuff, size_t xsize, const char *xifmt, ...){
+int snprintf(char *xobuff, size_t xsize, const char *xifmt, ...){
     va_list args;
     va_start(args, xifmt);
-    vsnprintf(xobuff, xsize, xifmt, args);
+    return vsnprintf(xobuff, xsize, xifmt, args);
 }
 
 
-void sprintf(char *xobuff, const char *xifmt, ...){
+int sprintf(char *xobuff, const char *xifmt, ...){
     va_list args;
     va_start(args, xifmt);
-    vsnprintf(xobuff, (size_t)-1, xifmt, args);
+    return vsnprintf(xobuff, (size_t)-1, xifmt, args);
 }

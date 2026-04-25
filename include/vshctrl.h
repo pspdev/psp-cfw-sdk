@@ -68,6 +68,17 @@ int vctrlVSHRegisterVshMenu(int (* ctrl)(SceCtrlData *, int));
 
 
 /**
+ * Register VSH Menu drawing function.
+ * 
+ * @param[in] vshmenu_draw the function that will draw the vshmenu onto screen
+ * 
+ * @returns `0` on success, `< 0` on error.
+ *
+ * @attention Requires linking to `pspvshctrl` stub to be available.
+ */
+int vctrlVSHRegisterVshGuMenu(void (*vshmenu_draw)(void*));
+
+/**
  * Exits the vsh menu.
  *
  * vshmenu module must call this module after destroying vsh menu display and

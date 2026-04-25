@@ -50,3 +50,6 @@
 #ifdef F_libguglue_0014
 	IMPORT_FUNC  "guglue",0xB8730CB7,sceGuScissor
 #endif
+#ifdef F_libguglue_0015
+	IMPORT_FUNC  "guglue",0xEA4C24B3,sceGumDrawArray
+#endif

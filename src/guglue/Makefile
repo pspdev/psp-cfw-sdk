@@ -19,6 +19,7 @@ OBJS = \
 	libguglue_0012.o \
 	libguglue_0013.o \
 	libguglue_0014.o \
+	libguglue_0015.o \
 
 PSPSDK=$(shell psp-config --pspsdk-path)
 

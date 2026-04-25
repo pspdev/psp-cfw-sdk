@@ -76,7 +76,7 @@ int vctrlVSHRegisterVshMenu(int (* ctrl)(SceCtrlData *, int));
  *
  * @attention Requires linking to `pspvshctrl` stub to be available.
  */
-int vctrlVSHRegisterVshGuMenu(void (*vshmenu_draw)(void*));
+int vctrlVSHRegisterVshGuMenu(void (*vshmenu_draw)(void* frame));
 
 /**
  * Exits the vsh menu.

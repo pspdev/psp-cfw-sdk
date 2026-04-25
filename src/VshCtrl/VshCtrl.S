@@ -54,8 +54,11 @@
 	IMPORT_FUNC  "VshCtrlLib",0x39F5F78E,has_update_file
 #endif
 #ifdef F_VshCtrl_0016
-	IMPORT_FUNC  "VshCtrlLib",0x0B8D8F45,vctrlGetRegistryValue
+	IMPORT_FUNC  "VshCtrlLib",0x0C27B3BA,iso_has_valid_boot
 #endif
 #ifdef F_VshCtrl_0017
+	IMPORT_FUNC  "VshCtrlLib",0x0B8D8F45,vctrlGetRegistryValue
+#endif
+#ifdef F_VshCtrl_0018
 	IMPORT_FUNC  "VshCtrlLib",0x3A65060D,vctrlSetRegistryValue
 #endif

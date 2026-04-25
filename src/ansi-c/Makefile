@@ -37,7 +37,7 @@ C_OBJS = \
 	tolower.o \
 	lowerstring.o \
 	setlongjmp.o \
-	sprintf.o
+	printf.o
 
 OBJS = $(C_OBJS)
 

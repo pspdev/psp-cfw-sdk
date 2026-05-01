@@ -29,7 +29,7 @@ all:
 	$(MAKE) -C src/guglue
 	$(MAKE) -C src/ansi-c
 	$(MAKE) -C src/colordebugger
-	$(MAKE) -C src/screenprinter
+	$(MAKE) -C src/tinyfont
 	$(MAKE) -C src/mini2d
 	$(MAKE) -C src/LibPspExploit
 	$(MAKE) -C src/BootLoadEx
@@ -64,7 +64,8 @@ all:
 	$(Q)cp src/guglue/*.a libs
 	$(Q)cp src/ansi-c/*.a libs
 	$(Q)cp src/colordebugger/*.a libs
-	$(Q)cp src/screenprinter/*.a libs
+	$(Q)cp src/tinyfont/*.a libs
+	$(Q)cp src/tinyfont/tinyfont.h include
 	$(Q)cp src/mini2d/*.a libs
 	$(Q)cp src/LibPspExploit/*.a libs
 	$(Q)cp src/LibPspExploit/*.h include/
@@ -85,6 +86,7 @@ clean:
 	$(Q)rm -rf libs
 	$(Q)rm -rf include/iplsdk
 	$(Q)rm -f  include/libpspexploit.h
+	$(Q)rm -f  include/tinyfont.h
 	$(MAKE) -C src/KUBridge clean
 	$(MAKE) -C src/SystemCtrlForUser clean
 	$(MAKE) -C src/SystemCtrlForKernel clean
@@ -109,7 +111,7 @@ clean:
 	$(MAKE) -C src/guglue clean
 	$(MAKE) -C src/ansi-c clean
 	$(MAKE) -C src/colordebugger clean
-	$(MAKE) -C src/screenprinter clean
+	$(MAKE) -C src/tinyfont clean
 	$(MAKE) -C src/mini2d clean
 	$(MAKE) -C src/LibPspExploit clean
 	$(MAKE) -C src/BootLoadEx clean

@@ -1,11 +1,11 @@
 PSPSDK=$(shell psp-config --pspsdk-path)
 PSPDIR=$(shell psp-config --psp-prefix)
-TARGET_LIB = libscreenprinter.a
-OBJS = lib.o font.o screenprinter.o
+TARGET_LIB = libtinyfont.a
+OBJS = tinyfont.o
 
 all: $(TARGET_LIB)
-CFLAGS = -std=c99 -O2 -G0 -Wall -s -lstdc++ -I ../../include -L ../colordebugger
-LDFLAGS = -lcolordebugger
+CFLAGS = -std=c99 -O2 -G0 -Wall -s
+LDFLAGS =
 CXXFLAGS = $(CFLAGS) -fexceptions -fno-rtti
 PSP_FW_VERSION=660
 

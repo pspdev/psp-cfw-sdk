@@ -1,7 +1,7 @@
 PSPSDK=$(shell psp-config --pspsdk-path)
 PSPDIR=$(shell psp-config --psp-prefix)
 TARGET_LIB = libtinyfont.a
-OBJS = tinyfont.o
+OBJS = tinyfont.o font.o
 
 all: $(TARGET_LIB)
 CFLAGS = -std=c99 -O2 -G0 -Wall -s

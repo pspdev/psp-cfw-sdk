@@ -96,14 +96,18 @@ void tinyFontPrintTextBuffer(
                 if (state->sx < state->ix) {
                     state->ci++;
                     state->sx = state->ix + 8;
-                    if (state->ci >= strlen(text)+15){
+                    if (state->ci >= strlen(text)){
                         state->ci = 0;
-                        state->sk = 120;
+                        state->sk = 200;
                         state->sx = state->ix;
                     }
                 }
-                if (state->ci < strlen(text)) text += state->ci;
-                else return; // nothing to draw...
+                if (state->ci < strlen(text)-1) text += state->ci;
+                else {
+                    state->sk = 200;
+                    state->ci = 0;
+                    return;
+                }
             }
         }
         if (state->glow){
@@ -129,7 +133,7 @@ void tinyFontPrintTextBuffer(
                     // shadow color
                     u32 bgcolor = 0xFF000000;
                     if (state && state->glow){
-                        bgcolor = 0xFF000000 | (state->sc<<16) | (state->sc<<8) | (state->sc);
+                        bgcolor |= (state->sc<<16) | (state->sc<<8) | (state->sc);
                     }
                     // horizontal shadow
                     if (vram_ptr[-1] != color) vram_ptr[-1] = bgcolor;

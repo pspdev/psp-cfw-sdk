@@ -168,6 +168,9 @@ typedef struct {
     unsigned char advanced_vsh; // Choose to autoload into advanced vsh menu
     unsigned char avm_hidden[32]; // Hiden items in advanced vsh menu
     unsigned char app_autoboot; //Don't check if user is pressing LT when autobooting last game
+    unsigned char vshgu_bgcolor; // background color index for vshgu menu
+    unsigned char vshgu_textcolor; // text color index for vshgu menu
+    unsigned char vshgu_bgalpha; // background transparency index for vshgu menu
 } ArkMenuConf;
 
 

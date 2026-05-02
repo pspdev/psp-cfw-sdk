@@ -4,6 +4,10 @@
 
 #include <pspsdk.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct TinyFontState{
     int scroll; // enable/disable text scroll
     int sk; // scroll skip time (in frames)
@@ -46,5 +50,8 @@ void tinyFontPrintTextScreen(u8* font, int x, int y, const char* text, u32 color
 
 void tinyFontPrintTextScreenBuf(void* framebuf, u8* font, int x, int y, const char* text, u32 color, TinyFontState* state);
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif

@@ -1,1 +1,1 @@
-add_stub_lib(inferno_driver inferno_driver.S inferno_driver)
+add_stub_lib(psp_inferno_driver inferno_driver.S inferno_driver)

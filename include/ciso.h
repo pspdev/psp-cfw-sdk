@@ -1,6 +1,10 @@
 #ifndef PSP_CISO_H
 #define PSP_CISO_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdlib.h>
 #include <stdint.h>
 
@@ -121,5 +125,9 @@ enum CisoErrors{
 int ciso_open(CisoFile* file);
 int ciso_read(CisoFile* file, uint8_t* addr, uint32_t size, uint32_t offset);
 int ciso_close(CisoFile* file);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

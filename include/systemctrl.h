@@ -50,6 +50,7 @@ enum {
     PSP_9000   =  8,   // 09g
     PSP_11000  = 10,   // 11g
     PSP_GO     = PSP_5000,
+    PSP_GO2    = PSP_6000,
     PSP_STREET = PSP_11000,
 };
 

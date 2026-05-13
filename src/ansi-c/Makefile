@@ -9,6 +9,7 @@ C_OBJS = \
 	memcpy.o \
 	memset.o \
 	strcpy.o \
+	stpcpy.o \
 	strcat.o \
 	strlen.o \
 	strnlen.o \

@@ -174,10 +174,16 @@ typedef struct {
 } ArkMenuConf;
 
 
-/*
+/**
  * Function to obtain ARK's execution environment configuration.
  */
 void* sctrlArkGetConfig(ARKConfig* conf);
+
+/**
+ * Function to set ARK's execution environment configuration.
+ * @warning it can cause issues if not used with care, best reserved for internal ARK apps.
+ */
+void sctrlArkSetConfig(ARKConfig* conf);
 
 /**
  * Exit back to ARK's Custom Launcher.

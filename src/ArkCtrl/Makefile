@@ -6,6 +6,7 @@ OBJS = \
 	ArkCtrl_0000.o \
 	ArkCtrl_0001.o \
 	ArkCtrl_0002.o \
+	ArkCtrl_0003.o \
 
 
 PSPSDK=$(shell psp-config --pspsdk-path)

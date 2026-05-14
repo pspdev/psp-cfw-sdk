@@ -183,8 +183,11 @@ typedef struct {
 
 /**
  * Function to obtain ARK's execution environment configuration.
+ * 
+ * @param conf pointer to destination buffer where the config will be copied, can be NULL
+ * @returns conf if not null, else the pointer to internal structure (for kernel use only)
  */
-void* sctrlArkGetConfig(ARKConfig* conf);
+ARKConfig* sctrlArkGetConfig(ARKConfig* conf);
 
 /**
  * Function to set ARK's execution environment configuration.

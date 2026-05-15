@@ -38,6 +38,10 @@
 #define MSCACHE_BUFSIZE_MED (8  *1024)
 #define MSCACHE_BUFSIZE_MAX (16 * 1024)
 
+// cfw-agnostic flash0 libraries
+#define USBDEV_PRX_FLASH "flash0:/kd/usbdevice.prx" // USBDevice flash0 path
+#define IDSREG_PRX_FLASH "flash0:/kd/idsregeneration.prx" // idsRegeneration flash0 path
+
 // Different PSP models
 enum {
     PSP_1000   =  0,   // 01g

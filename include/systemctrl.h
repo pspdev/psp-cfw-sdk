@@ -95,10 +95,10 @@ enum ToolkitType {
 typedef int (* STMOD_HANDLER)(SceModule *);
 
 // data for HijackFunction
-typedef struct FunctionPatchData {
+typedef struct SctrlFunctionPatchData {
     unsigned int __instr__[5];
     unsigned int __extra_[3];
-} FunctionPatchData;
+} SctrlFunctionPatchData;
 
 // Decrypt extension functions
 typedef int (* KDEC_HANDLER)(u32 *buf, int size, int *retSize, int m);
@@ -688,7 +688,7 @@ u32 sctrlHENFindImportInMod(SceModule *mod, const char *libname, u32 nid);
  *
  * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be available.
  */
-void sctrlHENHijackFunction(FunctionPatchData* patch_data, void* func_addr, void* patch_func, void** orig_func);
+void sctrlHENHijackFunction(SctrlFunctionPatchData* patch_data, void* func_addr, void* patch_func, void** orig_func);
 
 /**
  * Sets a function to be called just before module_start of a module is gonna be called (useful for patching purposes)

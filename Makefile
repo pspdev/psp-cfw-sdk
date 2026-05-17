@@ -37,6 +37,7 @@ all:
 	$(MAKE) -C src/LibPspExploit
 	$(MAKE) -C src/BootLoadEx
 	$(MAKE) -C src/LibCisoRead
+	$(MAKE) -C src/popsdisplay
 	$(MAKE) -C src/iplsdk
 	$(MAKE) -C src/microlz
 	$(MAKE) -C src/idstorage_ms
@@ -74,9 +75,11 @@ all:
 	$(Q)cp src/tinyfont/tinyfont.h include
 	$(Q)cp src/mini2d/*.a libs
 	$(Q)cp src/LibPspExploit/*.a libs
-	$(Q)cp src/LibPspExploit/*.h include/
+	$(Q)cp src/LibPspExploit/*.h include
 	$(Q)cp src/BootLoadEx/*.a libs
 	$(Q)cp src/LibCisoRead/*.a libs
+	$(Q)cp src/popsdisplay/*.h include
+	$(Q)cp src/popsdisplay/*.a libs
 	$(Q)cp src/iplsdk/*.a libs
 	$(Q)cp src/iplsdk/include/*.h include/iplsdk
 	$(Q)cp src/microlz/*.a libs
@@ -93,6 +96,7 @@ clean:
 	$(Q)rm -rf include/iplsdk
 	$(Q)rm -f  include/libpspexploit.h
 	$(Q)rm -f  include/tinyfont.h
+	$(Q)rm -f  include/popsdisplay.h
 	$(MAKE) -C src/KUBridge clean
 	$(MAKE) -C src/SystemCtrlForUser clean
 	$(MAKE) -C src/SystemCtrlForKernel clean
@@ -125,6 +129,7 @@ clean:
 	$(MAKE) -C src/LibPspExploit clean
 	$(MAKE) -C src/BootLoadEx clean
 	$(MAKE) -C src/LibCisoRead clean
+	$(MAKE) -C src/popsdisplay clean
 	$(MAKE) -C src/iplsdk clean
 	$(MAKE) -C src/microlz clean
 	$(MAKE) -C src/idstorage_ms clean

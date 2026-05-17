@@ -27,6 +27,7 @@ all:
 	$(MAKE) -C src/libpspftp_stub
 	$(MAKE) -C src/libpng_stub
 	$(MAKE) -C src/guglue
+	$(MAKE) -C src/pspminicrt
 	$(MAKE) -C src/ansi-c
 	$(MAKE) -C src/pspmalloc
 	$(MAKE) -C src/colordebugger
@@ -63,6 +64,7 @@ all:
 	$(Q)cp src/libpspftp_stub/*.a libs
 	$(Q)cp src/libpng_stub/*.a libs
 	$(Q)cp src/guglue/*.a libs
+	$(Q)cp src/pspminicrt/*.a libs
 	$(Q)cp src/ansi-c/*.a libs
 	$(Q)cp src/pspmalloc/*.a libs
 	$(Q)cp src/colordebugger/*.a libs
@@ -111,6 +113,7 @@ clean:
 	$(MAKE) -C src/libpspftp_stub clean
 	$(MAKE) -C src/libpng_stub clean
 	$(MAKE) -C src/guglue clean
+	$(MAKE) -C src/pspminicrt clean
 	$(MAKE) -C src/ansi-c clean
 	$(MAKE) -C src/pspmalloc clean
 	$(MAKE) -C src/colordebugger clean

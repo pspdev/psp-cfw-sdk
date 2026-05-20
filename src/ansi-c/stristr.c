@@ -1,30 +1,18 @@
-extern int tolower(int s);
-extern char *strstr(const char *str1, const char *str2);
-extern char *strncpy(char *to, const char *from, unsigned int n);
+#include <stdlib.h>
 
-char *stristr(const char *str1, const char *str2) {
-    #define MAXLEN 256
+extern unsigned int strlen(const char * text);
+extern int strncasecmp(const char *a, const char *b, unsigned int count);
 
-    static char temp1[MAXLEN+1], temp2[MAXLEN+1];
-    temp1[MAXLEN] = 0;
-    temp2[MAXLEN] = 0;
-
-    strncpy(temp1, str1, MAXLEN);
-    strncpy(temp2, str2, MAXLEN);
-
-    int i;
-    for (i = 0; i < MAXLEN && (temp1[i] != 0); i++) {
-        temp1[i] = tolower((int)temp1[i]);
+char* stristr(const char* source, const char* search){
+    int len = strlen(search);
+    if (len > 0){
+        int i = 0;
+        while (source[i] != 0){
+            if (strncasecmp(&source[i], search, len)==0){
+                return (char*)&source[i];
+            }
+            i++;
+        }
     }
-
-    for (i = 0; i < MAXLEN && (temp2[i] != 0); i++) {
-        temp2[i] = tolower((int)temp2[i]);
-    }
-
-    const char *pos = strstr(temp1, temp2);
-    if (pos) {
-        return (char *)(pos - temp1 + str1);
-    }
-
-    return 0;
+    return NULL;
 }

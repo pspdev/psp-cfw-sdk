@@ -39,6 +39,15 @@ extern "C" {
 #define FAKE_UID 0x0B00B500
 
 // Paths and other global strings
+#define DEFAULT_ARK_FOLDER "ARK_01234"
+#define SAVEDATA_MS0 "ms0:/PSP/SAVEDATA/"
+#define SAVEDATA_EF0 "ef0:/PSP/SAVEDATA/"
+#define DEFAULT_ARK_PATH SAVEDATA_MS0 DEFAULT_ARK_FOLDER "/" // default path for ARK files
+#define DEFAULT_ARK_PATH_GO SAVEDATA_EF0 DEFAULT_ARK_FOLDER "/" // default path for ARK files
+#define ARK_DC_PATH "ms0:/TM/DCARK"
+#define ARK_DC_PATH_150 "ms0:/TM/DCARK/150"
+#define ARK_DC_IDSTOR_PATH "ms0:/TM/IDStorage/"
+#define TM_PATH_W L"\\TM\\DCARK\\"
 #define VBOOT_PBP "VBOOT.PBP" // default launcher
 #define ARK_XMENU "XBOOT.PBP" // PS1 launcher
 #define ARK_RECOVERY "RECOVERY.PBP" // recovery app
@@ -59,7 +68,9 @@ extern "C" {
 #define INTRAFONT_PRX "INTRAFON.PRX" // PNG library
 #define UNARCHIVE_PRX "UNARCH.PRX" // Unzip/Unrar PRX library
 #define XMBCTRL_PRX_FLASH "flash0:/kd/ark_xmbctrl.prx" // XMB Control flash0 path
-#define VSH_MENU_FLASH "flash0:/vsh/module/ark_satelite.prx" // VSH Menu flash0 path
+#define VSH_SATELITE_PATH "/vsh/module/ark_satelite.prx" // VSH Menu path
+#define VSH_MENU_FLASH "flash0:" VSH_SATELITE_PATH // VSH Menu flash0 path
+#define VSH_MENU_DC ARK_DC_PATH VSH_SATELITE_PATH // VSH Menu DC path
 #define RECOVERY_PRX_FLASH "flash0:/vsh/module/ark_recovery.prx" // Classic Recovery flash0 path
 #define H_FILE "H.BIN" // user exploit binloader
 #define K_FILE "K.BIN" // kernel exploit file for Live loaders
@@ -82,15 +93,6 @@ extern "C" {
 #define LIVE_EXPLOIT_ID "Live" // default loader name
 #define CIPL_EXPLOIT_ID "cIPL" // loader name for Custom IPL
 #define DC_EXPLOIT_ID "DC" // loader name for Despertar del Cementerio
-#define DEFAULT_ARK_FOLDER "ARK_01234"
-#define SAVEDATA_MS0 "ms0:/PSP/SAVEDATA/"
-#define SAVEDATA_EF0 "ef0:/PSP/SAVEDATA/"
-#define DEFAULT_ARK_PATH SAVEDATA_MS0 DEFAULT_ARK_FOLDER "/" // default path for ARK files
-#define DEFAULT_ARK_PATH_GO SAVEDATA_EF0 DEFAULT_ARK_FOLDER "/" // default path for ARK files
-#define ARK_DC_PATH "ms0:/TM/DCARK"
-#define ARK_DC_PATH_150 "ms0:/TM/DCARK/150"
-#define ARK_DC_IDSTOR_PATH "ms0:/TM/IDStorage/"
-#define TM_PATH_W L"\\TM\\DCARK\\"
 
 // Syscon mem address used for 1.50 resume support
 #define SYSCON_SCRATCHPAD_RESUME_FW_ADDR 0x4

@@ -47,6 +47,7 @@ extern "C" {
 #define ARK_DC_PATH "ms0:/TM/DCARK"
 #define ARK_DC_PATH_150 "ms0:/TM/DCARK/150"
 #define ARK_DC_IDSTOR_PATH "ms0:/TM/IDStorage/"
+#define DEFAULT_ARK_PATH_DC ARK_DC_PATH "/" DEFAULT_ARK_FOLDER "/"
 #define TM_PATH_W L"\\TM\\DCARK\\"
 #define VBOOT_PBP "VBOOT.PBP" // default launcher
 #define ARK_XMENU "XBOOT.PBP" // PS1 launcher

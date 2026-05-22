@@ -17,3 +17,6 @@
 #ifdef F_ArkCtrl_0003
 	IMPORT_FUNC  "ArkCtrl",0x8476E2F1,sctrlArkExitLauncher
 #endif
+#ifdef F_ArkCtrl_0004
+	IMPORT_FUNC  "ArkCtrl",0x65C8280F,sctrlArkIsLauncher
+#endif

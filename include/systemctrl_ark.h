@@ -192,13 +192,25 @@ ARKConfig* sctrlArkGetConfig(ARKConfig* conf);
 
 /**
  * Function to set ARK's execution environment configuration.
+ * 
+ * @param conf pointer to an ARKConfig structure.
  * @warning it can cause issues if not used with care, best reserved for internal ARK apps.
  */
 void sctrlArkSetConfig(ARKConfig* conf);
 
 /**
+ * Check if running within ARK's custom launcher.
+ * 
+ * @returns boolean, true if running CL, false otherwise
+ * @warning the function does not specify which launcher is actually running
+ */
+int sctrlArkIsLauncher(void);
+
+/**
  * Exit back to ARK's Custom Launcher.
  * If launcher is unavailable, it will do an exitVSH.
+ * 
+ * @returns should be a no-return function, if it does return then something failed.
  */
 int sctrlArkExitLauncher(void);
 
@@ -207,4 +219,3 @@ int sctrlArkExitLauncher(void);
 #endif
 
 #endif
-

@@ -4,10 +4,6 @@
 #include <pspsysmem_kernel.h>
 #include <pspiofilemgr.h>
 
-#include <cfwmacros.h>
-#include <systemctrl.h>
-#include <systemctrl_ark.h>
-
 #include "popsdisplay.h"
 
 

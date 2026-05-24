@@ -83,11 +83,13 @@ extern "C" {
 #define ARK_SETTINGS_FLASH FLASH1_PATH ARK_SETTINGS
 #define UPDATER_FILE_FLASH FLASH1_PATH UPDATER_FILE // Update Server URL file flash1 path
 #define PLUGINS_FILE "PLUGINS.TXT" // plugins config file
+#define PLUGINS150_FILE "PLUGINS150.TXT" // plugins config file
 #define SEPLUGINS_MS0 "ms0:/SEPLUGINS/" // plugins folder
 #define SEPLUGINS_EF0 "ef0:/SEPLUGINS/" // plugins folder (pspgo internal)
 #define PLUGINS_PATH SEPLUGINS_MS0 PLUGINS_FILE
 #define PLUGINS_PATH_GO SEPLUGINS_EF0 PLUGINS_FILE
 #define PLUGINS_PATH_FLASH FLASH0_PATH PLUGINS_FILE
+#define PLUGINS150_PATH SEPLUGINS_MS0 PLUGINS150_FILE
 #define ARK_THEME_FILE "THEME.ARK" // theme file for arkMenu
 #define ARK_LANG_FILE "LANG.ARK" // language files
 #define ARK_BIN "ARK.BIN" // ARK-2 payload

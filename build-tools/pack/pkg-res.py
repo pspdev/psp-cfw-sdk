@@ -24,6 +24,9 @@ for resource in RESOURCES:
 
     CUR_DIR = os.path.join(RESOURCES_DIR, resource)
     RES_DIR = os.path.join(CUR_DIR, 'resources')
+
+    if not os.path.isdir(RES_DIR): continue
+
     dir = os.listdir(RES_DIR)
     dir.sort()
 

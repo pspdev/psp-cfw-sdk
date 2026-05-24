@@ -32,6 +32,7 @@ extern "C" {
 // Pointers and sizes
 #define ARK_PATH_SIZE 128
 #define ARK_CONFIG 0x08800010 // ARK Runtime configuration backup address
+#define ARK_CONFIG_150 0x08800150 // ARK-150 Runtime configuration backup address
 #define ARK_CONFIG_MAGIC 0xB00B1E55 // generic magic number
 #define VITA_FLASH_ARK 0x8BA00000 // ark's flash ramfs on vita
 #define ARK_BIN_MAX_SIZE 0x8000 // max size of ARK4.BIN
@@ -78,6 +79,7 @@ extern "C" {
 #define UPDATER_FILE "UPDATER.TXT" // Update Server URL file
 #define ARK_SETTINGS "SETTINGS.TXT" // CFW Settings file
 #define MENU_SETTINGS "ARKMENU.BIN" // Settings file for CL and VSH Menu
+#define MENU150_SETTINGS "ARKMENU150.BIN" // Settings file for 1.50 VSH Menu
 #define ARK_SETTINGS_FLASH FLASH1_PATH ARK_SETTINGS
 #define UPDATER_FILE_FLASH FLASH1_PATH UPDATER_FILE // Update Server URL file flash1 path
 #define PLUGINS_FILE "PLUGINS.TXT" // plugins config file

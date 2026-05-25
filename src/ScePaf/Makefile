@@ -1,4 +1,4 @@
-TARGET=libpsppaf.a
+TARGET=libpspcpaf.a
 
 all: $(TARGET)
 STUBSRC = ScePaf.S

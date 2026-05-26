@@ -252,11 +252,11 @@ typedef struct SEConfigARK {
     u8 hibblock;
     u8 oldplugin;
     u8 msspeed;
-    u8 noled; // always false
+    u8 noled;
+	u8 vitamute;
     u8 wpa2; // patch to use wpa2
     u8 force_high_memory;
     u8 custom_update;
-	u8 vitamute;
 	u16 custom_cpu_clock;
 	u16 custom_bus_clock;
 } SEConfigARK;

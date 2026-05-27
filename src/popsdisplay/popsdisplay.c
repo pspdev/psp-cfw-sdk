@@ -9,22 +9,22 @@
 
 // Vram address and config
 u16* pops_vram = (u16*)0x490C0000;
-POPSVramConfig* vram_config = (POPSVramConfig*)0x49FE0000;
+POPSVramConfig* pops_vram_config = (POPSVramConfig*)0x49FE0000;
 
 // initialize POPS VRAM
 void popsDisplayInit(){
     memset((void *)pops_vram, 0, 0x3C0000);
-    vram_config->counter = 0;
-    vram_config->configs[0].x = 0x1F6;
-    vram_config->configs[0].y = 0;
-    vram_config->configs[0].width = 640*4;
-    vram_config->configs[0].height = 240;
-    vram_config->configs[0].color_width = sizeof(u16);
-    vram_config->configs[0].cur_buffer = 0;
+    pops_vram_config->counter = 0;
+    pops_vram_config->configs[0].x = 0x1F6;
+    pops_vram_config->configs[0].y = 0;
+    pops_vram_config->configs[0].width = 640*4;
+    pops_vram_config->configs[0].height = 240;
+    pops_vram_config->configs[0].color_width = sizeof(u16);
+    pops_vram_config->configs[0].cur_buffer = 0;
 }
 
 // PSP to PSX Color Conversion
-static u16 RGBA8888_to_RGBA5551(u32 color)
+static inline u16 RGBA8888_to_RGBA5551(u32 color)
 {
     int r, g, b, a;
     a = (color >> 24) ? 0x8000 : 0;
@@ -35,12 +35,12 @@ static u16 RGBA8888_to_RGBA5551(u32 color)
 }
 
 
-static u32 GetPopsVramAddr(u32 framebuffer, int x, int y)
+static inline u32 GetPopsVramAddr(u32 framebuffer, int x, int y)
 {
     return framebuffer + x * 2 + y * 640 * 4;
 }
 
-static u32 GetPspVramAddr(u32 framebuffer, int x, int y)
+static inline u32 GetPspVramAddr(u32 framebuffer, int x, int y)
 {
     return framebuffer + x * 4 + y * 512 * 4;
 }

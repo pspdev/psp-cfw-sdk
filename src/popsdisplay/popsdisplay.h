@@ -23,8 +23,8 @@ typedef struct POPSVramConfig{
     unsigned char counter;
 }POPSVramConfig;
 
-extern POPSVramConfig* vram_config;
 extern u16* pops_vram;
+extern POPSVramConfig* pops_vram_config;
 
 // Initialize PSX Vram
 void popsDisplayInit();

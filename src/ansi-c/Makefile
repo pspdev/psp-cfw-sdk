@@ -22,6 +22,7 @@ C_OBJS = \
 	strtok.o \
 	strdup.o \
 	strndup.o \
+	strtrim.o \
 	memfindsz.o \
 	memfindu32.o \
 	strhex32.o \

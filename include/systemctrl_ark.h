@@ -74,13 +74,16 @@ extern "C" {
 #define VSH_MENU_FLASH "flash0:" VSH_SATELITE_PATH // VSH Menu flash0 path
 #define VSH_MENU_DC ARK_DC_PATH VSH_SATELITE_PATH // VSH Menu DC path
 #define RECOVERY_PRX_FLASH "flash0:/vsh/module/ark_recovery.prx" // Classic Recovery flash0 path
+#define RECOVERY150_PRX_FLASH "flash0:/vsh/module/ark_recovery150.prx"
 #define H_FILE "H.BIN" // user exploit binloader
 #define K_FILE "K.BIN" // kernel exploit file for Live loaders
 #define UPDATER_FILE "UPDATER.TXT" // Update Server URL file
 #define ARK_SETTINGS "SETTINGS.TXT" // CFW Settings file
+#define ARK_SETTINGS150 "SETTINGS150.TXT" // CFW Settings file
 #define MENU_SETTINGS "ARKMENU.BIN" // Settings file for CL and VSH Menu
 #define MENU150_SETTINGS "ARKMENU150.BIN" // Settings file for 1.50 VSH Menu
 #define ARK_SETTINGS_FLASH FLASH1_PATH ARK_SETTINGS
+#define ARK_SETTINGS150_FLASH FLASH1_PATH ARK_SETTINGS150
 #define UPDATER_FILE_FLASH FLASH1_PATH UPDATER_FILE // Update Server URL file flash1 path
 #define PLUGINS_FILE "PLUGINS.TXT" // plugins config file
 #define PLUGINS150_FILE "PLUGINS150.TXT" // plugins config file

@@ -261,12 +261,32 @@ typedef struct SEConfigARK {
 	u16 custom_bus_clock;
 } SEConfigARK;
 
+// ARK's SEConfig
+typedef struct SEConfigARK150 {
+    u32 magic; // ARK_CONFIG_MAGIC
+    u8 cpubus_clock;
+    u8 vshregion;
+    u8 hidemac;
+    u8 noanalog;
+    u8 qaflags; // enable QA flags patch
+    u8 hidepics;
+    u8 skiplogos;
+    u8 noumd;
+    u8 msspeed;
+    u8 noled;
+	u8 vitamute;
+	u16 custom_cpu_clock;
+	u16 custom_bus_clock;
+} SEConfigARK150;
+
+
 // Forward declaration
 typedef union {
-    SEConfigM33 m33;
-    SEConfigPRO pro;
-    SEConfigEPI adr;
-    SEConfigARK ark;
+    SEConfigM33    m33;
+    SEConfigPRO    pro;
+    SEConfigEPI    adr;
+    SEConfigARK    ark;
+	SEConfigARK150 ark150;
 } SEConfig;
 
 #ifdef __cplusplus

@@ -26,14 +26,12 @@ void popsDisplayInit(){
 // PSP to PSX Color Conversion
 static inline u16 RGBA8888_to_RGBA5551(u32 color)
 {
-    int r, g, b, a;
-    a = (color >> 24) ? 0x8000 : 0;
+    int r, g, b;
     b = (color >> 19) & 0x1F;
     g = (color >> 11) & 0x1F;
     r = (color >> 3) & 0x1F;
-    return a | r | (g << 5) | (b << 10);
+    return r | (g << 5) | (b << 10);
 }
-
 
 static inline u32 GetPopsVramAddr(u32 framebuffer, int x, int y)
 {

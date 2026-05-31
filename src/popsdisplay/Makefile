@@ -10,7 +10,7 @@ PSPSDK=$(shell psp-config --pspsdk-path)
 
 CC=psp-gcc
 INCDIR = 
-CFLAGS = -std=c99 -Wall -Os -G0 -fno-pic -fno-builtin
+CFLAGS = -std=c99 -Wall -O3 -G0 -fno-pic -fno-builtin
 CXXFLAGS = $(CFLAGS) -fno-exceptions -fno-rtti
 ASFLAGS = $(CFLAGS)
 LIBDIR =

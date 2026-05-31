@@ -119,12 +119,12 @@ void tinyFontPrintTextBuffer(
         }
     }
 
-    for (c = 0; c < strlen(text); c++) {
+    for (c = 0; text[c]; c++) {
         if (x < 0 || x + 8 > buf_w || y < 0 || y + 8 > buf_h) break;
-        char ch = text[c];
+        u8 ch = (u8)text[c];
         vram = buffer + x + y * pow2_w;
         
-        font_ptr = &font[ (int)ch * 8];
+        font_ptr = &font[ ((unsigned)ch) * 8];
         for (i = l = 0; i < 8; i++, l += 8, font_ptr++) {
             vram_ptr  = vram;
             for (j = 0; j < 8; j++) {

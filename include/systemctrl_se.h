@@ -265,12 +265,8 @@ typedef struct SEConfigARK {
 typedef struct SEConfigARK150 {
     u32 magic; // ARK_CONFIG_MAGIC
     u8 cpubus_clock;
-    u8 vshregion;
     u8 hidemac;
     u8 noanalog;
-    u8 qaflags; // enable QA flags patch
-    u8 hidepics;
-    u8 skiplogos;
     u8 noumd;
     u8 msspeed;
     u8 noled;

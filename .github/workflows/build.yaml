@@ -1,45 +1,46 @@
 name: building psp-cfw-sdk
 on: [push]
 jobs:
-  run-on: ubuntu-latest
-  steps:
-    - uses: actions/checkout@v6
-    - name: update repo
-      run: apt-get update
+  build:
+    run-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: update repo
+        run: apt-get update
 
-    - name: Install deps
-      run: apt-get install curl p7zip-full -y
+      - name: Install deps
+        run: apt-get install curl p7zip-full -y
 
-    - name: Download latest sdk/toolchain and unpack
-      run: curl -OJL https://github.com/pspdev/pspdev/releases/latest/download/pspdev-ubuntu-latest-x86_64.tar.gz && tar xzvf pspdev-ubuntu-latest-x86_64.tar.gz -C /usr/local
-    
-    - name: Setup ENV
-      run: export PSPDEV=/usr/local/pspdev && export PATH="$PATH:$PSPDEV/bin"
+      - name: Download latest sdk/toolchain and unpack
+        run: curl -OJL https://github.com/pspdev/pspdev/releases/latest/download/pspdev-ubuntu-latest-x86_64.tar.gz && tar xzvf pspdev-ubuntu-latest-x86_64.tar.gz -C /usr/local
+      
+      - name: Setup ENV
+        run: export PSPDEV=/usr/local/pspdev && export PATH="$PATH:$PSPDEV/bin"
 
-    - name: Compile psp-cfw-sdk
-      run: psp-cmake .
+      - name: Compile psp-cfw-sdk
+        run: psp-cmake .
 
-    - name: Make local dirs
-      run: mkdir -p usr/local/pspdev/psp/sdk{lib,include} && mkdir -p usr/local/pspdev/share/psp-cfw-sdk
+      - name: Make local dirs
+        run: mkdir -p usr/local/pspdev/psp/sdk{lib,include} && mkdir -p usr/local/pspdev/share/psp-cfw-sdk
 
-    - name: copy libs to local dir
-      run: cp -r libs/* usr/local/pspdev/psp/sdk/lib/
+      - name: copy libs to local dir
+        run: cp -r libs/* usr/local/pspdev/psp/sdk/lib/
 
-    - name: copy headers to local dir
-      run: cp -r include/* usr/local/pspdev/psp/sdk/include/
+      - name: copy headers to local dir
+        run: cp -r include/* usr/local/pspdev/psp/sdk/include/
 
-    - name: copy build-tools to local dir
-      run: cp -r build-tools usr/local/pspdev/share/psp-cfw-sdk/
+      - name: copy build-tools to local dir
+        run: cp -r build-tools usr/local/pspdev/share/psp-cfw-sdk/
 
-    - name: Compress it up!
-      run: zip -r psp-cfw-sdk.zip ./usr
-    
-    - name: Release
-      uses: softprops/action-gh-release@v1
-      with:
-        files: psp-cfw-sdk.zip
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Compress it up!
+        run: zip -r psp-cfw-sdk.zip ./usr
+      
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: psp-cfw-sdk.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
 

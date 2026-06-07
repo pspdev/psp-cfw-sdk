@@ -12,7 +12,10 @@ jobs:
         run: sudo apt-get install curl p7zip-full -y
 
       - name: Download latest sdk/toolchain and unpack
-        run: curl -OJL https://github.com/pspdev/pspdev/releases/latest/download/pspdev-ubuntu-latest-x86_64.tar.gz && tar xzvf pspdev-ubuntu-latest-x86_64.tar.gz -C /usr/local
+        run: curl -OJL https://github.com/pspdev/pspdev/releases/latest/download/pspdev-ubuntu-latest-x86_64.tar.gz && sudo tar xzvf pspdev-ubuntu-latest-x86_64.tar.gz -C /usr/local
+
+      - name: Change perms
+        run: chown $USER:$USER /usr/local/pspdev
       
       - name: Setup ENV
         run: export PSPDEV=/usr/local/pspdev && export PATH="$PATH:$PSPDEV/bin"

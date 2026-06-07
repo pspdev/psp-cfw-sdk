@@ -26,7 +26,7 @@ jobs:
         run: /usr/local/pspdev/bin/psp-cmake .
 
       - name: Make local dirs
-        run: mkdir -p usr/local/pspdev/psp/sdk{lib,include} && mkdir -p usr/local/pspdev/share/psp-cfw-sdk
+        run: mkdir -p usr/local/pspdev/psp/sdk/{lib,include} && mkdir -p usr/local/pspdev/share/psp-cfw-sdk
 
       - name: copy libs to local dir
         run: cp -r libs/* usr/local/pspdev/psp/sdk/lib/

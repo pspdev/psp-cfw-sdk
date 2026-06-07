@@ -44,8 +44,11 @@ jobs:
         run: zip -r psp-cfw-sdk.zip ./usr
       
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
+          tag_name: latest
+          prerelease: true
+          make_latest: true
           files: psp-cfw-sdk.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,5 +1,9 @@
 name: building psp-cfw-sdk
 on: [push]
+
+env: 
+  PSPDEV: "/usr/local/pspdev"
+  PATH: "$PATH:$PSPDEV/bin"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,9 +21,6 @@ jobs:
       - name: Change perms
         run: chown $USER:$USER /usr/local/pspdev
       
-      - name: Setup ENV
-        run: export PSPDEV=/usr/local/pspdev && export PATH="$PATH:$PSPDEV/bin"
-
       - name: Compile psp-cfw-sdk
         run: /usr/local/pspdev/bin/psp-cmake .
 

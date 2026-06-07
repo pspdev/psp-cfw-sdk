@@ -23,7 +23,7 @@ jobs:
         run: chown $USER:$USER /usr/local/pspdev
       
       - name: Compile psp-cfw-sdk
-        run: /usr/local/pspdev/bin/psp-cmake .
+        run: make
 
       - name: Make local dirs
         run: mkdir -p usr/local/pspdev/psp/sdk/{lib,include} && mkdir -p usr/local/pspdev/share/psp-cfw-sdk

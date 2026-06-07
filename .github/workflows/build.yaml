@@ -2,7 +2,7 @@ name: building psp-cfw-sdk
 on: [push]
 jobs:
   build:
-    run-on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
       - name: update repo

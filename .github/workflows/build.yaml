@@ -44,7 +44,7 @@ jobs:
         run: zip -r psp-cfw-sdk.zip ./usr
       
       - name: Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: latest
           prerelease: true

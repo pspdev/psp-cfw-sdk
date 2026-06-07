@@ -6,10 +6,10 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: update repo
-        run: apt-get update
+        run: sudo apt-get update
 
       - name: Install deps
-        run: apt-get install curl p7zip-full -y
+        run: sudo apt-get install curl p7zip-full -y
 
       - name: Download latest sdk/toolchain and unpack
         run: curl -OJL https://github.com/pspdev/pspdev/releases/latest/download/pspdev-ubuntu-latest-x86_64.tar.gz && tar xzvf pspdev-ubuntu-latest-x86_64.tar.gz -C /usr/local

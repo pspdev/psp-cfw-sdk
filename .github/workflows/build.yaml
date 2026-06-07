@@ -21,7 +21,7 @@ jobs:
         run: export PSPDEV=/usr/local/pspdev && export PATH="$PATH:$PSPDEV/bin"
 
       - name: Compile psp-cfw-sdk
-        run: psp-cmake .
+        run: /usr/local/pspdev/bin/psp-cmake .
 
       - name: Make local dirs
         run: mkdir -p usr/local/pspdev/psp/sdk{lib,include} && mkdir -p usr/local/pspdev/share/psp-cfw-sdk

@@ -3,12 +3,13 @@ on: [push]
 
 env: 
   PSPDEV: "/usr/local/pspdev"
-  PATH: "$PATH:$PSPDEV/bin"
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+      - name: Add pspdev/bin to path
+        run: echo "$PSPDEV/bin" >> $GITHUB_PATH
       - name: update repo
         run: sudo apt-get update
 

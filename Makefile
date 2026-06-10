@@ -41,62 +41,62 @@ all:
 	$(MAKE) -C src/iplsdk
 	$(MAKE) -C src/microlz
 	$(MAKE) -C src/idstorage_ms
-	$(Q)mkdir -p libs
-	$(Q)mkdir -p include/iplsdk
-	$(Q)cp src/pre-built/*.a libs/
-	$(Q)cp src/KUBridge/*.a libs/
-	$(Q)cp src/SystemCtrlForUser/*.a libs
-	$(Q)cp src/SystemCtrlForKernel/*.a libs
-	$(Q)cp src/VshCtrl/*.a libs
-	$(Q)cp src/ArkCtrl/*.a libs
-	$(Q)cp src/AdrenalineCtrl/*.a libs
-	$(Q)cp src/SysclibForUser/*.a libs
-	$(Q)cp src/inferno_driver/*.a libs
-	$(Q)cp src/isoCtrl_driver/*.a libs
-	$(Q)cp src/DcManager/*.a libs
-	$(Q)cp src/idsRegeneration/*.a libs
-	$(Q)cp src/idsRegeneration_driver/*.a libs
-	$(Q)cp src/pspIplUpdate/*.a libs
-	$(Q)cp src/pspKbootiUpdate/*.a libs
-	$(Q)cp src/pspDecrypt/*.a libs
-	$(Q)cp src/pspPSAR/*.a libs
-	$(Q)cp src/kpspident/*.a libs
-	$(Q)cp src/libintraFont_stub/*.a libs
-	$(Q)cp src/libpspav_stub/*.a libs
-	$(Q)cp src/libpspftp_stub/*.a libs
-	$(Q)cp src/libpng_stub/*.a libs
-	$(Q)cp src/guglue/*.a libs
-	$(Q)cp src/ScePaf/*.a libs
-	$(Q)cp src/pspminicrt/*.a libs
-	$(Q)cp src/ansi-c/*.a libs
-	$(Q)cp src/pspmalloc/*.a libs
-	$(Q)cp src/colordebugger/*.a libs
-	$(Q)cp src/tinyfont/*.a libs
-	$(Q)cp src/tinyfont/tinyfont.h include
-	$(Q)cp src/mini2d/*.a libs
-	$(Q)cp src/LibPspExploit/*.a libs
-	$(Q)cp src/LibPspExploit/*.h include
-	$(Q)cp src/BootLoadEx/*.a libs
-	$(Q)cp src/LibCisoRead/*.a libs
-	$(Q)cp src/popsdisplay/*.h include
-	$(Q)cp src/popsdisplay/*.a libs
-	$(Q)cp src/iplsdk/*.a libs
-	$(Q)cp src/iplsdk/include/*.h include/iplsdk
-	$(Q)cp src/microlz/*.a libs
-	$(Q)cp src/idstorage_ms/*.a libs
+	mkdir -p libs
+	mkdir -p include/iplsdk
+	cp src/pre-built/*.a libs/
+	cp src/KUBridge/*.a libs/
+	cp src/SystemCtrlForUser/*.a libs
+	cp src/SystemCtrlForKernel/*.a libs
+	cp src/VshCtrl/*.a libs
+	cp src/ArkCtrl/*.a libs
+	cp src/AdrenalineCtrl/*.a libs
+	cp src/SysclibForUser/*.a libs
+	cp src/inferno_driver/*.a libs
+	cp src/isoCtrl_driver/*.a libs
+	cp src/DcManager/*.a libs
+	cp src/idsRegeneration/*.a libs
+	cp src/idsRegeneration_driver/*.a libs
+	cp src/pspIplUpdate/*.a libs
+	cp src/pspKbootiUpdate/*.a libs
+	cp src/pspDecrypt/*.a libs
+	cp src/pspPSAR/*.a libs
+	cp src/kpspident/*.a libs
+	cp src/libintraFont_stub/*.a libs
+	cp src/libpspav_stub/*.a libs
+	cp src/libpspftp_stub/*.a libs
+	cp src/libpng_stub/*.a libs
+	cp src/guglue/*.a libs
+	cp src/ScePaf/*.a libs
+	cp src/pspminicrt/*.a libs
+	cp src/ansi-c/*.a libs
+	cp src/pspmalloc/*.a libs
+	cp src/colordebugger/*.a libs
+	cp src/tinyfont/*.a libs
+	cp src/tinyfont/tinyfont.h include
+	cp src/mini2d/*.a libs
+	cp src/LibPspExploit/*.a libs
+	cp src/LibPspExploit/*.h include
+	cp src/BootLoadEx/*.a libs
+	cp src/LibCisoRead/*.a libs
+	cp src/popsdisplay/*.h include
+	cp src/popsdisplay/*.a libs
+	cp src/iplsdk/*.a libs
+	cp src/iplsdk/include/*.h include/iplsdk
+	cp src/microlz/*.a libs
+	cp src/idstorage_ms/*.a libs
 
 install: all
-	$(Q)cp -r include/* $(PSPSDK)/include/
-	$(Q)cp -r libs/* $(PSPSDK)/lib/
-	$(Q)mkdir -p $(CFWSDK)/build-tools
-	$(Q)cp -r build-tools $(CFWSDK)/
+	cp -r include/* $(PSPSDK)/include/
+	cp -r libs/* $(PSPSDK)/lib/
+	mkdir -p $(CFWSDK)/build-tools
+	cp -r build-tools $(CFWSDK)/
 
 clean:
-	$(Q)rm -rf libs
-	$(Q)rm -rf include/iplsdk
-	$(Q)rm -f  include/libpspexploit.h
-	$(Q)rm -f  include/tinyfont.h
-	$(Q)rm -f  include/popsdisplay.h
+	rm -rf libs
+	rm -rf include/iplsdk
+	rm -f  include/libpspexploit.h
+	rm -f  include/tinyfont.h
+	rm -f  include/popsdisplay.h
 	$(MAKE) -C src/KUBridge clean
 	$(MAKE) -C src/SystemCtrlForUser clean
 	$(MAKE) -C src/SystemCtrlForKernel clean

@@ -21,6 +21,51 @@ OBJS = \
 	ScePaf_0015.o \
 	ScePaf_0016.o \
 	ScePaf_0017.o \
+	ScePaf_0018.o \
+	ScePaf_0019.o \
+	ScePaf_0020.o \
+	ScePaf_0021.o \
+	ScePaf_0022.o \
+	ScePaf_0023.o \
+	ScePaf_0024.o \
+	ScePaf_0025.o \
+	ScePaf_0026.o \
+	ScePaf_0027.o \
+	ScePaf_0028.o \
+	ScePaf_0029.o \
+	ScePaf_0030.o \
+	ScePaf_0031.o \
+	ScePaf_0032.o \
+	ScePaf_0033.o \
+	ScePaf_0034.o \
+	ScePaf_0035.o \
+	ScePaf_0036.o \
+	ScePaf_0037.o \
+	ScePaf_0038.o \
+	ScePaf_0039.o \
+	ScePaf_0040.o \
+	ScePaf_0041.o \
+	ScePaf_0042.o \
+	ScePaf_0043.o \
+	ScePaf_0044.o \
+	ScePaf_0045.o \
+	ScePaf_0046.o \
+	ScePaf_0047.o \
+	ScePaf_0048.o \
+	ScePaf_0049.o \
+	ScePaf_0050.o \
+	ScePaf_0051.o \
+	ScePaf_0052.o \
+	ScePaf_0053.o \
+	ScePaf_0054.o \
+	ScePaf_0055.o \
+	ScePaf_0056.o \
+	ScePaf_0057.o \
+	ScePaf_0058.o \
+	ScePaf_0059.o \
+	ScePaf_0060.o \
+	ScePaf_0061.o \
+	ScePaf_0062.o
 
 PSPSDK=$(shell psp-config --pspsdk-path)
 

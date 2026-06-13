@@ -65,7 +65,22 @@ OBJS = \
 	ScePaf_0059.o \
 	ScePaf_0060.o \
 	ScePaf_0061.o \
-	ScePaf_0062.o
+	ScePaf_0062.o \
+	ScePaf_0063.o \
+	ScePaf_0064.o \
+	ScePaf_0065.o \
+	ScePaf_0066.o \
+	ScePaf_0067.o \
+	ScePaf_0068.o \
+	ScePaf_0069.o \
+	ScePaf_0070.o \
+	ScePaf_0071.o \
+	ScePaf_0072.o \
+	ScePaf_0073.o \
+	ScePaf_0074.o \
+	ScePaf_0075.o \
+	ScePaf_0076.o
+
 
 PSPSDK=$(shell psp-config --pspsdk-path)
 

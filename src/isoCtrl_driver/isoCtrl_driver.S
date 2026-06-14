@@ -17,3 +17,6 @@
 #ifdef F_isoCtrl_driver_0003
 	IMPORT_FUNC  "isoCtrl_driver",0x3F83B110,isoReadUmdFile
 #endif
+#ifdef F_isoCtrl_driver_0004
+	IMPORT_FUNC  "isoCtrl_driver",0x2830271E,isoSetUmdFile
+#endif

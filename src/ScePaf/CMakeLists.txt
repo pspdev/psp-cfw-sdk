@@ -1,1 +1,0 @@
-add_stub_lib(psppaf ScePaf.S ScePaf)

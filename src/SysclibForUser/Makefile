@@ -53,7 +53,7 @@ PSPSDK=$(shell psp-config --pspsdk-path)
 
 CC=psp-gcc
 INCDIR =
-CFLAGS = -std=c99 -Os -G0 -Wall -fno-builtin-printf -I$(PSPSDK)/include
+CFLAGS = -std=c99 -Os -G0 -Wall -I$(PSPSDK)/include
 CXXFLAGS = $(CFLAGS) -fno-exceptions -fno-rtti
 ASFLAGS = $(CFLAGS)
 LDFLAGS=-nodefaultlibs

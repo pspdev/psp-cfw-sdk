@@ -27,7 +27,7 @@ all:
 	$(MAKE) -C src/libpspftp_stub
 	$(MAKE) -C src/libpng_stub
 	$(MAKE) -C src/guglue
-	$(MAKE) -C src/ScePaf
+	$(MAKE) -C src/ScePafLibc
 	$(MAKE) -C src/pspminicrt
 	$(MAKE) -C src/ansi-c
 	$(MAKE) -C src/pspmalloc
@@ -66,7 +66,7 @@ all:
 	cp src/libpspftp_stub/*.a libs
 	cp src/libpng_stub/*.a libs
 	cp src/guglue/*.a libs
-	cp src/ScePaf/*.a libs
+	cp src/ScePafLibc/*.a libs
 	cp src/pspminicrt/*.a libs
 	cp src/ansi-c/*.a libs
 	cp src/pspmalloc/*.a libs
@@ -119,7 +119,7 @@ clean:
 	$(MAKE) -C src/libpspftp_stub clean
 	$(MAKE) -C src/libpng_stub clean
 	$(MAKE) -C src/guglue clean
-	$(MAKE) -C src/ScePaf clean
+	$(MAKE) -C src/ScePafLibc clean
 	$(MAKE) -C src/pspminicrt clean
 	$(MAKE) -C src/ansi-c clean
 	$(MAKE) -C src/pspmalloc clean

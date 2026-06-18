@@ -47,6 +47,8 @@ enum AdrenalinePspCommands {
 	ADRENALINE_PSP_CMD_REINSERT_MS,
 	ADRENALINE_PSP_CMD_SAVESTATE,
 	ADRENALINE_PSP_CMD_LOADSTATE,
+	ADRENALINE_PSP_CMD_PAUSE_WORLD,
+	ADRENALINE_PSP_CMD_RESUME_WORLD,
 };
 
 enum AdrenalineVitaCommands {
@@ -90,6 +92,7 @@ typedef struct {
 	int vita_response;
 
 	char printbuf[1024];
+    int app_type;
 } SceAdrenaline;
 
 enum InfernoCacheConf {

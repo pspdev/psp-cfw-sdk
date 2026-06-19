@@ -45,7 +45,7 @@
 #define EXTRA_RAM_SIZE (32 * 1024 * 1024) // size of extra ram (2k+)
 #define MAX_HIGH_MEMSIZE 55 // max ram that can be given to user
 
-#define ALIGN(x, align) (((x) + ((align) - 1)) & ~((align) - 1))
+#define ALIGN(x, align) (((u32)(x) + ((align) - 1)) & ~((align) - 1))
 #define PTR_ALIGN_64(p) ((void*) ALIGN((u32)p, 64))
 
 // Kernelify Address

@@ -242,17 +242,18 @@ typedef struct SEConfigARK {
     u8 usbdevice;
     u8 usbcharge;
     u8 hidemac;
-    u8 noanalog;
     u8 qaflags; // enable QA flags patch
     u8 launcher_mode;
     u8 hidepics;
     u8 usbdevice_rdonly;
     u8 skiplogos;
-    u8 noumd;
     u8 hibblock;
     u8 oldplugin;
     u8 msspeed;
     u8 noled;
+    u8 noumd;
+    u8 noanalog;
+    u8 deadef;
 	u8 vitamute;
     u8 wpa2; // patch to use wpa2
     u8 force_high_memory;

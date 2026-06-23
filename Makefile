@@ -34,6 +34,7 @@ all:
 	$(MAKE) -C src/colordebugger
 	$(MAKE) -C src/tinyfont
 	$(MAKE) -C src/mini2d
+	$(MAKE) -C src/libunarchive_helper
 	$(MAKE) -C src/LibPspExploit
 	$(MAKE) -C src/BootLoadEx
 	$(MAKE) -C src/LibCisoRead
@@ -74,6 +75,7 @@ all:
 	cp src/tinyfont/*.a libs
 	cp src/tinyfont/tinyfont.h include
 	cp src/mini2d/*.a libs
+	cp src/libunarchive_helper/*.a libs
 	cp src/LibPspExploit/*.a libs
 	cp src/LibPspExploit/*.h include
 	cp src/BootLoadEx/*.a libs
@@ -126,6 +128,7 @@ clean:
 	$(MAKE) -C src/colordebugger clean
 	$(MAKE) -C src/tinyfont clean
 	$(MAKE) -C src/mini2d clean
+	$(MAKE) -C src/libunarchive_helper clean
 	$(MAKE) -C src/LibPspExploit clean
 	$(MAKE) -C src/BootLoadEx clean
 	$(MAKE) -C src/LibCisoRead clean

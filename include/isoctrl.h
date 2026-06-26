@@ -33,6 +33,11 @@
 
 #include <psptypes.h>
 
+enum UmdDelayStrategy {
+	UMD_DELAY_STRAT_PER_FD = 0,
+	UMD_DELAY_STRAT_GLOBAL = 1,
+};
+
 #ifdef __cplusplus
 extern "C"{
 #endif /* __cplusplus */
@@ -55,15 +60,16 @@ int isoReadUmdFile(u32 offset, void *buf, u32 size);
  *
  * @param seek The seek delay factor. `0` to disable, `> 0` to enable, the higher the value the slower the seek time.
  * @param speed The read speed delay factor. `0` to disable, `> 0` to enable, the higher the value the slower the read time.
+ * @param strategy The delay strategy to use. One of `UmdDelayStrategy`.
  *
  * @attention Requires linking to `pspisoctrl_driver` stub to be available.
  */
-void isoSetUmdDelay(int seek, int speed);
+void isoSetUmdDelay(int seek, int speed, int strategy);
 
 /**
  * Gets the Title ID of the ISO/CSO file of the UMDemu ISO driver.
  *
- * @param title_id The string buffer to write the data into
+ * @param title_id The string buffer to write the data into.
  *
  * @return `0` if getting the Title ID fails, `1` if succeeded.
  *

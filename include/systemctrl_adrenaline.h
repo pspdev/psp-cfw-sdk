@@ -195,6 +195,12 @@ enum FakeMaxFreeMemOpt {
 	FAKE_MAX_FREE_MEM_64MB,
 };
 
+enum SimUmdStrategy {
+	SIM_UMD_STRAT_AUTO = 0,
+	SIM_UMD_STRAT_PER_FD = 1,
+	SIM_UMD_STRAT_GLOBAL = 2,
+};
+
 /**
  * Configuration for the `Pentazemin` module.
  */

@@ -5,6 +5,7 @@ target_sources(ansic PRIVATE
    memcmp.c
    memcpy.c
    memset.c
+   rand.c
    strcpy.c
    strcat.c
    strlen.c
@@ -17,6 +18,7 @@ target_sources(ansic PRIVATE
    stristr.c
    strspn.c
    strcspn.c
+   strdup.c
    strtok.c
    memfindsz.c
    memfindu32.c

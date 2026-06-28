@@ -5,6 +5,7 @@ target_sources(ansic PRIVATE
    memcmp.c
    memcpy.c
    memset.c
+   rand.c
    strcpy.c
    strcat.c
    strlen.c

@@ -17,6 +17,7 @@ target_sources(ansic PRIVATE
    stristr.c
    strspn.c
    strcspn.c
+   strdup.c
    strtok.c
    memfindsz.c
    memfindu32.c

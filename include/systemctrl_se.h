@@ -207,8 +207,10 @@ typedef struct {
 	u8 iso_cache_num;
 	/** Simulate UMD seek time. Zero - Off, `>0` - seek time factor, i.e. value that will be multiplied on amount of bytes to be read */
 	u8 umd_seek;
-	/** Simulate UMD seek time. Zero - Off, `>0` - seek time factor, i.e. value that will be multiplied on amount of bytes to be read */
+	/** Simulate UMD read time. Zero - Off, `>0` - read time factor, i.e. value that will be multiplied on amount of bytes to be read */
     u8 umd_speed;
+	/** The strategy used to simulate the UMD seek/read time. One of `SimUmdStrategy` */
+	u8 umd_sim_strat;
 	/** Cache `ms0:`. 0 - Use cache, 1 - do not use cache. */
     u8 no_ms_cache;
 	/** Use `ge_2.prx` instead of `ge.prx`. 0 - Off, 1 - On. */

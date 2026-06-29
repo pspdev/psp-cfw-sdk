@@ -85,19 +85,16 @@ int unarchiveFile(const char* filepath, const char* parent, void (*logger)(const
         size_t size = ar_entry_get_size(ar);
         const char *raw_filename = ar_entry_get_raw_name(ar);
         char full_path[255];
-        strcpy(full_path, parent);
-
         int parent_slash = parent[strlen(parent)-1] == '/';
         int raw_slash = raw_filename[0] == '/';
         if (parent_slash && raw_slash){
-            strcat(full_path, &raw_filename[1]);
+            snprintf(full_path, sizeof(full_path), "%s%s", parent, &raw_filename[1]);
         }
         else if (!parent_slash && !raw_slash){
-            strcat(full_path, "/");
-            strcat(full_path, raw_filename);
+            snprintf(full_path, sizeof(full_path), "%s/%s", parent, raw_filename);
         }
         else {
-            strcat(full_path, raw_filename);
+            snprintf(full_path, sizeof(full_path), "%s%s", parent, raw_filename);
         }
         createDirsForFile(full_path);
         int cur_progress = 0;

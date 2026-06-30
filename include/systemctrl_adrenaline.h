@@ -96,6 +96,8 @@ typedef struct {
 
 	char printbuf[1024];
     int app_type;
+    int api_type;
+    int fake_api_type;
 } SceAdrenaline;
 
 enum InfernoCacheConf {
@@ -225,6 +227,7 @@ int sctrlStartUsb();
 int sctrlStopUsb();
 int sctrlRebootDevice();
 void sctrlPentazeminConfigure(PentazeminConfig* conf);
+int sctrlIsEfEnable();
 
 #ifdef __cplusplus
 }

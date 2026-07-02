@@ -26,3 +26,6 @@
 #ifdef F_AdrenalineCtrl_0006
 	IMPORT_FUNC  "AdrenalineCtrl",0xA93CFE9E,sctrlPentazeminConfigure
 #endif
+#ifdef F_AdrenalineCtrl_0007
+	IMPORT_FUNC  "AdrenalineCtrl",0x74919684,sctrlIsEfEnable
+#endif

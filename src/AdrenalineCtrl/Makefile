@@ -10,6 +10,7 @@ OBJS = \
 	AdrenalineCtrl_0004.o \
 	AdrenalineCtrl_0005.o \
 	AdrenalineCtrl_0006.o \
+	AdrenalineCtrl_0007.o \
 
 
 PSPSDK=$(shell psp-config --pspsdk-path)

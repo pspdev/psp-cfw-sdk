@@ -49,6 +49,7 @@ enum AdrenalinePspCommands {
 	ADRENALINE_PSP_CMD_LOADSTATE,
 	ADRENALINE_PSP_CMD_PAUSE_WORLD,
 	ADRENALINE_PSP_CMD_RESUME_WORLD,
+	ADRENALINE_PSP_CMD_REINSERT_EF,
 };
 
 enum AdrenalineVitaCommands {
@@ -66,6 +67,8 @@ enum AdrenalineVitaCommands {
 	ADRENALINE_VITA_CMD_UPDATE,
 	ADRENALINE_VITA_CMD_APP_STARTED,
 	ADRENALINE_VITA_CMD_POWER_TICK,
+	ADRENALINE_VITA_CMD_IS_EF_ENABLED,
+	ADRENALINE_VITA_CMD_EF_DEVINFO,
 };
 
 enum AdrenalineVitaResponse {
@@ -93,6 +96,8 @@ typedef struct {
 
 	char printbuf[1024];
     int app_type;
+    int api_type;
+    int fake_api_type;
 } SceAdrenaline;
 
 enum InfernoCacheConf {
@@ -146,7 +151,7 @@ enum RecoveryColor {
 	RECOVERY_COLOR_B_BLUE,
 };
 
-enum ExtendedColors {
+enum ExtendedColorsConf {
 	EXTENDED_COLOR_DISABLED,
 	/** PSP 2000 Extended Color */
 	EXTENDED_COLOR_02G,
@@ -201,6 +206,11 @@ enum SimUmdStrategy {
 	SIM_UMD_STRAT_GLOBAL = 2,
 };
 
+enum VshMenuMode {
+	VSH_MENU_MODERN = 0,
+	VSH_MENU_CLASSIC = 1,
+};
+
 /**
  * Configuration for the `Pentazemin` module.
  */
@@ -222,6 +232,7 @@ int sctrlStartUsb();
 int sctrlStopUsb();
 int sctrlRebootDevice();
 void sctrlPentazeminConfigure(PentazeminConfig* conf);
+int sctrlIsEfEnable();
 
 #ifdef __cplusplus
 }

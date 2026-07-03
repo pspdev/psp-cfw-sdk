@@ -177,7 +177,7 @@ typedef struct {
 	u8 hide_dlcs;
 	/** One of `HidePicsOpt` */
 	u8 hide_pic0pic1;
-	/** One of `ExtendedColors` */
+	/** One of `ExtendedColorsConf` */
 	u8 extended_colors;
 	/** 0 - Disabled, 1 - Enabled */
 	u8 use_sony_psposk;
@@ -195,8 +195,8 @@ typedef struct {
 	u8 execute_boot_bin;
 	/** One of `RecoveryColor` */
 	u8 recovery_color;
-	/** 0 - load xmbctrl, 1 - not load xmbctrl */
-	u8 no_xmbctrl;
+	/** 0 - show CFW items on XMB, 1 - Hide CFW items on XMB */
+	u8 no_xmb_cfw_items;
 	/** Inferno cache type. One of `InfernoCacheConf` */
 	u8 iso_cache;
 	/** Inferno cache partition 2 or 11 (automatic) */
@@ -223,6 +223,8 @@ typedef struct {
 	u8 fake_max_free_mem;
 	/** Control wether to do tty redirection. 0 - Off, 1 - On. */
 	u8 tty_redirection;
+	/** VSH Menu. 0 - Modern, 1 - Classic */
+	u8 vsh_menu;
 } SEConfigEPI;
 typedef SEConfigEPI SEConfigADR;
 #define IS_ADR_SECONFIG(config) ((((SEConfigEPI*)config)->magic[0] == SECONFIG_MAGIC_EPI1) && (((SEConfigADR*)config)->magic[1] == SECONFIG_MAGIC_EPI2))

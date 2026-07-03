@@ -151,7 +151,7 @@ enum RecoveryColor {
 	RECOVERY_COLOR_B_BLUE,
 };
 
-enum ExtendedColors {
+enum ExtendedColorsConf {
 	EXTENDED_COLOR_DISABLED,
 	/** PSP 2000 Extended Color */
 	EXTENDED_COLOR_02G,
@@ -204,6 +204,11 @@ enum SimUmdStrategy {
 	SIM_UMD_STRAT_AUTO = 0,
 	SIM_UMD_STRAT_PER_FD = 1,
 	SIM_UMD_STRAT_GLOBAL = 2,
+};
+
+enum VshMenuMode {
+	VSH_MENU_MODERN = 0,
+	VSH_MENU_CLASSIC = 1,
 };
 
 /**

@@ -53,7 +53,7 @@ def pack(outputFile, fileList):
         of.seek(0)
         of.write(struct.pack('<L', fileCount))
 
-def unpack(inputFile):
+def unpack(inputFile, outputFolder):
     with open(inputFile, "rb") as f:
         f.seek(4)
         while True:
@@ -81,7 +81,7 @@ def unpack(inputFile):
             if len(fileContent) == 0:
                 break
 
-            savFilename = os.path.split(filename)[-1]
+            savFilename = outputFolder + os.path.split(filename)[-1].decode("UTF-8")
 
             with open(savFilename, "wb") as of:
                 of.write(fileContent)
@@ -120,7 +120,10 @@ def main():
             sys.exit(1)
         
         inputFile = sys.argv[2]
-        unpack(inputFile)
+        outputFolder = ""
+        if len(sys.argv) == 4:
+            outputFolder = sys.argv[3]
+        unpack(inputFile, outputFolder)
     else:
         usage()
         sys.exit(1)

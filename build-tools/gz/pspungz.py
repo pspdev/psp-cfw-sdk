@@ -13,7 +13,7 @@ from io import BytesIO
 HEADER_SIZE = 0x150
 
 
-def prx_decompress(output, input):
+def prx_decompress(input, output):
     a = open(input, "rb")
     data = a.read()
     a.close()
@@ -32,7 +32,7 @@ def prx_decompress(output, input):
 
 def main():
     if len(sys.argv) < 3:
-        print("Usage: %s outfile infile\n" % (sys.argv[0]))
+        print("Usage: %s infile outfile\n" % (sys.argv[0]))
         exit(-1)
 
     prx_decompress(sys.argv[1], sys.argv[2])

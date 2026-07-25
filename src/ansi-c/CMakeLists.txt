@@ -1,6 +1,7 @@
 add_sdk_library(ansic)
 
 target_sources(ansic PRIVATE
+   atof.c
    memmove.c
    memcmp.c
    memcpy.c

@@ -2,39 +2,40 @@ add_sdk_library(ansic)
 
 target_sources(ansic PRIVATE
    atof.c
-   memmove.c
+   lowerstring.c
    memcmp.c
    memcpy.c
-   memset.c
-   rand.c
-   strcpy.c
-   strcat.c
-   strlen.c
-   strnlen.c
-   strchr.c
-   strrchr.c
-   strcmp.c
-   strncmp.c
-   strstr.c
-   stristr.c
-   strspn.c
-   strcspn.c
-   strdup.c
-   strtok.c
    memfindsz.c
    memfindu32.c
+   memmove.c
+   memset.c
+   printf.c
+   rand.c
+   setlongjmp.S
+   strbeginswith.c
+   strcasecmp.c
+   strcat.c
+   strchr.c
+   strcmp.c
+   strcpy.c
+   strcspn.c
+   strdup.c
    strhex32.c
    strhex64.c
-   strncpy.c
+   stristr.c
+   strlen.c
    strncat.c
    strncat_s.c
+   strncmp.c
+   strncpy.c
    strncpy_s.c
-   strbeginswith.c
+   strnlen.c
+   strrchr.c
    strreplaceall.c
-   strcasecmp.c
+   strspn.c
+   strstr.c
+   strtok.c
    tolower.c
-   lowerstring.c
-   setlongjmp.S
 )
 
 target_compile_options(ansic PRIVATE -fno-builtin)

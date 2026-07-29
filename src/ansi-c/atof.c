@@ -12,15 +12,33 @@ double atof(const char *s)
   double a = 0.0;
   int e = 0;
   int c;
-  while ((c = *s++) != '\0' && isdigit(c)) {
-    a = a*10.0 + (c - '0');
+  int initial_sign = 1;
+
+  /* Handle initial sign */
+  c = *s++;
+  if (c == '-')
+  {
+    initial_sign = -1;
+    c = *s++;
+  } else if (c == '+')
+  {
+    c = *s++;
   }
+
+  while (isdigit(c)) {
+    a = a*10.0 + (c - '0');
+    c = *s++;
+  }
+
   if (c == '.') {
-    while ((c = *s++) != '\0' && isdigit(c)) {
+    c = *s++;
+    while (isdigit(c)) {
       a = a*10.0 + (c - '0');
       e = e-1;
+      c = *s++;
     }
   }
+
   if (c == 'e' || c == 'E') {
     int sign = 1;
     int i = 0;
@@ -37,6 +55,7 @@ double atof(const char *s)
     }
     e += i*sign;
   }
+
   while (e > 0) {
     a *= 10.0;
     e--;
@@ -45,5 +64,6 @@ double atof(const char *s)
     a *= 0.1;
     e++;
   }
-  return a;
+
+  return initial_sign * a;
 }

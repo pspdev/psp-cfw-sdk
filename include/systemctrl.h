@@ -736,6 +736,16 @@ void sctrlHENHijackFunction(SctrlFunctionPatchData* patch_data, void* func_addr,
 STMOD_HANDLER sctrlHENSetStartModuleHandler(STMOD_HANDLER new_handler);
 
 /**
+ * Register the handler to be called at the end of the boot sequence.
+ * 
+ * @param new_handler of type SYSBOOT_HANDLER (pointer to function that takes no parameters and returns nothing).
+ * @returns previously registered handler, allows to chainload calls.
+ * @note This handler is only called once.
+ * 
+ */
+SYSBOOT_HANDLER sctrlHENSetSystemBootedHandler(SYSBOOT_HANDLER new_handler);
+
+/**
  * Creates a syscall stub for the given `function` in user-memory.
  *
  * Creating a syscall stub this way allows a kernel program to inject syscall

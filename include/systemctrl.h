@@ -94,6 +94,9 @@ enum ToolkitType {
 // Prologue Module Start Handler
 typedef int (* STMOD_HANDLER)(SceModule *);
 
+// System Booted Handler
+typedef void (* SYSBOOT_HANDLER)();
+
 // data for HijackFunction
 typedef struct SctrlFunctionPatchData {
     unsigned int __instr__[5];

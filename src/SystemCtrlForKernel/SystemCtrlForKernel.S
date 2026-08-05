@@ -308,3 +308,6 @@
 #ifdef F_SystemCtrlForKernel_0100
     IMPORT_FUNC "SystemCtrlForKernel",0xFD6E46EC,sctrlHENGetSpeed
 #endif
+#ifdef F_SystemCtrlForKernel_0101
+    IMPORT_FUNC "SystemCtrlForKernel",0xE8A11ABE,sctrlHENSetSystemBootedHandler
+#endif

@@ -242,3 +242,6 @@
 #ifdef F_SystemCtrlForUser_0078
     IMPORT_FUNC "SystemCtrlForUser",0xFD6E46EC,sctrlHENGetSpeed
 #endif
+#ifdef F_SystemCtrlForUser_0079
+    IMPORT_FUNC "SystemCtrlForUser",0xE8A11ABE,sctrlHENSetSystemBootedHandler
+#endif

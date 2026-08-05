@@ -104,6 +104,7 @@ OBJS = \
 	SystemCtrlForKernel_0098.o \
 	SystemCtrlForKernel_0099.o \
 	SystemCtrlForKernel_0100.o \
+	SystemCtrlForKernel_0101.o \
 
 
 PSPSDK=$(shell psp-config --pspsdk-path)

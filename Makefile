@@ -42,6 +42,7 @@ all:
 	$(MAKE) -C src/iplsdk
 	$(MAKE) -C src/microlz
 	$(MAKE) -C src/idstorage_ms
+	$(MAKE) -C src/libpspnodrm
 	mkdir -p libs
 	mkdir -p include/iplsdk
 	cp src/pre-built/*.a libs/
@@ -86,6 +87,7 @@ all:
 	cp src/iplsdk/include/*.h include/iplsdk
 	cp src/microlz/*.a libs
 	cp src/idstorage_ms/*.a libs
+	cp src/libpspnodrm/*.a libs
 
 install: all
 	cp -r include/* $(PSPSDK)/include/
@@ -136,3 +138,4 @@ clean:
 	$(MAKE) -C src/iplsdk clean
 	$(MAKE) -C src/microlz clean
 	$(MAKE) -C src/idstorage_ms clean
+	$(MAKE) -C src/libpspnodrm clean

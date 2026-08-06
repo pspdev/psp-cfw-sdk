@@ -225,6 +225,8 @@ typedef struct {
 	u8 tty_redirection;
 	/** VSH Menu. 0 - Modern, 1 - Classic */
 	u8 vsh_menu;
+	/** Plugin Loaded RAM Partition during PSP game. One of `PluginRamMode`. */
+	u8 psp_game_plugin_ram;
 } SEConfigEPI;
 typedef SEConfigEPI SEConfigADR;
 #define IS_ADR_SECONFIG(config) ((((SEConfigEPI*)config)->magic[0] == SECONFIG_MAGIC_EPI1) && (((SEConfigADR*)config)->magic[1] == SECONFIG_MAGIC_EPI2))

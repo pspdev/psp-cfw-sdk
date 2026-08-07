@@ -129,16 +129,16 @@
 #define UNUSED(arg) ((void)(arg))
 
 //by Bubbletune
-#define U_EXTRACT_IMPORT(x) ((((u32)_lw((u32)x)) & ~0x08000000) << 2)
-#define K_EXTRACT_IMPORT(x) (((((u32)_lw((u32)x)) & ~0x08000000) << 2) | 0x80000000)
-#define U_EXTRACT_CALL(x) ((((u32)_lw((u32)x)) & ~0x0C000000) << 2)
-#define K_EXTRACT_CALL(x) (((((u32)_lw((u32)x)) & ~0x0C000000) << 2) | 0x80000000)
-#define K_EXTRACT_BRANCH(x) ((((((u32)_lw((u32)x)) & 0x0000FFFF) << 2) + x + 4) | 0x80000000)
+#define U_EXTRACT_IMPORT(x) ((((u32)VREAD32((u32)x)) & ~0x08000000) << 2)
+#define K_EXTRACT_IMPORT(x) (((((u32)VREAD32((u32)x)) & ~0x08000000) << 2) | 0x80000000)
+#define U_EXTRACT_CALL(x) ((((u32)VREAD32((u32)x)) & ~0x0C000000) << 2)
+#define K_EXTRACT_CALL(x) (((((u32)VREAD32((u32)x)) & ~0x0C000000) << 2) | 0x80000000)
+#define K_EXTRACT_BRANCH(x) ((((((u32)VREAD32((u32)x)) & 0x0000FFFF) << 2) + x + 4) | 0x80000000)
 
 // by Acid_Snake
 // the opcode is filled with two 0's to the right and shifted to make it a byte long
-#define GET_OPCODE(x) ((_lw(x) & 0xFC000000)>>24)
-#define GET_FUNCTION_OPCODE(x) (_lw(x) & 0x3F)
+#define GET_OPCODE(x) ((VREAD32(x) & 0xFC000000)>>24)
+#define GET_FUNCTION_OPCODE(x) (VREAD32(x) & 0x3F)
 
 #define MAKE_JUMP_PATCH(a, f) _sw(0x08000000 | (((u32)(f) & 0x0FFFFFFC) >> 2), a);
 
@@ -146,8 +146,8 @@
 #define HIJACK_FUNCTION(a, f, p) \
 { \
     static u32 _pb_[5]; \
-    _sw(_lw((u32)(a)), (u32)_pb_); \
-    _sw(_lw((u32)(a) + 4), (u32)_pb_ + 4);\
+    _sw(VREAD32((u32)(a)), (u32)_pb_); \
+    _sw(VREAD32((u32)(a) + 4), (u32)_pb_ + 4);\
     _sw(NOP, (u32)_pb_ + 8);\
     _sw(NOP, (u32)_pb_ + 16);\
     MAKE_JUMP_PATCH((u32)_pb_ + 12, (u32)(a) + 8); \

@@ -3,6 +3,23 @@
 
 #include <psptypes.h>
 
+
+// Not much of a difference when past 4Kb
+#define MSCACHE_BUFSIZE_MIN (4  *1024)
+#define MSCACHE_BUFSIZE_MED (8  *1024)
+#define MSCACHE_BUFSIZE_MAX (16 * 1024)
+
+// Note 1: highmem can't be used (at all) in VSH or POPS
+// Note 2: DEFAULT_USE and AUTO_USE becomes FORCE_MAX on homebrew with MEMSIZE=1, and FORCE_16 with MEMSIZE=2
+// Note 3: only AUTO_USE loads user plugins in highmem
+enum {
+	HIGHMEM_FORCE_OFF, // no highmem at all
+	HIGHMEM_DEFAULT_USE, // default cfw behavior: only force highmem on homebrew with MEMSIZE>0 in param.sfo
+	HIGHMEM_AUTO_USE, // automatically uses high or not, or how to use it
+	HIGHMEM_FORCE_MAX, // forced highmem on
+	HIGHMEM_FORCE_16, // force highmem but only use 16MB
+};
+
 /**
  * These functions are only available in SE-C and later,
  * and they are not in HEN
@@ -262,7 +279,7 @@ typedef struct SEConfigARK {
     u8 noanalog;
 	u8 vitamute;
     u8 wpa2; // patch to use wpa2
-    u8 force_high_memory;
+    u8 high_memory_use;
     u8 custom_update;
 	u16 custom_cpu_clock;
 	u16 custom_bus_clock;

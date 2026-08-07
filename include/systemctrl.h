@@ -33,11 +33,6 @@
 // game id is 9 bytes long
 #define GAME_ID_MINIMUM_BUFFER_SIZE 10
 
-// Not much of a difference when past 4Kb
-#define MSCACHE_BUFSIZE_MIN (4  *1024)
-#define MSCACHE_BUFSIZE_MED (8  *1024)
-#define MSCACHE_BUFSIZE_MAX (16 * 1024)
-
 // cfw-agnostic flash0 libraries
 #define USBDEV_PRX_FLASH "flash0:/kd/usbdevice.prx" // USBDevice flash0 path
 #define IDSREG_PRX_FLASH "flash0:/kd/idsregeneration.prx" // idsRegeneration flash0 path

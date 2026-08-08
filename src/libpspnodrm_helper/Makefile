@@ -1,12 +1,12 @@
-TARGET=libpspnodrm.a
+TARGET=libpspnodrm_helper.a
 
 all: $(TARGET)
-STUBSRC = libpspnodrm.S
+STUBSRC = libpspnodrm_helper.S
 OBJS = \
-	libpspnodrm_0000.o \
-	libpspnodrm_0001.o \
-	libpspnodrm_0002.o \
-	libpspnodrm_0003.o \
+	libpspnodrm_helper_0000.o \
+	libpspnodrm_helper_0001.o \
+	libpspnodrm_helper_0002.o \
+	libpspnodrm_helper_0003.o \
 
 PSPSDK=$(shell psp-config --pspsdk-path)
 

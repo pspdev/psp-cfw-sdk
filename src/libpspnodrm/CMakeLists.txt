@@ -1,1 +1,1 @@
-add_stub_lib(libpspnodrm libpspnodrm.S libpspnodrm)
+add_stub_lib(NoDrm libpspnodrm.S libpspnodrm)

@@ -129,10 +129,11 @@ enum IsoCacheSizeConf {
 	ISO_CACHE_SIZE_64KB,
 };
 
-enum ForceHighMemory {
-	HIGHMEM_OPT_OFF,
-	HIGHMEM_OPT_STABLE,
-	HIGHMEM_OPT_MAX,
+enum HighMemoryConf {
+	HIGHMEM_OPT_DEFAULT,
+	HIGHMEM_OPT_FORCE_STABLE,
+	HIGHMEM_OPT_FORCE_MAX,
+	HIGHMEM_OPT_FORCE_OFF,
 };
 
 enum RecoveryColor {

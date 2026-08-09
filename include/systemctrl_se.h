@@ -206,8 +206,8 @@ typedef struct {
 	u8 no_game_plugins;
 	/** 0 - Use, 1 - Do not use */
 	u8 no_pops_plugins;
-	/** One of `ForceHighMemory` */
-	u8 force_high_memory;
+	/** Control the high memory. One of `HighMemoryConf` */
+	u8 high_memory;
 	/** 0 - Disabled, 1 - Enabled */
 	u8 execute_boot_bin;
 	/** One of `RecoveryColor` */

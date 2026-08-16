@@ -16,8 +16,8 @@ enum {
 	HIGHMEM_FORCE_OFF, // no highmem at all
 	HIGHMEM_DEFAULT_USE, // default cfw behavior: only force highmem on homebrew with MEMSIZE>0 in param.sfo
 	HIGHMEM_AUTO_USE, // automatically uses high or not, or how to use it
-	HIGHMEM_FORCE_MAX, // forced highmem on
-	HIGHMEM_FORCE_16, // force highmem but only use 16MB
+	HIGHMEM_FORCE_16, // force use 16MB of extra ram
+	HIGHMEM_FORCE_MAX, // force max possible highmem
 };
 
 /**

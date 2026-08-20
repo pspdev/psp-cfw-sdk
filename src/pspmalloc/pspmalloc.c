@@ -66,6 +66,7 @@ void free(void* ptr)
 
 extern void *memset(void * buffer_, int value, unsigned int size);
 extern void *memcpy(void *to_, const void *from_, unsigned int size);
+extern unsigned int strlen(const char * text);
 
 void *calloc(size_t n, size_t size)
 {

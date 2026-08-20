@@ -1,8 +1,7 @@
 TARGET_LIB=libpspmalloc.a
 
 C_OBJS = \
-	malloc.o \
-	memalign.o \
+	pspmalloc.o \
 
 OBJS = $(C_OBJS)
 

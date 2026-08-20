@@ -1,5 +1,8 @@
 #include <pspuser.h>
 #include <pspsysmem.h>
+#include <stdint.h>
+
+extern void *memset(void * buffer_, int value, unsigned int size);
 
 static SceUID mainVpl = -1;
 
@@ -61,4 +64,16 @@ void free(void* ptr)
 
     void *original = (void *)((uintptr_t *)ptr)[-1]; /* Get saved pointer from previous 4 bytes */
     sceKernelFreeVpl(mainVpl, original);
+}
+
+void *calloc(size_t n, size_t size)
+{
+    if ( size == 0 || n > SIZE_MAX / size ) return NULL; /* Invalid size / Overflow check */
+
+	size_t total = n * size;
+
+	void *p = malloc(total);
+	if ( !p ) return NULL;
+	
+	return memset(p, 0, total);
 }

@@ -1,6 +1,5 @@
 #include <pspuser.h>
 #include <pspsysmem.h>
-#include <string.h>
 #include <stdint.h>
 
 static SceUID mainVpl = -1;
@@ -65,6 +64,9 @@ void free(void* ptr)
     sceKernelFreeVpl(mainVpl, original);
 }
 
+extern void *memset(void * buffer_, int value, unsigned int size);
+extern void *memcpy(void *to_, const void *from_, unsigned int size);
+
 void *calloc(size_t n, size_t size)
 {
     if ( size == 0 || n > SIZE_MAX / size ) return NULL; /* Invalid size / Overflow check */
@@ -81,9 +83,19 @@ void *calloc(size_t n, size_t size)
 char *strdup(const char *s1)
 {
     if ( !s1 ) return NULL;
-    
+
     size_t size = strlen(s1) + 1;
-    char *str = malloc(size);
+    char *str = (char*)malloc(size);
+    if ( !str ) return NULL;
+
+    return memcpy(str, s1, size);
+}
+
+char *strndup(const char *s1, size_t size)
+{
+    if ( !s1 || size == 0 ) return NULL;
+    
+    char *str = (char*)malloc(size + 1);
     if ( !str ) return NULL;
 
     return memcpy(str, s1, size);

@@ -1,5 +1,7 @@
 #include <pspuser.h>
 #include <pspsysmem.h>
+#include <string.h>
+#include <stdint.h>
 
 static SceUID mainVpl = -1;
 
@@ -61,4 +63,28 @@ void free(void* ptr)
 
     void *original = (void *)((uintptr_t *)ptr)[-1]; /* Get saved pointer from previous 4 bytes */
     sceKernelFreeVpl(mainVpl, original);
+}
+
+void *calloc(size_t n, size_t size)
+{
+    if ( size == 0 || n > SIZE_MAX / size ) return NULL; /* Invalid size / Overflow check */
+
+	size_t total = n * size;
+
+	void *p = malloc(total);
+	if ( !p ) return NULL;
+	
+	return memset(p, 0, total);
+}
+
+/* Copied from https://stackoverflow.com/a/37134815 */
+char *strdup(const char *s1)
+{
+    if ( !s1 ) return NULL;
+    
+    size_t size = strlen(s1) + 1;
+    char *str = malloc(size);
+    if ( !str ) return NULL;
+
+    return memcpy(str, s1, size);
 }

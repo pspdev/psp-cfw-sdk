@@ -1,17 +1,7 @@
 #include <stddef.h>
 
 extern int strlen(const char*);
-
-// Whitespace Detection
-int isspace(int c)
-{
-    // Whitespaces
-    if(c == ' ' || c == '\t' || c == '\r' || c == '\v' || c == '\f' || c == '\n')
-        return 1;
-    
-    // Normal Character
-    return 0;
-}
+extern int isspace(int ch);
 
 // Trim Leading and Trailing Whitespaces
 char * strtrim(char * text)

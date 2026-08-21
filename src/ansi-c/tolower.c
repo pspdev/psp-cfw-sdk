@@ -1,7 +1,8 @@
-int tolower(int s)
+int tolower(int ch)
 {
-    if((s >= 'A') && (s <= 'Z'))
-        s = 'a' + (s - 'A');
+    ch = (unsigned char)ch;
+    if((ch >= 'A') && (ch <= 'Z'))
+        ch = 'a' + (ch - 'A');
 
-    return s;
+    return ch;
 }

@@ -1,7 +1,21 @@
 add_sdk_library(ansic)
 
 target_sources(ansic PRIVATE
+   arith64.c
    atof.c
+   isalnum.c
+   isalpha.c
+   isascii.c
+   isblank.c
+   iscntrl.c
+   isdigit.c
+   isgraph.c
+   islower.c
+   isprint.c
+   ispunct.c
+   isspace.c
+   isupper.c
+   isxdigit.c
    lowerstring.c
    memcmp.c
    memcpy.c
@@ -12,6 +26,7 @@ target_sources(ansic PRIVATE
    printf.c
    rand.c
    setlongjmp.S
+   stpcpy.c
    strbeginswith.c
    strcasecmp.c
    strcat.c
@@ -24,18 +39,24 @@ target_sources(ansic PRIVATE
    strhex64.c
    stristr.c
    strlen.c
-   strncat.c
    strncat_s.c
+   strncat.c
    strncmp.c
-   strncpy.c
    strncpy_s.c
+   strncpy.c
+   strndup.c
    strnlen.c
    strrchr.c
    strreplaceall.c
    strspn.c
    strstr.c
    strtok.c
+   strtol.c
+   strtoul.c
+   strtrim.c
+   toascii.c
    tolower.c
+   toupper.c
 )
 
 target_compile_options(ansic PRIVATE -fno-builtin)

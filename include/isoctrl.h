@@ -33,6 +33,8 @@
 
 #include <psptypes.h>
 
+#define MAX_ISO_PATH_SIZE 256
+
 enum UmdDelayStrategy {
 	UMD_DELAY_STRAT_PER_FD = 0,
 	UMD_DELAY_STRAT_GLOBAL = 1,
@@ -46,7 +48,7 @@ extern "C"{
  * Issue a direct ISO/CSO read request to the UMDemu ISO driver.
  *
  * @param offset The offset/sector within the Virtual UMD to start reading from. Absolute Offset.
- * @param buf The buffer to write data to.
+ * @param[out] buf The buffer to write data to.
  * @param size The amount of bytes to read.
  *
  * @return The amount of bytes read, `< 0` on error.
@@ -69,13 +71,61 @@ void isoSetUmdDelay(int seek, int speed, int strategy);
 /**
  * Gets the Title ID of the ISO/CSO file of the UMDemu ISO driver.
  *
- * @param title_id The string buffer to write the data into.
+ * @param[out] title_id The string buffer to write the data into.
  *
  * @return `0` if getting the Title ID fails, `1` if succeeded.
  *
  * @attention Requires linking to `pspisoctrl_driver` stub to be available.
  */
 int isoGetTitleId(char title_id[10]);
+
+/**
+ * Sets the UMD ISO/CSO file of the UMDemu ISO driver.
+ *
+ * @param[in] path The file path to set.
+ *
+ * @return `0` on success, `< 0` on error.
+ *
+ * @attention Requires linking to `pspisoctrl_driver` stub to be available.
+ */
+int isoSetUmdFile(const char *path);
+
+/**
+ * Gets the current UMD ISO/CSO file set for the UMDemu ISO driver.
+ *
+ * @param[out] path_buf The buffer to receive the current UMD file.
+ * @param path_size The size of the buffer to receive the current UMD file.
+ *
+ * @return `0` on success, `< 0` on error.
+ *
+ * @attention Requires linking to `pspisoctrl_driver` stub to be available.
+ */
+int isoGetUmdFile(char *path_buf, SceSize path_size);
+
+/**
+ * Reopens the set UMD ISO/CSO file.
+ *
+ * @return `< 0` on error.
+ *
+ * @attention Requires linking to `pspisoctrl_driver` stub to be available.
+ */
+int isoReopenUmdFile(void);
+
+/**
+ * Swaps the current UMD ISO/CSO file with a new.
+ *
+ * @param[in] new_file_path The new ISO file to set.
+ * @param[out] previous A buffer to receive the previously set UMD ISO/CSO file.
+ * 	Pass `NULL` if this information is not desired.
+ * @param previous_size The size of the `previous` buffer. This needs to be at
+ * 	least `MAX_ISO_PATH_SIZE` otherwise it won't copy the information.
+ *
+ * @return `0` on success, `< 0` on error.
+ *
+ * @attention Requires linking to `pspisoctrl_driver` stub to be available.
+ */
+int isoSwapUmdFile(const char *new_file_path, char *previous, SceSize previous_size);
+
 
 #ifdef __cplusplus
 }

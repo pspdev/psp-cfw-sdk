@@ -7,7 +7,10 @@ OBJS = \
 	isoCtrl_driver_0001.o \
 	isoCtrl_driver_0002.o \
 	isoCtrl_driver_0003.o \
-	isoCtrl_driver_0004.o
+	isoCtrl_driver_0004.o \
+	isoCtrl_driver_0005.o \
+	isoCtrl_driver_0006.o \
+	isoCtrl_driver_0007.o
 
 PSPSDK=$(shell psp-config --pspsdk-path)
 

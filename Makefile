@@ -43,6 +43,7 @@ all:
 	$(MAKE) -C src/microlz
 	$(MAKE) -C src/idstorage_ms
 	$(MAKE) -C src/libpspnodrm_helper
+	$(MAKE) -C src/libpspdownloader
 	mkdir -p libs
 	mkdir -p include/iplsdk
 	cp src/pre-built/*.a libs/
@@ -88,6 +89,8 @@ all:
 	cp src/microlz/*.a libs
 	cp src/idstorage_ms/*.a libs
 	cp src/libpspnodrm_helper/*.a libs
+	cp src/libpspdownloader/*.a libs
+	cp src/libpspdownloader/pspdownloader.h include
 
 install: all
 	cp -r include/* $(PSPSDK)/include/
@@ -101,6 +104,7 @@ clean:
 	rm -f  include/libpspexploit.h
 	rm -f  include/tinyfont.h
 	rm -f  include/popsdisplay.h
+	rm -f  include/pspdownloader.h
 	$(MAKE) -C src/KUBridge clean
 	$(MAKE) -C src/SystemCtrlForUser clean
 	$(MAKE) -C src/SystemCtrlForKernel clean
@@ -139,3 +143,4 @@ clean:
 	$(MAKE) -C src/microlz clean
 	$(MAKE) -C src/idstorage_ms clean
 	$(MAKE) -C src/libpspnodrm_helper clean
+	$(MAKE) -C src/libpspdownloader clean

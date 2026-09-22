@@ -1,0 +1,43 @@
+name: PSP Downloader Lib
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: pspdev/pspdev:latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Deps
+        run: |
+          apk update
+          apk add zip
+      - name: Build Lib
+        run: |
+          make -f Makefile
+          make -f Makefile.DEBUG
+          zip libpspdownloader.zip libpspdownloader*.a downloader.h README.md
+      - name: Upload artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: Libs
+          path: libpspdownloader.zip
+  release:
+    permissions:
+      contents: write
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v8
+      - name: Release
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: latest
+          prerelease: false
+          make_latest: true
+          files: libpspdownloader.zip
+
+

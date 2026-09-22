@@ -1,0 +1,18 @@
+CC = psp-gcc
+AR = psp-ar
+CFLAGS = -O2 -G0 -DDEBUG
+
+OBJS = libpspdownloader.o
+
+INC = /usr/local/pspdev/psp/sdk/include
+
+all: libpspdownloader_debug.a
+
+libpspdownloader_debug.a: $(OBJS)
+	$(AR) rcs $@ $^
+
+%.o: %.c
+	$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
+
+clean:
+	rm -f *.o *.a

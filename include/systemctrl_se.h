@@ -519,6 +519,14 @@ void sctrlSESetBootConfFileIndex(int index);
 */
 unsigned int sctrlSEGetBootConfFileIndex(void);
 
+
+/**
+ * Initialize oe_malloc.
+ * 
+ * @attention not implemented by ARK-4 onwards
+ */
+int oe_mallocinit();
+
 /**
  * Helper function to allocate memory on P1 (kernel memory).
  *

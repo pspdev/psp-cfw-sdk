@@ -24,6 +24,18 @@ typedef struct {
 	u16 e_shstrndx;
 } __attribute__((packed)) Elf32_Ehdr;
 
+typedef struct
+{
+    u32 p_type;
+    u32 p_offset;
+    u32    p_vaddr;
+    u32    p_paddr;
+    u32    p_filesz;
+    u32    p_memsz;
+    u32    p_flags;
+    u32 p_align;
+} __attribute__((packed)) Elf32_Phdr;
+
 typedef struct {
 	u32 sh_name;
 	u32 sh_type;

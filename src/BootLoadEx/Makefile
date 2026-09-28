@@ -8,7 +8,10 @@ C_OBJS = \
 	patches_psp.o \
 	patches_vita.o \
 	bootloadex_ark.o \
+	bootloadex_lme.o \
 	patches_psp_ark.o \
+	patches_psp_pro.o \
+	patches_psp_lme.o \
 
 
 OBJS = $(C_OBJS)

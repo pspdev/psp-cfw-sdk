@@ -81,6 +81,7 @@ all:
 	cp src/LibPspExploit/*.a libs
 	cp src/LibPspExploit/*.h include
 	cp src/BootLoadEx/*.a libs
+	cp src/BootLoadEx/*.h include
 	cp src/LibCisoRead/*.a libs
 	cp src/popsdisplay/*.h include
 	cp src/popsdisplay/*.a libs
@@ -105,6 +106,7 @@ clean:
 	rm -f  include/tinyfont.h
 	rm -f  include/popsdisplay.h
 	rm -f  include/pspdownloader.h
+	rm -f  include/bootloadex*.h
 	$(MAKE) -C src/KUBridge clean
 	$(MAKE) -C src/SystemCtrlForUser clean
 	$(MAKE) -C src/SystemCtrlForKernel clean

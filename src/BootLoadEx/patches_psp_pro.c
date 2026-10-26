@@ -81,11 +81,11 @@ int patch_bootconf_np9660(char *buffer, int length)
 
 	result = length;
 
-	int i; for(i=0; i<NELEMS(np9660_del_mods); ++i) {
+	for (int i=0; i<NELEMS(np9660_del_mods); ++i) {
 		RemovePrx(buffer, np9660_del_mods[i].prxname, np9660_del_mods[i].flags);
 	}
 
-	for(i=0; i<NELEMS(np9660_add_mods); ++i) {
+	for (int i=0; i<NELEMS(np9660_add_mods); ++i) {
 		newsize = MovePrx(buffer, np9660_add_mods[i].insertbefore, np9660_add_mods[i].prxname, np9660_add_mods[i].flags);
 
 		if (newsize > 0) result = newsize;
@@ -116,11 +116,11 @@ int patch_bootconf_march33(char *buffer, int length)
 
 	result = length;
 
-	int i; for(i=0; i<NELEMS(march33_del_mods); ++i) {
+	for (int i=0; i<NELEMS(march33_del_mods); ++i) {
 		RemovePrx(buffer, march33_del_mods[i].prxname, march33_del_mods[i].flags);
 	}
 
-	for(i=0; i<NELEMS(march33_add_mods); ++i) {
+	for (int i=0; i<NELEMS(march33_add_mods); ++i) {
 		newsize = MovePrx(buffer, march33_add_mods[i].insertbefore, march33_add_mods[i].prxname, march33_add_mods[i].flags);
 
 		if (newsize > 0) result = newsize;
@@ -151,11 +151,11 @@ int patch_bootconf_inferno(char *buffer, int length)
 
     result = length;
 
-    int i; for(i=0; i<NELEMS(inferno_del_mods); ++i) {
+    for (int i=0; i<NELEMS(inferno_del_mods); ++i) {
         RemovePrx(buffer, inferno_del_mods[i].prxname, inferno_del_mods[i].flags);
     }
 
-    for(i=0; i<NELEMS(inferno_add_mods); ++i) {
+    for (int i=0; i<NELEMS(inferno_add_mods); ++i) {
         newsize = MovePrx(buffer, inferno_add_mods[i].insertbefore, inferno_add_mods[i].prxname, inferno_add_mods[i].flags);
 
         if (newsize > 0) result = newsize;
@@ -182,11 +182,11 @@ int patch_bootconf_vshumd(char *buffer, int length)
 
     result = length;
 
-    int i; for(i=0; i<NELEMS(vshumd_del_mods); ++i) {
+    for (int i=0; i<NELEMS(vshumd_del_mods); ++i) {
         RemovePrx(buffer, vshumd_del_mods[i].prxname, vshumd_del_mods[i].flags);
     }
 
-    for(i=0; i<NELEMS(vshumd_add_mods); ++i) {
+    for (int i=0; i<NELEMS(vshumd_add_mods); ++i) {
         newsize = MovePrx(buffer, vshumd_add_mods[i].insertbefore, vshumd_add_mods[i].prxname, vshumd_add_mods[i].flags);
 
         if (newsize > 0) result = newsize;
@@ -213,11 +213,11 @@ int patch_bootconf_updaterumd(char *buffer, int length)
 
     result = length;
 
-    int i; for(i=0; i<NELEMS(updaterumd_del_mods); ++i) {
+    for (int i=0; i<NELEMS(updaterumd_del_mods); ++i) {
         RemovePrx(buffer, updaterumd_del_mods[i].prxname, updaterumd_del_mods[i].flags);
     }
 
-    for(i=0; i<NELEMS(updaterumd_add_mods); ++i) {
+    for (int i=0; i<NELEMS(updaterumd_add_mods); ++i) {
         newsize = MovePrx(buffer, updaterumd_add_mods[i].insertbefore, updaterumd_add_mods[i].prxname, updaterumd_add_mods[i].flags);
 
         if (newsize > 0) result = newsize;
@@ -252,7 +252,13 @@ int UnpackBootConfigPROPSP(char *buffer, int length)
     // Configure boot mode
     if (ble_config->boot_type == TYPE_REBOOTEX) {
         RebootexConfigPRO *reboot_conf = (void *)REBOOTEX_CONFIG;
+
         if (reboot_conf->recovery_mode) pro_recovery_mode = 1;
+        ble_config->rtm_mod.before = reboot_conf->insert_module_before;
+        ble_config->rtm_mod.buffer = reboot_conf->insert_module_binary;
+        ble_config->rtm_mod.size = = reboot_conf->insert_module_size;
+        ble_config->rtm_mod.flags = reboot_conf->insert_module_flags;
+        
         switch(reboot_conf->iso_mode) {
             case MODE_VSHUMD:
                 newsize = patch_bootconf_vshumd(buffer, result);

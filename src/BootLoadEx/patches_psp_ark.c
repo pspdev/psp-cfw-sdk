@@ -85,11 +85,11 @@ int patch_bootconf_inferno(char *buffer, int length)
 
     result = length;
 
-    int i; for(i=0; i<NELEMS(inferno_del_mods); ++i) {
+    for (int i=0; i<NELEMS(inferno_del_mods); ++i) {
         RemovePrx(buffer, inferno_del_mods[i].prxname, inferno_del_mods[i].flags);
     }
 
-    for(i=0; i<NELEMS(inferno_add_mods); ++i) {
+    for (int i=0; i<NELEMS(inferno_add_mods); ++i) {
         newsize = MovePrx(buffer, inferno_add_mods[i].insertbefore, inferno_add_mods[i].prxname, inferno_add_mods[i].flags);
 
         if (newsize > 0) result = newsize;
@@ -116,11 +116,11 @@ int patch_bootconf_vshumd(char *buffer, int length)
 
     result = length;
 
-    int i; for(i=0; i<NELEMS(vshumd_del_mods); ++i) {
+    for (int i=0; i<NELEMS(vshumd_del_mods); ++i) {
         RemovePrx(buffer, vshumd_del_mods[i].prxname, vshumd_del_mods[i].flags);
     }
 
-    for(i=0; i<NELEMS(vshumd_add_mods); ++i) {
+    for (int i=0; i<NELEMS(vshumd_add_mods); ++i) {
         newsize = MovePrx(buffer, vshumd_add_mods[i].insertbefore, vshumd_add_mods[i].prxname, vshumd_add_mods[i].flags);
 
         if (newsize > 0) result = newsize;
@@ -147,11 +147,11 @@ int patch_bootconf_updaterumd(char *buffer, int length)
 
     result = length;
 
-    int i; for(i=0; i<NELEMS(updaterumd_del_mods); ++i) {
+    for (int i=0; i<NELEMS(updaterumd_del_mods); ++i) {
         RemovePrx(buffer, updaterumd_del_mods[i].prxname, updaterumd_del_mods[i].flags);
     }
 
-    for(i=0; i<NELEMS(updaterumd_add_mods); ++i) {
+    for (int i=0; i<NELEMS(updaterumd_add_mods); ++i) {
         newsize = MovePrx(buffer, updaterumd_add_mods[i].insertbefore, updaterumd_add_mods[i].prxname, updaterumd_add_mods[i].flags);
 
         if (newsize > 0) result = newsize;

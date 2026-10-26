@@ -256,7 +256,7 @@ int UnpackBootConfigPROPSP(char *buffer, int length)
         if (reboot_conf->recovery_mode) pro_recovery_mode = 1;
         ble_config->rtm_mod.before = reboot_conf->insert_module_before;
         ble_config->rtm_mod.buffer = reboot_conf->insert_module_binary;
-        ble_config->rtm_mod.size = = reboot_conf->insert_module_size;
+        ble_config->rtm_mod.size = reboot_conf->insert_module_size;
         ble_config->rtm_mod.flags = reboot_conf->insert_module_flags;
         
         switch(reboot_conf->iso_mode) {

@@ -253,11 +253,14 @@ typedef struct SEConfigARK {
     u32 magic; // ARK_CONFIG_MAGIC
     u16 iso_cache_size_kb; // in KB, automatic
     u16 iso_cache_num; // number of cache slots
+	u16 custom_cpu_clock;
+	u16 custom_bus_clock;
     u8 iso_cache_partition;
     u8 iso_cache_type; // 0 = no cache, 1 = LRU, 2 = RR
     u8 umdseek;
     u8 umdspeed;
     u8 cpubus_clock;
+	u8 overclock_table; // 0=auto, 1=early, 2=later
     u8 disable_pause;
     u8 hidedlc;
     u8 umdregion;
@@ -281,8 +284,6 @@ typedef struct SEConfigARK {
     u8 wpa2; // patch to use wpa2
     u8 high_memory_use;
     u8 custom_update;
-	u16 custom_cpu_clock;
-	u16 custom_bus_clock;
 } SEConfigARK;
 
 // ARK's SEConfig

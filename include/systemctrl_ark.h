@@ -181,6 +181,7 @@ typedef struct {
     unsigned char vshgu_bgcolor; // background color index for vshgu menu
     unsigned char vshgu_textcolor; // text color index for vshgu menu
     unsigned char vshgu_bgalpha; // background transparency index for vshgu menu
+    unsigned char fast_scroll_speed; // fast scroll animation speed
 } ArkMenuConf;
 
 

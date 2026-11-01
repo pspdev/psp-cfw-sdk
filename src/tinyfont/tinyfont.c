@@ -83,10 +83,11 @@ void tinyFontPrintTextBuffer(
     u32 color,
     TinyFontState* state
 ){
-    int c, i, j, l;
+    int c, i, j;
     u8 *font_ptr;
     u32 *vram_ptr;
     u32 *vram;
+    u32 bgcolor = 0xFF000000; // shadow color
 
     if (state){
         if (state->scroll){
@@ -116,6 +117,8 @@ void tinyFontPrintTextBuffer(
 
             if (state->sd) state->sc += 5;
             else state->sc -= 5;
+
+            bgcolor |= (state->sc<<16) | (state->sc<<8) | (state->sc);
         }
     }
 
@@ -125,26 +128,21 @@ void tinyFontPrintTextBuffer(
         vram = buffer + x + y * pow2_w;
         
         font_ptr = &font[ ((unsigned)ch) * 8];
-        for (i = l = 0; i < 8; i++, l += 8, font_ptr++) {
+        for (i = 0; i < 8; i++, font_ptr++) {
+            u8 row = *font_ptr;
             vram_ptr  = vram;
-            for (j = 0; j < 8; j++) {
-                if ((*font_ptr & (128 >> j))){
+            u32* prev_pixel = vram - pow2_w;
+            u32* post_pixel = vram + pow2_w;
+            for (j = 0; j < 8; j++, row <<= 1, vram_ptr++, prev_pixel++, post_pixel++) {
+                if (row & 0x80) {
                     *vram_ptr = color;
-                    // shadow color
-                    u32 bgcolor = 0xFF000000;
-                    if (state && state->glow){
-                        bgcolor |= (state->sc<<16) | (state->sc<<8) | (state->sc);
-                    }
                     // horizontal shadow
                     if (vram_ptr[-1] != color) vram_ptr[-1] = bgcolor;
                     vram_ptr[1] = bgcolor;
                     // vertical shadow
-                    u32* prev_pixel = (u32*)((u32)vram_ptr - (4*pow2_w));
-                    u32* post_pixel = (u32*)((u32)vram_ptr + (4*pow2_w));
                     if (*prev_pixel != color) *prev_pixel = bgcolor;
                     *post_pixel = bgcolor;
                 }
-                vram_ptr++;
             }
             vram += pow2_w;
         }

@@ -6,6 +6,7 @@
 typedef struct
 {
     u16        attribute;
+    u16       comp_attribute;
     u8        module_ver_lo;
     u8        module_ver_hi;
     char    modname[28];

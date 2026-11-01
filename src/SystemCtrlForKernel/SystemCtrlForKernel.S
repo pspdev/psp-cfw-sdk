@@ -192,122 +192,125 @@
 	IMPORT_FUNC "SystemCtrlForKernel",0xDCDC3891,sctrlHENSetRebootexOverride
 #endif
 #ifdef F_SystemCtrlForKernel_0062
-    IMPORT_FUNC "SystemCtrlForKernel",0x577AF198,sctrlKernelLoadExecVSHDisc
+	IMPORT_FUNC "SystemCtrlForKernel",0x08C785BE,sctrlHENSetRebootexConfigOverride
 #endif
 #ifdef F_SystemCtrlForKernel_0063
-    IMPORT_FUNC "SystemCtrlForKernel",0x94FE5E4B,sctrlKernelLoadExecVSHDiscUpdater
+    IMPORT_FUNC "SystemCtrlForKernel",0x577AF198,sctrlKernelLoadExecVSHDisc
 #endif
 #ifdef F_SystemCtrlForKernel_0064
-    IMPORT_FUNC "SystemCtrlForKernel",0x75643FCA,sctrlKernelLoadExecVSHMs1
+    IMPORT_FUNC "SystemCtrlForKernel",0x94FE5E4B,sctrlKernelLoadExecVSHDiscUpdater
 #endif
 #ifdef F_SystemCtrlForKernel_0065
-    IMPORT_FUNC "SystemCtrlForKernel",0xABA7F1B0,sctrlKernelLoadExecVSHMs2
+    IMPORT_FUNC "SystemCtrlForKernel",0x75643FCA,sctrlKernelLoadExecVSHMs1
 #endif
 #ifdef F_SystemCtrlForKernel_0066
-    IMPORT_FUNC "SystemCtrlForKernel",0x7B369596,sctrlKernelLoadExecVSHMs3
+    IMPORT_FUNC "SystemCtrlForKernel",0xABA7F1B0,sctrlKernelLoadExecVSHMs2
 #endif
 #ifdef F_SystemCtrlForKernel_0067
-    IMPORT_FUNC "SystemCtrlForKernel",0xD690750F,sctrlKernelLoadExecVSHMs4
+    IMPORT_FUNC "SystemCtrlForKernel",0x7B369596,sctrlKernelLoadExecVSHMs3
 #endif
 #ifdef F_SystemCtrlForKernel_0068
-    IMPORT_FUNC "SystemCtrlForKernel",0xAF22D576,sctrlKernelLoadExecVSHEf2
+    IMPORT_FUNC "SystemCtrlForKernel",0xD690750F,sctrlKernelLoadExecVSHMs4
 #endif
 #ifdef F_SystemCtrlForKernel_0069
-    IMPORT_FUNC "SystemCtrlForKernel",0xB47C9D77,sctrlSEGetVersion
+    IMPORT_FUNC "SystemCtrlForKernel",0xAF22D576,sctrlKernelLoadExecVSHEf2
 #endif
 #ifdef F_SystemCtrlForKernel_0070
-    IMPORT_FUNC "SystemCtrlForKernel",0xE6B0F656,sctrlHENFindImport
+    IMPORT_FUNC "SystemCtrlForKernel",0xB47C9D77,sctrlSEGetVersion
 #endif
 #ifdef F_SystemCtrlForKernel_0071
-    IMPORT_FUNC "SystemCtrlForKernel",0xBBF21F64,sctrlSEGetUmdFileEx
+    IMPORT_FUNC "SystemCtrlForKernel",0xE6B0F656,sctrlHENFindImport
 #endif
 #ifdef F_SystemCtrlForKernel_0072
-    IMPORT_FUNC "SystemCtrlForKernel",0xCF817542,sctrlSESetUmdFileEx
+    IMPORT_FUNC "SystemCtrlForKernel",0xBBF21F64,sctrlSEGetUmdFileEx
 #endif
 #ifdef F_SystemCtrlForKernel_0073
-    IMPORT_FUNC_WITH_ALIAS "SystemCtrlForKernel",0xCB76B778,sctrlKernelSetInitKeyConfig, sctrlKernelSetApplicationType
+    IMPORT_FUNC "SystemCtrlForKernel",0xCF817542,sctrlSESetUmdFileEx
 #endif
 #ifdef F_SystemCtrlForKernel_0074
-    IMPORT_FUNC "SystemCtrlForKernel",0x32677DD3,sctrlKernelResolveNid
+    IMPORT_FUNC_WITH_ALIAS "SystemCtrlForKernel",0xCB76B778,sctrlKernelSetInitKeyConfig, sctrlKernelSetApplicationType
 #endif
 #ifdef F_SystemCtrlForKernel_0075
-    IMPORT_FUNC "SystemCtrlForKernel",0x745286D1,sctrlHENSetMemory
+    IMPORT_FUNC "SystemCtrlForKernel",0x32677DD3,sctrlKernelResolveNid
 #endif
 #ifdef F_SystemCtrlForKernel_0076
-    IMPORT_FUNC "SystemCtrlForKernel",0x8B2D99E4,sctrlHENApplyMemory
+    IMPORT_FUNC "SystemCtrlForKernel",0x745286D1,sctrlHENSetMemory
 #endif
 #ifdef F_SystemCtrlForKernel_0077
-    IMPORT_FUNC "SystemCtrlForKernel",0x2F157BAF,sctrlSEApplyConfig
+    IMPORT_FUNC "SystemCtrlForKernel",0x8B2D99E4,sctrlHENApplyMemory
 #endif
 #ifdef F_SystemCtrlForKernel_0078
-    IMPORT_FUNC "SystemCtrlForKernel",0x07232EA5,sctrlHENRegisterHomebrewLoader
+    IMPORT_FUNC "SystemCtrlForKernel",0x2F157BAF,sctrlSEApplyConfig
 #endif
 #ifdef F_SystemCtrlForKernel_0079
-    IMPORT_FUNC "SystemCtrlForKernel",0xAC0E84D1,sctrlHENRegisterKDecryptHandler
+    IMPORT_FUNC "SystemCtrlForKernel",0x07232EA5,sctrlHENRegisterHomebrewLoader
 #endif
 #ifdef F_SystemCtrlForKernel_0080
-    IMPORT_FUNC "SystemCtrlForKernel",0x1F3037FB,sctrlHENRegisterMDecryptHandler
+    IMPORT_FUNC "SystemCtrlForKernel",0xAC0E84D1,sctrlHENRegisterKDecryptHandler
 #endif
 #ifdef F_SystemCtrlForKernel_0081
-    IMPORT_FUNC "SystemCtrlForKernel",0x053FAC1D,sctrlKernelBootFrom
+    IMPORT_FUNC "SystemCtrlForKernel",0x1F3037FB,sctrlHENRegisterMDecryptHandler
 #endif
 #ifdef F_SystemCtrlForKernel_0082
-    IMPORT_FUNC "SystemCtrlForKernel",0x85B520C6,sctrlSEMountUmdFromFile
+    IMPORT_FUNC "SystemCtrlForKernel",0x053FAC1D,sctrlKernelBootFrom
 #endif
 #ifdef F_SystemCtrlForKernel_0083
-    IMPORT_FUNC "SystemCtrlForKernel",0x512E0CD8,sctrlSEUmountUmd
+    IMPORT_FUNC "SystemCtrlForKernel",0x85B520C6,sctrlSEMountUmdFromFile
 #endif
 #ifdef F_SystemCtrlForKernel_0084
-    IMPORT_FUNC "SystemCtrlForKernel",0xFFEFA034,sctrlSESetDiscOut
+    IMPORT_FUNC "SystemCtrlForKernel",0x512E0CD8,sctrlSEUmountUmd
 #endif
 #ifdef F_SystemCtrlForKernel_0085
-    IMPORT_FUNC "SystemCtrlForKernel",0x22A45DB7,sctrlHENIsToolKit
+    IMPORT_FUNC "SystemCtrlForKernel",0xFFEFA034,sctrlSESetDiscOut
 #endif
 #ifdef F_SystemCtrlForKernel_0086
-    IMPORT_FUNC "SystemCtrlForKernel",0x6A5F76B5,sctrlHENRegisterLLEHandler
+    IMPORT_FUNC "SystemCtrlForKernel",0x22A45DB7,sctrlHENIsToolKit
 #endif
 #ifdef F_SystemCtrlForKernel_0087
-    IMPORT_FUNC "SystemCtrlForKernel",0x23833651,sctrlGetThreadUIDByName
+    IMPORT_FUNC "SystemCtrlForKernel",0x6A5F76B5,sctrlHENRegisterLLEHandler
 #endif
 #ifdef F_SystemCtrlForKernel_0088
-    IMPORT_FUNC "SystemCtrlForKernel",0xDB39A3EC,sctrlHENHijackFunction
+    IMPORT_FUNC "SystemCtrlForKernel",0x23833651,sctrlGetThreadUIDByName
 #endif
 #ifdef F_SystemCtrlForKernel_0089
-    IMPORT_FUNC "SystemCtrlForKernel",0xC68F9EF8,sctrlHENFindJALGeneric
+    IMPORT_FUNC "SystemCtrlForKernel",0xDB39A3EC,sctrlHENHijackFunction
 #endif
 #ifdef F_SystemCtrlForKernel_0090
-    IMPORT_FUNC "SystemCtrlForKernel",0x2F46829B,sctrlHENFindFirstBEQ
+    IMPORT_FUNC "SystemCtrlForKernel",0xC68F9EF8,sctrlHENFindJALGeneric
 #endif
 #ifdef F_SystemCtrlForKernel_0091
-    IMPORT_FUNC "SystemCtrlForKernel",0x6F515CDC,sctrlHENFindRefInGlobals
+    IMPORT_FUNC "SystemCtrlForKernel",0x2F46829B,sctrlHENFindFirstBEQ
 #endif
 #ifdef F_SystemCtrlForKernel_0092
-    IMPORT_FUNC "SystemCtrlForKernel",0x46268461,sctrlHENFindFunctionInMod
+    IMPORT_FUNC "SystemCtrlForKernel",0x6F515CDC,sctrlHENFindRefInGlobals
 #endif
 #ifdef F_SystemCtrlForKernel_0093
-    IMPORT_FUNC "SystemCtrlForKernel",0xDF306CFC,sctrlHENFindImportInMod
+    IMPORT_FUNC "SystemCtrlForKernel",0x46268461,sctrlHENFindFunctionInMod
 #endif
 #ifdef F_SystemCtrlForKernel_0094
-    IMPORT_FUNC "SystemCtrlForKernel",0xD67E7551,sctrlSEGetConfigInternal
+    IMPORT_FUNC "SystemCtrlForKernel",0xDF306CFC,sctrlHENFindImportInMod
 #endif
 #ifdef F_SystemCtrlForKernel_0095
-    IMPORT_FUNC "SystemCtrlForKernel",0x2A199EFE,oe_memalign
+    IMPORT_FUNC "SystemCtrlForKernel",0xD67E7551,sctrlSEGetConfigInternal
 #endif
 #ifdef F_SystemCtrlForKernel_0096
-    IMPORT_FUNC "SystemCtrlForKernel",0x7F5FBFCC,sctrlHENMakeSyscallStub
+    IMPORT_FUNC "SystemCtrlForKernel",0x2A199EFE,oe_memalign
 #endif
 #ifdef F_SystemCtrlForKernel_0097
-    IMPORT_FUNC "SystemCtrlForKernel",0xE5ACCCD1,sctrlMsCacheInit
+    IMPORT_FUNC "SystemCtrlForKernel",0x7F5FBFCC,sctrlHENMakeSyscallStub
 #endif
 #ifdef F_SystemCtrlForKernel_0098
-    IMPORT_FUNC "SystemCtrlForKernel",0x8C8606FD,sctrlIsLoadingPlugins
+    IMPORT_FUNC "SystemCtrlForKernel",0xE5ACCCD1,sctrlMsCacheInit
 #endif
 #ifdef F_SystemCtrlForKernel_0099
-    IMPORT_FUNC "SystemCtrlForKernel",0xD888F867,sctrlGetMemoryPartition
+    IMPORT_FUNC "SystemCtrlForKernel",0x8C8606FD,sctrlIsLoadingPlugins
 #endif
 #ifdef F_SystemCtrlForKernel_0100
-    IMPORT_FUNC "SystemCtrlForKernel",0xFD6E46EC,sctrlHENGetSpeed
+    IMPORT_FUNC "SystemCtrlForKernel",0xD888F867,sctrlGetMemoryPartition
 #endif
 #ifdef F_SystemCtrlForKernel_0101
+    IMPORT_FUNC "SystemCtrlForKernel",0xFD6E46EC,sctrlHENGetSpeed
+#endif
+#ifdef F_SystemCtrlForKernel_0102
     IMPORT_FUNC "SystemCtrlForKernel",0xE8A11ABE,sctrlHENSetSystemBootedHandler
 #endif

@@ -35,7 +35,7 @@
 #define REBOOTEX_FILELEN_MAX_LME 0x50
 
 // PROCFW Reboot Configuration Magic
-#define REBOOTEX_CONFIG_MAGIC 0xC01DB15D
+#define REBOOTEX_CONFIG_MAGIC_PRO 0xC01DB15D
 
 /**
     Originally ARK used a similar rebootex config as PRO with the same magic number.

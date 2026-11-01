@@ -25,6 +25,9 @@
 // Reboot Buffer Configuration Address
 #define REBOOTEX_CONFIG 0x88FB0000
 
+// PROCFW Reboot Buffer ISO Path Address
+#define REBOOTEX_CONFIG_ISO_PATH 0x88FB0100
+
 // PROCFW/ARK Reboot Buffer ISO Path (so we don't lose that information)
 #define REBOOTEX_CONFIG_ISO_PATH_MAXSIZE 0x100
 

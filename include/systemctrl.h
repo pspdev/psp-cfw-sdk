@@ -732,11 +732,11 @@ STMOD_HANDLER sctrlHENSetStartModuleHandler(STMOD_HANDLER new_handler);
 
 /**
  * Register the handler to be called at the end of the boot sequence.
- * 
+ *
  * @param new_handler of type SYSBOOT_HANDLER (pointer to function that takes no parameters and returns nothing).
  * @returns previously registered handler, allows to chainload calls.
  * @note This handler is only called once.
- * 
+ *
  */
 SYSBOOT_HANDLER sctrlHENSetSystemBootedHandler(SYSBOOT_HANDLER new_handler);
 
@@ -928,7 +928,7 @@ void sctrlHENLoadModuleOnReboot(char *module_after, void *buf, int size, int fla
 void sctrlHENSetRebootexOverride(void *rebootex, u32 size);
 
 /**
- * Override rebootex, specifying size.
+ * Override rebootex config.
  */
 void sctrlHENSetRebootexConfigOverride(void *rebootex_config, u32 size_rebootex_config);
 
@@ -1026,11 +1026,11 @@ int sctrlIsLoadingPlugins();
 
 /**
  * Obtain the memory partition configuration in sysmem.
- * 
+ *
  * @param partition identifier (1=kernel, 2=user, 5=volatile, etc)
- * 
+ *
  * @return pointer to structure holding information about the partition.
- * 
+ *
  * @attention returned value is a kernel pointer, user code might have to use kubridge to properly handle it.
  */
 PspSysMemPartition* sctrlGetMemoryPartition(int partition);

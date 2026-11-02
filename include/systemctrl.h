@@ -925,7 +925,7 @@ void sctrlHENLoadModuleOnReboot(char *module_after, void *buf, int size, int fla
 /**
  * Override rebootex.
  */
-void sctrlHENSetRebootexOverride(const u8 *rebootex, u32 size);
+void sctrlHENSetRebootexOverride(void *rebootex, u32 size);
 
 /**
  * Override rebootex, specifying size.

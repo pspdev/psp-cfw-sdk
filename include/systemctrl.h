@@ -930,7 +930,7 @@ void sctrlHENSetRebootexOverride(const u8 *rebootex, u32 size);
 /**
  * Override rebootex, specifying size.
  */
-void sctrlHENSetRebootexConfigOverride(const u8 *rebootex_config, u32 size_rebootex_config);
+void sctrlHENSetRebootexConfigOverride(void *rebootex_config, u32 size_rebootex_config);
 
 /**
  * Override reboot loader.

@@ -78,7 +78,6 @@ static void decompress_cso2(void* src, int src_len, void* dst, int dst_len, uint
 
 static void ciso_finish_open(CisoFile* file){
 
-    // calculate total number of ciso blocks
     file->total_blocks = file->uncompressed_size / file->block_size;
     
     // allocate memory if needed
@@ -165,11 +164,23 @@ int ciso_read(CisoFile* file, uint8_t* addr, uint32_t size, uint32_t offset)
 {
     uint32_t cur_block;
     uint32_t pos, read_bytes;
+    uint32_t starting_block, ending_block, batch_end_block;
+    uint32_t o_start, o_end, compressed_size;
+    uint32_t block_span, payload_size;
     uint32_t o_offset = offset;
-    uint8_t* com_buf = file->block_buf;
-    uint8_t* dec_buf = file->dec_buf;
+    uint8_t* com_buf;
+    uint8_t* dec_buf;
     uint8_t* c_buf = NULL;
-    uint8_t* top_addr = addr+size;
+    uint8_t* top_addr;
+    int is_dax;
+
+    if (size == 0)
+        return 0;
+
+    com_buf = file->block_buf;
+    dec_buf = file->dec_buf;
+    is_dax = (file->header_size == sizeof(DAXHeader));
+    top_addr = addr + size;
     
     if(offset > file->uncompressed_size) {
         // return if the offset goes beyond the iso size
@@ -179,10 +190,15 @@ int ciso_read(CisoFile* file, uint8_t* addr, uint32_t size, uint32_t offset)
         // adjust size if it tries to read beyond the game data
         size = file->uncompressed_size - offset;
     }
+    if (size == 0)
+        return 0;
 
     // IO speedup tricks
-    uint32_t starting_block = o_offset / file->block_size;
-    uint32_t ending_block = ((o_offset+size)/file->block_size);
+    starting_block = o_offset / file->block_size;
+    ending_block = (o_offset+size)/file->block_size;
+    batch_end_block = ending_block;
+    if (is_dax && file->total_blocks > 0 && batch_end_block >= file->total_blocks - 1)
+        batch_end_block = file->total_blocks - 1;
     
     // refresh index table if needed
     if (file->idx_start_block < 0 || starting_block < file->idx_start_block || starting_block-file->idx_start_block+1 >= file->idx_cache_num-1){
@@ -196,35 +212,33 @@ int ciso_read(CisoFile* file, uint8_t* addr, uint32_t size, uint32_t offset)
     }
 
     // Calculate total size of compressed data
-    uint32_t o_start = (file->idx_cache[starting_block-file->idx_start_block]&0x7FFFFFFF)<<file->align;
-    // last block index might be outside the block offset cache, better read it from disk
-    uint32_t o_end;
-    if (ending_block-file->idx_start_block < file->idx_cache_num-1){
-        o_end = file->idx_cache[ending_block-file->idx_start_block];
+    o_start = (file->idx_cache[starting_block-file->idx_start_block]&0x7FFFFFFF)<<file->align;
+    // DAX has no index entry after its final block, so only batch up to that block.
+    if (batch_end_block-file->idx_start_block < file->idx_cache_num-1){
+        o_end = file->idx_cache[batch_end_block-file->idx_start_block];
     }
-    else { // read last two offsets
-        file->read_data(
+    else {
+        if (file->read_data(
             file->reader_arg,
             (uint8_t*)&o_end,
             sizeof(uint32_t),
-            ending_block*sizeof(uint32_t) + file->header_size
-        );
+            batch_end_block*sizeof(uint32_t) + file->header_size
+        ) != sizeof(uint32_t))
+            return CISO_IO_ERROR;
     }
     o_end = (o_end&0x7FFFFFFF)<<file->align;
-    uint32_t compressed_size = o_end-o_start;
+    compressed_size = o_end-o_start;
 
     // try to read at once as much compressed data as possible
-    if (size > file->block_size*2){ // only if going to read more than two blocks
+    if (size > file->block_size*2 && batch_end_block > starting_block && compressed_size > 0){ // only if going to read more than two blocks
         if (size < compressed_size) compressed_size = size-file->block_size; // adjust chunk size if compressed data is still bigger than uncompressed
         c_buf = top_addr - compressed_size; // read into the end of the user buffer
         file->read_data(file->reader_arg, c_buf, compressed_size, o_start);
     }
 
+    cur_block = starting_block;
+    pos = o_offset & (file->block_size - 1);
     while(size > 0) {
-        // calculate block number and offset within block
-        cur_block = offset / file->block_size;
-        pos = offset & (file->block_size - 1);
-
         // check if we need to refresh index table
         if (cur_block-file->idx_start_block >= file->idx_cache_num-1){
             file->read_data(
@@ -238,22 +252,26 @@ int ciso_read(CisoFile* file, uint8_t* addr, uint32_t size, uint32_t offset)
         
         // read compressed block offset and size
         uint32_t b_offset = file->idx_cache[cur_block-file->idx_start_block];
-        uint32_t b_size = file->idx_cache[cur_block-file->idx_start_block+1];
         uint32_t topbit = b_offset&0x80000000; // extract top bit for decompressor
         b_offset = (b_offset&0x7FFFFFFF) << file->align;
-        b_size = (b_size&0x7FFFFFFF) << file->align;
-        b_size -= b_offset;
-
-        if (cur_block == file->total_blocks-1 && file->header_size == sizeof(DAXHeader))
-            // fix for last DAX block (you can't trust the value of b_size since there's no offset for last_block+1)
-            b_size = DAX_COMP_BUF;
+        if (is_dax && cur_block == file->total_blocks-1) {
+            // DAX has no next offset for the final block; use its maximum span.
+            block_span = DAX_COMP_BUF;
+        } else {
+            uint32_t next_offset = file->idx_cache[cur_block-file->idx_start_block+1];
+            next_offset = (next_offset&0x7FFFFFFF) << file->align;
+            block_span = next_offset - b_offset;
+        }
+        if (block_span < file->block_header)
+            return CISO_IO_ERROR;
+        payload_size = block_span - file->block_header;
 
         // check if we need to (and can) read another chunk of data
-        if (c_buf < addr || c_buf+b_size > top_addr){
-            if (size > b_size+file->block_size){ // only if more than two blocks left, otherwise just use normal reading
+        if ((c_buf == NULL || c_buf < addr || c_buf+block_span > top_addr) && cur_block < batch_end_block){
+            if (size > block_span+file->block_size){ // only if more than two blocks left, otherwise just use normal reading
                 compressed_size = o_end-b_offset; // recalculate remaining compressed data
                 if (size < compressed_size) compressed_size = size-file->block_size; // adjust if still bigger than uncompressed
-                if (compressed_size >= b_size){
+                if (compressed_size >= block_span){
                     c_buf = top_addr - compressed_size; // read into the end of the user buffer
                     file->read_data(file->reader_arg, c_buf, compressed_size, b_offset);
                 }
@@ -261,24 +279,31 @@ int ciso_read(CisoFile* file, uint8_t* addr, uint32_t size, uint32_t offset)
         }
 
         // read block, skipping header if needed
-        if (c_buf >= addr && c_buf+b_size <= top_addr){
-            memcpy(com_buf, c_buf+file->block_header, b_size); // fast read
-            c_buf += b_size;
+        if (c_buf != NULL && c_buf >= addr && c_buf+block_span <= top_addr){
+            memcpy(com_buf, c_buf+file->block_header, payload_size); // fast read
+            c_buf += block_span;
         }
         else{ // slow read
-            b_size = file->read_data(file->reader_arg, com_buf, b_size, b_offset + file->block_header);
-            if (c_buf) c_buf += b_size;
+            int read_result = file->read_data(file->reader_arg, com_buf, payload_size, b_offset + file->block_header);
+            if (read_result <= 0)
+                return CISO_IO_ERROR;
+            payload_size = read_result;
         }
 
         // decompress block
-        file->decompressor(com_buf, b_size, dec_buf, file->block_size, topbit);
+        file->decompressor(com_buf, payload_size, dec_buf, file->block_size, topbit);
     
-        // read data from block into buffer
-        read_bytes = MIN(size, (file->block_size - pos));
+        // Full aligned blocks avoid the partial-block MIN calculation.
+        if (pos == 0 && size >= file->block_size)
+            read_bytes = file->block_size;
+        else
+            read_bytes = MIN(size, (file->block_size - pos));
         memcpy(addr, dec_buf + pos, read_bytes);
         size -= read_bytes;
         addr += read_bytes;
         offset += read_bytes;
+        cur_block++;
+        pos = 0;
     }
 
     return offset - o_offset;

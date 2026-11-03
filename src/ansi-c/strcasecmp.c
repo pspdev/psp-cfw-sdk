@@ -29,7 +29,17 @@ int strncasecmp(const char *s1, const char *s2, size_t n)
     return c1 - c2;
 }
 
+int strnicmp(const char *s1, const char *s2, size_t n)
+{
+    return strncasecmp(s1, s2, n);
+}
+
 int strcasecmp(const char *s1, const char *s2)
 {
     return strncasecmp(s1, s2, (size_t)-1);
+}
+
+int stricmp(const char *s1, const char *s2)
+{
+    return strcasecmp(s1, s2);
 }

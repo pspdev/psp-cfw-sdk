@@ -1,0 +1,40 @@
+name: psp-cfw-sdk cmake check
+
+on:
+  schedule:
+    - cron: "* 21 * * *"
+  pull_request:
+    paths-ignore:
+      - 'readme.md'
+      - 'todo.md'
+      - 'LICENSE'
+      - 'Dockerfile'
+      - '**/README.md'
+      - 'docs/**'
+
+env:
+  PSPDEV: "/usr/local/pspdev"
+jobs:
+  cmake-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Add pspdev/bin to path
+        run: echo "$PSPDEV/bin" >> $GITHUB_PATH
+      - name: update repo
+        run: sudo apt-get update
+
+      - name: Install deps
+        run: sudo apt-get install curl p7zip-full -y
+
+      - name: Download latest sdk/toolchain and unpack
+        run: curl -OJL https://github.com/pspdev/pspdev/releases/latest/download/pspdev-ubuntu-latest-x86_64.tar.gz && sudo tar xzvf pspdev-ubuntu-latest-x86_64.tar.gz -C /usr/local
+
+      - name: Change perms
+        run: chown $USER:$USER /usr/local/pspdev
+
+      - name: Compile psp-cfw-sdk
+        run: |
+          psp-cmake -S . -B build
+          cmake --build build -j
+

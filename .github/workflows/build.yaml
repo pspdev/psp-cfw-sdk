@@ -1,13 +1,22 @@
-name: building psp-cfw-sdk
-on: [push]
+name: Building psp-cfw-sdk
+on:
+  push:
+    paths-ignore:
+      - 'readme.md'
+      - 'todo.md'
+      - 'LICENSE'
+      - 'Dockerfile'
+      - '**/README.md'
+      - 'docs/**'
+    branches: [ main ]
 
-env: 
+env:
   PSPDEV: "/usr/local/pspdev"
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Add pspdev/bin to path
         run: echo "$PSPDEV/bin" >> $GITHUB_PATH
       - name: update repo
@@ -21,7 +30,7 @@ jobs:
 
       - name: Change perms
         run: chown $USER:$USER /usr/local/pspdev
-      
+
       - name: Compile psp-cfw-sdk
         run: make
 
@@ -42,7 +51,7 @@ jobs:
 
       - name: Compress it up!
         run: zip -r psp-cfw-sdk.zip ./usr
-      
+
       - name: Release
         uses: softprops/action-gh-release@v3
         with:

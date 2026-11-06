@@ -10,6 +10,7 @@
 
 // Time Machine module
 #define PATH_TMCTRL FLASH0_PATH "tmctrl.prx"
+#define PATH_TMHLPR FLASH0_PATH "tmhlpr.prx"
 
 //io functions
 int (* sceBootLfatOpen)(const char * filename) = NULL;
@@ -70,7 +71,11 @@ int patch_bootconf_timemachine(char *buffer, int length) {
     int newsize;
     int result = length;
 
-    // Insert tmctrl
+    // Insert TimeMachineHelper
+    newsize = AddPRX(buffer, "/kd/lfatfs.prx", PATH_TMHLPR+sizeof(FLASH0_PATH)-2, 0x000000EF);
+    if (newsize > 0) result = newsize;
+
+    // Insert TimeMachineControl
     newsize = AddPRX(buffer, "/kd/lfatfs.prx", PATH_TMCTRL+sizeof(FLASH0_PATH)-2, 0x000000EF);
     if (newsize > 0) result = newsize;
 

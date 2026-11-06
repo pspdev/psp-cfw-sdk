@@ -99,7 +99,7 @@ typedef struct SctrlFunctionPatchData {
 } SctrlFunctionPatchData;
 
 // Decrypt extension functions
-typedef int (* KDEC_HANDLER)(u32 *buf, int size, int *retSize, int m);
+typedef int (* KDEC_HANDLER)(u8 *prx, u32 size, u32 *newsize, int use_polling);
 typedef int (* MDEC_HANDLER)(u32 *tag, u8 *keys, u32 code, u32 *buf, int size, int *retSize, int m, void *unk0, int unk1, int unk2, int unk3, int unk4);
 
 #ifdef __cplusplus
@@ -1034,6 +1034,31 @@ int sctrlIsLoadingPlugins();
  * @attention returned value is a kernel pointer, user code might have to use kubridge to properly handle it.
  */
 PspSysMemPartition* sctrlGetMemoryPartition(int partition);
+
+
+/**
+ * Register a Memlmd decrypt handler that will be used before the PSP native
+ * Memlmd decrypt handler.
+ *
+ * @param[in] func The handler to register.
+ *
+ * @return Returns the previous registered handler.
+ *
+ * @attention Requires linking to `pspsystemctrl_kernel` stubs to be available.
+ */
+KDEC_HANDLER sctrlHENRegisterKDecryptHandler(KDEC_HANDLER func);
+
+/**
+ * Register a MesgLed decrypt handler that will be used before the PSP native
+ * MesgLed decrypt handler.
+ *
+ * @param[in] func The handler to register.
+ *
+ * @return Returns the previous registered handler.
+ *
+ * @attention Requires linking to `pspsystemctrl_kernel` stubs to be available.
+ */
+MDEC_HANDLER sctrlHENRegisterMDecryptHandler(MDEC_HANDLER func);
 
 #ifdef __cplusplus
 }

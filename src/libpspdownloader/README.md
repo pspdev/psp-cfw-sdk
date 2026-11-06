@@ -1,6 +1,11 @@
 # Usage
 
 * Simplest setup
+
+```make
+LIBS = -lpspdownloader -lpsphttp
+```
+
 ```c
 #include <downloader.h>
 int main(int args, char *argv[]) {

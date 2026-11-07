@@ -99,8 +99,8 @@ typedef struct SctrlFunctionPatchData {
 } SctrlFunctionPatchData;
 
 // Decrypt extension functions
-typedef int (* KDEC_HANDLER)(u8 *prx, u32 size, u32 *newsize, int use_polling);
-typedef int (* MDEC_HANDLER)(u32 *tag, u8 *key, u32 code, u8 *prx, u32 size, u32 *newsize, u32 use_polling, u8 *blacklist, u32 blacklistsize, u32 type, u8 *xor_key1, u8 *xor_key2);
+typedef int (* KDEC_HANDLER)(u8 *prx, u32 size, u32 *newsize, u8 use_polling);
+typedef int (* MDEC_HANDLER)(u32 *tag, u8 *key, u32 code, u8 *prx, u32 size, u32 *newsize, u8 use_polling, u8 *blacklist, u32 blacklistsize, u32 type, u8 *xor_key1, u8 *xor_key2);
 typedef int (* LLE_HANDLER)(SceLibraryStubTable *import);
 
 #ifdef __cplusplus

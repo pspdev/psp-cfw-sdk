@@ -60,7 +60,9 @@ typedef struct {
     BootStorage boot_storage;
     union { // IO operations
         struct {
-            int use_fatms371;
+            u8 use_fatms371; // enable/disable fatms371 mod support
+            s8 use_dc; // 0 = auto, <0 = disable, >0 = enable
+            u8 unused[2]; // for future use
             char* tm_path;
             int (*FatMount)();
             int (*FatOpen)(const char*);

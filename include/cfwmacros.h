@@ -107,6 +107,8 @@
 // Volatile write to `addr` the u64 value of `val`
 #define VWRITE64(addr, val) _sd(val, addr);
 
+#define REG32(addr) *((volatile uint32_t *)(addr))
+
 #define MAKE_DUMMY_FUNCTION_RETURN_0(a) \
     _sw(JR_RA, a);\
     _sw(LI_V0(0), a + 4);\

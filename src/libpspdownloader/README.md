@@ -1,8 +1,13 @@
 # Usage
 
 * Simplest setup
+
+```make
+LIBS = -lpspdownloader -lpsphttp
+```
+
 ```c
-#include <downloader.h>
+#include <pspdownloader.h>
 int main(int args, char *argv[]) {
   download_file(URL, OUTPUT_FILE_LOCATION);
 }

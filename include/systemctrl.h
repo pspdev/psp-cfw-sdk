@@ -99,8 +99,9 @@ typedef struct SctrlFunctionPatchData {
 } SctrlFunctionPatchData;
 
 // Decrypt extension functions
-typedef int (* KDEC_HANDLER)(u32 *buf, int size, int *retSize, int m);
-typedef int (* MDEC_HANDLER)(u32 *tag, u8 *keys, u32 code, u32 *buf, int size, int *retSize, int m, void *unk0, int unk1, int unk2, int unk3, int unk4);
+typedef int (* KDEC_HANDLER)(u8 *prx, u32 size, u32 *newsize, u8 use_polling);
+typedef int (* MDEC_HANDLER)(u32 *tag, u8 *key, u32 code, u8 *prx, u32 size, u32 *newsize, u8 use_polling, u8 *blacklist, u32 blacklistsize, u32 type, u8 *xor_key1, u8 *xor_key2);
+typedef int (* LLE_HANDLER)(SceLibraryStubTable *import);
 
 #ifdef __cplusplus
 extern "C"{
@@ -1034,6 +1035,56 @@ int sctrlIsLoadingPlugins();
  * @attention returned value is a kernel pointer, user code might have to use kubridge to properly handle it.
  */
 PspSysMemPartition* sctrlGetMemoryPartition(int partition);
+
+
+/**
+ * Register a Memlmd decrypt handler that will be used before the PSP native
+ * Memlmd decrypt handler.
+ *
+ * @param[in] func The handler to register.
+ *
+ * @return Returns the previous registered handler.
+ *
+ * @attention Requires linking to `pspsystemctrl_kernel` stubs to be available.
+ */
+KDEC_HANDLER sctrlHENRegisterKDecryptHandler(KDEC_HANDLER func);
+
+/**
+ * Register a MesgLed decrypt handler that will be used before the PSP native
+ * MesgLed decrypt handler.
+ *
+ * @param[in] func The handler to register.
+ *
+ * @return Returns the previous registered handler.
+ *
+ * @attention Requires linking to `pspsystemctrl_kernel` stubs to be available.
+ */
+MDEC_HANDLER sctrlHENRegisterMDecryptHandler(MDEC_HANDLER func);
+
+/**
+ * Register a custom "link lib entry" handler that can modify a
+ * `SceLibraryStubTable` information.
+ *
+ * It can be useful to create and set custom NID resolver.
+ *
+ * @param[in] func The handler to register.
+ *
+ * @attention Requires linking to `pspsystemctrl_kernel` stubs to be available.
+ *
+ * @example
+ * u32 ResolveNID(const char *libname, u32 nid);
+ *
+ * int handler(SceLibraryStubTable *import_stub) {
+ *    for (i = 0; i < import_stub->stubcount; i++) {
+ *      u32 new_nid = ResolveNID(import_stub->libname, import_stub->nidtable[i]);
+ *	        if (new_nid != 0) {
+ *              import_stub->nidtable[i] = new_nid;
+ *          }
+ *      }
+ * }
+ *
+ */
+void sctrlHENRegisterLLEHandler(LLE_HANDLER func);
 
 #ifdef __cplusplus
 }

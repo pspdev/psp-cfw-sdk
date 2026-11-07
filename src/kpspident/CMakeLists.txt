@@ -1,1 +1,1 @@
-add_stub_lib(kpspident libkpspident.S libkpspident)
+add_stub_lib(kpspident_stub libkpspident.S libkpspident)

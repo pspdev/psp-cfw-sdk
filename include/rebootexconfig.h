@@ -93,7 +93,7 @@ typedef struct RebootexConfigLME {
     u32     config[0x70/4];//0x50
     int     reboot_index;//0xc0
     int     mem2;
-    int     mem8;
+    int     mem9;
     int     k150_flag;
     void*   on_reboot_after;
     void*   on_reboot_buf;

@@ -62,3 +62,9 @@
 #ifdef F_VshCtrl_0018
 	IMPORT_FUNC  "VshCtrlLib",0x3A65060D,vctrlSetRegistryValue
 #endif
+#ifdef F_VshCtrl_0019
+	IMPORT_FUNC  "VshCtrlLib",0xE6A6ACBB,vctrlVSHSetRecovery
+#endif
+#ifdef F_VshCtrl_0020
+	IMPORT_FUNC  "VshCtrlLib",0xAEB3290C,vctrlVSHSetSpeed
+#endif

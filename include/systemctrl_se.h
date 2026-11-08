@@ -90,7 +90,7 @@ enum cpubus_clocks
 	CPU_BUS_CLOCK_CUSTOM,
 };
 
-// M33's SEConfig (also used by L/ME)
+// M33's SEConfig
 #define SECONFIG_MAGIC_M33 0x47434553
 typedef struct SEConfigM33
 {
@@ -124,6 +124,54 @@ typedef struct SEConfigM33
 	int unccc;
 	int nuc;
 } SEConfigM33;
+
+// Binary compatible with M33
+#define SECONFIG_MAGIC_LME 0x4143454D
+typedef struct
+{
+	int magic;
+	int hidecorrupt;
+	int	skiplogo;
+	int hidemac;
+
+	int gamekernel150;
+	int skipgameboot;//executebootbinGameboot skip
+	int startupprog;//UmdVideoPatch
+	int umdmode;
+
+	int execute_pboot;
+	int	vshcpuspeed;
+	int	vshbusspeed; 
+	int	umdisocpuspeed; 
+
+	int	umdisobusspeed; 
+	int fakeregion;
+	int executeopnssmp;//freeumdregionexecute OPNSSMP
+	int	usbprotect;
+
+	int usbdevice;
+	int novshmenu;
+	int usbcharge;
+	int netupdate;
+
+	int hidepng;
+	int plugvsh;
+	int pluggame;
+	int plugpop;
+
+	int versiontxt;
+	int fastms;
+
+	int iso_cache;
+	int iso_cache_num;
+	int iso_cache_policy;
+	int iso_cache_total_size;
+	int usenodrm;
+	int hidecfwdirs;
+	int high_memory;
+
+	int reserved[3];
+} SEConfigLME;
 
 // PRO's SEConfig
 #define SECONFIG_MAGIC_PRO ((((sctrlHENGetVersion() & 0xF)<<16) | sctrlHENGetMinorVersion()) + 0x47434554)
@@ -305,6 +353,7 @@ typedef struct SEConfigARK150 {
 typedef union {
     SEConfigM33    m33;
     SEConfigPRO    pro;
+	SEConfigLME    lme;
     SEConfigEPI    adr;
     SEConfigARK    ark;
 	SEConfigARK150 ark150;
@@ -399,6 +448,24 @@ void sctrlSEApplyConfig(SEConfig *conf);
 */
 int sctrlSEApplyConfigEX(SEConfig *conf, int size);
 
+/**
+ * Reset SEConfig to default values.
+ * 
+ * @param pointer to SEConfig structure.
+ * 
+ * @return 0 on success, <0 on error
+ */
+int sctrlSERstConfig(SEConfig *config);
+
+/**
+ * Reset SEConfig to default values.
+ * 
+ * @param pointer to SEConfig structure.
+ * @param size of SEConfig.
+ * 
+ * @return 0 on success, <0 on error
+ */
+int sctrlSERstConfigEx(SEConfig *config, int size);
 
 /**
  * Get the CFW's internal `SEConfig` structure.
@@ -491,6 +558,8 @@ int sctrlSEGetDiscType(void);
 char *sctrlSEGetUmdFile(void);
 char *GetUmdFile(void);
 
+char *sctrlSEGetUmdFileEx(char *input);
+
 /**
  * Sets the current UMD file (kernel only).
  *
@@ -500,6 +569,8 @@ char *GetUmdFile(void);
 */
 void sctrlSESetUmdFile(const char *file);
 void SetUmdFile(const char *file);
+
+void sctrlSESetUmdFileEx(const char *umd, char *input);
 
 
 /**

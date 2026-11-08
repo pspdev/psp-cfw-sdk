@@ -901,7 +901,7 @@ void sctrlSetCustomStartModule(int (*func)(int modid, SceSize argsize, void *arg
 /**
  * Loads a module on next reboot.
  *
- * @param module_after The path of the module which is loaded after the module to be loaded.
+ * @param relmod The path of the module which is loaded after/before the module to be loaded. Order depends on CFW.
    The module passed to this function will be loaded just before that module.
  * @param buf The buffer containing the module - Don't deallocate this one. It has to reside in kernel memory.
  * @param size The size of the module
@@ -921,7 +921,7 @@ void sctrlSetCustomStartModule(int (*func)(int modid, SceSize argsize, void *arg
  *
  * @attention Requires linking to `pspsystemctrl_kernel` stub to be available.
 */
-void sctrlHENLoadModuleOnReboot(char *module_after, void *buf, int size, int flags);
+void sctrlHENLoadModuleOnReboot(char *relmod, void *buf, int size, int flags);
 
 /**
  * Override rebootex.

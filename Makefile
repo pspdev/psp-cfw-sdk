@@ -9,6 +9,7 @@ all:
 	$(MAKE) -C src/SystemCtrlForUser
 	$(MAKE) -C src/SystemCtrlForKernel
 	$(MAKE) -C src/VshCtrl
+	$(MAKE) -C src/MECtrl
 	$(MAKE) -C src/ArkCtrl
 	$(MAKE) -C src/AdrenalineCtrl
 	$(MAKE) -C src/SysclibForUser
@@ -51,6 +52,7 @@ all:
 	cp src/SystemCtrlForUser/*.a libs
 	cp src/SystemCtrlForKernel/*.a libs
 	cp src/VshCtrl/*.a libs
+	cp src/MECtrl/*.a libs
 	cp src/ArkCtrl/*.a libs
 	cp src/AdrenalineCtrl/*.a libs
 	cp src/SysclibForUser/*.a libs
@@ -111,6 +113,7 @@ clean:
 	$(MAKE) -C src/SystemCtrlForUser clean
 	$(MAKE) -C src/SystemCtrlForKernel clean
 	$(MAKE) -C src/VshCtrl clean
+	$(MAKE) -C src/MECtrl clean
 	$(MAKE) -C src/ArkCtrl clean
 	$(MAKE) -C src/AdrenalineCtrl clean
 	$(MAKE) -C src/SysclibForUser clean

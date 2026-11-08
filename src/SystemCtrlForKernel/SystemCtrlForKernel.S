@@ -314,3 +314,33 @@
 #ifdef F_SystemCtrlForKernel_0102
     IMPORT_FUNC "SystemCtrlForKernel",0xE8A11ABE,sctrlHENSetSystemBootedHandler
 #endif
+#ifdef F_SystemCtrlForKernel_0103
+    IMPORT_FUNC "SystemCtrlForKernel",0x8E426F09,sctrlSERstConfig
+#endif
+#ifdef F_SystemCtrlForKernel_0104
+    IMPORT_FUNC "SystemCtrlForKernel",0x32414F2A,sctrlSERstConfigEx
+#endif
+#ifdef F_SystemCtrlForKernel_0105
+    IMPORT_FUNC "SystemCtrlForKernel",0x260CA420,isofs_init
+#endif
+#ifdef F_SystemCtrlForKernel_0106
+    IMPORT_FUNC "SystemCtrlForKernel",0xB078D9A0,isofs_exit
+#endif
+#ifdef F_SystemCtrlForKernel_0107
+    IMPORT_FUNC "SystemCtrlForKernel",0xE82E932B,isofs_open
+#endif
+#ifdef F_SystemCtrlForKernel_0108
+    IMPORT_FUNC "SystemCtrlForKernel",0x324FB7B1,isofs_read
+#endif
+#ifdef F_SystemCtrlForKernel_0109
+    IMPORT_FUNC "SystemCtrlForKernel",0xCAE6A8E1,isofs_close
+#endif
+#ifdef F_SystemCtrlForKernel_0110
+    IMPORT_FUNC "SystemCtrlForKernel",0x3BC8E648,isofs_lseek
+#endif
+#ifdef F_SystemCtrlForKernel_0111
+    IMPORT_FUNC "SystemCtrlForKernel",0xDC974FF8,isofs_getstat
+#endif
+#ifdef F_SystemCtrlForKernel_0112
+    IMPORT_FUNC "SystemCtrlForKernel",0x7E6F2BBA,isofs_fastinit
+#endif

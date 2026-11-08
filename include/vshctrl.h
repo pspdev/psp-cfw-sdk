@@ -97,6 +97,7 @@ int vctrlVSHRegisterVshGuMenu(void (*vshmenu_draw)(void* frame));
  */
 int vctrlVSHExitVSHMenu(SEConfig *conf, char *videoiso, int disctype);
 
+int vctrlVSHExitVSHMenuEx(SEConfig *g_conf, int g_size, char *videoiso, int disctype);
 
 /**
  * Sets SE configuration.
@@ -258,6 +259,16 @@ int vctrlGetRegistryValue(const char *dir, const char *name, u32 *val);
  * @attention Requires linking to `pspvshctrl` stub to be available.
  */
 int vctrlSetRegistryValue(const char *dir, const char *name, u32 val);
+
+/**
+ * Set recovery flag for next reboot.
+ */
+void vctrlVSHSetRecovery(void);
+
+/**
+ * Set VSH CPU/BUS speed.
+ */
+void vctrlVSHSetSpeed(int cpu, int bus );
 
 #endif
 

@@ -1,12 +1,11 @@
 #ifndef __KULIBRARY__
 #define __KULIBRARY__
 
-#include <pspsdk.h>
-#include <pspkernel.h>
-#include <pspsysmem_kernel.h>
 #include <pspctrl.h>
+#include <pspkernel.h>
+#include <pspsdk.h>
+#include <pspsysmem_kernel.h>
 #include <psputilsforkernel.h>
-
 
 // interface for passing arguments to kernel functions
 typedef struct KernelCallArg {
@@ -28,11 +27,11 @@ typedef struct KernelCallArg {
 
 /**
  * Functions to let user mode access certain functions only available in
- * kernel mode
-*/
+ * kernel mode.
+ */
 
 #ifdef __cplusplus
-extern "C"{
+extern "C" {
 #endif /* __cplusplus */
 
 /**
@@ -45,9 +44,10 @@ extern "C"{
  * @return The UID of the loaded module on success, otherwise one of `PspKernelErrorCodes`.
  *
  * @attention Requires linking to `pspkubridge` stub to be available.
+ *
+ * @note Available on M33, LME, PRO, ARK and Epinephrine.
  */
 SceUID kuKernelLoadModule(const char *path, int flags, SceKernelLMOption *option);
-
 
 /**
  * Load a module with a specific apitype
@@ -60,8 +60,11 @@ SceUID kuKernelLoadModule(const char *path, int flags, SceKernelLMOption *option
  * @return The UID of the loaded module on success, otherwise one of `PspKernelErrorCodes`.
  *
  * @attention Requires linking to `pspkubridge` stub to be available.
+ *
+ * @note Available on M33, LME, PRO, ARK and Epinephrine. Not available on ARK-150.
  */
-SceUID kuKernelLoadModuleWithApitype2(int apitype, const char *path, int flags, SceKernelLMOption *option);
+SceUID
+kuKernelLoadModuleWithApitype2(int apitype, const char *path, int flags, SceKernelLMOption *option);
 
 /**
  * Gets the API type.
@@ -69,7 +72,9 @@ SceUID kuKernelLoadModuleWithApitype2(int apitype, const char *path, int flags, 
  * @return The API type in which the system has booted.
  *
  * @attention Requires linking to `pspkubridge` stub to be available.
-*/
+ *
+ * @note Available on M33, LME, PRO, ARK and Epinephrine.
+ */
 int kuKernelInitApitype();
 
 /**
@@ -80,7 +85,9 @@ int kuKernelInitApitype();
  * @return `0` on success.
  *
  * @attention Requires linking to `pspkubridge` stub to be available.
-*/
+ *
+ * @note Available on M33, LME, PRO, ARK and Epinephrine.
+ */
 int kuKernelInitFileName(char *initfilename);
 
 /**
@@ -89,7 +96,9 @@ int kuKernelInitFileName(char *initfilename);
  * @return The device code. One of `SceBootMediumType` values.
  *
  * @attention Requires linking to `pspkubridge` stub to be available.
-*/
+ *
+ * @note Available on M33, LME, PRO, ARK and Epinephrine.
+ */
 int kuKernelBootFrom();
 
 /**
@@ -98,7 +107,9 @@ int kuKernelBootFrom();
  * @return The key configuration code, one of `SceApplicationType` values.
  *
  * @attention Requires linking to `pspkubridge` stub to be available.
-*/
+ *
+ * @note Available on M33, LME, PRO, ARK and Epinephrine.
+ */
 int kuKernelInitKeyConfig();
 
 /**
@@ -107,6 +118,8 @@ int kuKernelInitKeyConfig();
  * @return The user level, `< 0` on error.
  *
  * @attention Requires linking to `pspkubridge` stub to be available.
+ *
+ * @note Available on M33, LME, PRO, ARK and Epinephrine.
  */
 int kuKernelGetUserLevel(void);
 
@@ -120,6 +133,8 @@ int kuKernelGetUserLevel(void);
  * @return `< 0` on error.
  *
  * @attention Requires linking to `pspkubridge` stub to be available.
+ *
+ * @note Available on M33, LME, PRO, ARK and Epinephrine.
  */
 int kuKernelSetDdrMemoryProtection(void *addr, int size, int prot);
 
@@ -132,7 +147,9 @@ int kuKernelSetDdrMemoryProtection(void *addr, int size, int prot);
  * @return One of `PspModel` values
  *
  * @attention Requires linking to `pspkubridge` stub to be available.
-*/
+ *
+ * @note Available on M33, LME, PRO, ARK and Epinephrine.
+ */
 int kuKernelGetModel(void);
 
 /**
@@ -144,6 +161,8 @@ int kuKernelGetModel(void);
  * @return `< 0` on error.
  *
  * @attention Requires linking to `pspkubridge` stub to be available.
+ *
+ * @note Available on PRO, ARK and Epinephrine (>=v8.0.0).
  */
 int kuKernelFindModuleByName(char *modname, SceModule *mod);
 
@@ -156,6 +175,8 @@ int kuKernelFindModuleByName(char *modname, SceModule *mod);
  * @return `< 0` on error.
  *
  * @attention Requires linking to `pspkubridge` stub to be available.
+ *
+ * @note Available on ARK and Epinephrine (>=v8.0.0).
  */
 int kuKernelFindModuleByAddress(void *addr, SceModule *mod);
 
@@ -163,6 +184,8 @@ int kuKernelFindModuleByAddress(void *addr, SceModule *mod);
  * Invalidate the entire instruction cache.
  *
  * @attention Requires linking to `pspkubridge` stub to be available.
+ *
+ * @note Available on PRO, ARK and Epinephrine (>=v8.0.0).
  */
 void kuKernelIcacheInvalidateAll(void);
 
@@ -172,6 +195,8 @@ void kuKernelIcacheInvalidateAll(void);
  * @param[in] addr The address to read. It must have 4 bytes alignment.
  *
  * @attention Requires linking to `pspkubridge` stub to be available.
+ *
+ * @note Available on PRO, ARK and Epinephrine (>=v8.0.0).
  */
 unsigned int kuKernelPeekw(void *addr);
 
@@ -181,6 +206,8 @@ unsigned int kuKernelPeekw(void *addr);
  * @param[in] addr The address to write. It must have 4 bytes alignment.
  *
  * @attention Requires linking to `pspkubridge` stub to be available.
+ *
+ * @note Available on PRO, ARK and Epinephrine (>=v8.0.0).
  */
 void kuKernelPokew(void *addr, unsigned int value);
 
@@ -194,6 +221,8 @@ void kuKernelPokew(void *addr, unsigned int value);
  * @return The destination address.
  *
  * @attention Requires linking to `pspkubridge` stub to be available.
+ *
+ * @note Available on PRO, ARK and Epinephrine (>=v8.0.0).
  */
 void *kuKernelMemcpy(void *dest, const void *src, size_t num);
 
@@ -206,6 +235,8 @@ void *kuKernelMemcpy(void *dest, const void *src, size_t num);
  * @return `< 0` on error.
  *
  * @attention Requires linking to `pspkubridge` stub to be available.
+ *
+ * @note Available on PRO, ARK and Epinephrine (>=v8.0.0).
  */
 int kuKernelCall(void *func_addr, struct KernelCallArg *args);
 
@@ -219,6 +250,8 @@ int kuKernelCall(void *func_addr, struct KernelCallArg *args);
  * @return `< 0` on error.
  *
  * @attention Requires linking to `pspkubridge` stub to be available.
+ *
+ * @note Available on PRO, ARK and Epinephrine (>=v8.0.0).
  */
 int kuKernelCallExtendStack(void *func_addr, struct KernelCallArg *args, int stack_size);
 
@@ -229,7 +262,9 @@ int kuKernelCallExtendStack(void *func_addr, struct KernelCallArg *args, int sta
  * @param size The size of the `umdfile` buffer.
  *
  * @attention Requires linking to `pspkubridge` stub to be available.
-*/
+ *
+ * @note Available on PRO, ARK and Epinephrine (>=v8.0.0).
+ */
 void kuKernelGetUmdFile(char *umdfile, int size);
 
 #ifdef __cplusplus

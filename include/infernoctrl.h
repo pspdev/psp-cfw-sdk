@@ -5,12 +5,14 @@
 
 enum InfernoCachePolicy {
     INFERNO_CACHE_DISABLED = 0,
-    INFERNO_CACHE_LRU = 1, // Least Recently Used
-    INFERNO_CACHE_RR = 2, // Random Replacement
+    /** Least Recently Used policy. */
+    INFERNO_CACHE_LRU = 1,
+    /** Random Replacement policy. */
+    INFERNO_CACHE_RR = 2,
 };
 
 #ifdef __cplusplus
-extern "C"{
+extern "C" {
 #endif
 
 /**
@@ -21,6 +23,10 @@ extern "C"{
  * @param data_len amount of bytes to read.
  *
  * @return amount of bytes read, <0 on error.
+ *
+ * @attention Requires linking to `pspinferno_driver` stub to be available.
+ *
+ * @note Available on ARK and Epinephrine.
  */
 extern int infernoIsoRead(u32 offset, void *ptr, u32 data_len);
 
@@ -29,6 +35,10 @@ extern int infernoIsoRead(u32 offset, void *ptr, u32 data_len);
  *
  * @param type of the Virtual UMD.
  * @return 0 on success, <0 on error.
+ *
+ * @attention Requires linking to `pspinferno_driver` stub to be available.
+ *
+ * @note Available on LME, PRO, ARK and Epinephrine.
  */
 extern int infernoSetDiscType(int type);
 
@@ -36,6 +46,10 @@ extern int infernoSetDiscType(int type);
  * Sets Cache Policy, necessary before initializing cache.
  *
  * @param policy one of Inferno Cache Policies.
+ *
+ * @attention Requires linking to `pspinferno_driver` stub to be available.
+ *
+ * @note Available on LME, PRO, ARK and Epinephrine.
  */
 extern void infernoCacheSetPolicy(int policy);
 
@@ -54,6 +68,9 @@ extern void infernoCacheSetPolicy(int policy);
  * @return -2/-3/-4 if failed to allocate cache buffers.
  * @return -10 if cache policy not set.
  *
+ * @attention Requires linking to `pspinferno_driver` stub to be available.
+ *
+ * @note Available on ARK and Epinephrine (>= v8.0.0).
  */
 extern int infernoCacheInit(int cache_size, int cache_num, int partition);
 
@@ -63,9 +80,11 @@ extern int infernoCacheInit(int cache_size, int cache_num, int partition);
  * @param seek 0 to disable, >0 to enable, the higher the value the slower the seek time.
  * @param speed 0 to disable, >0 to enable, the higher the value the slower the read time.
  *
+ * @attention Requires linking to `pspinferno_driver` stub to be available.
+ *
+ * @note Available on ARK and Epinephrine (>= v8.0.0).
  */
 extern void infernoSetUmdDelay(int seek, int speed);
-
 
 #ifdef __cplusplus
 }

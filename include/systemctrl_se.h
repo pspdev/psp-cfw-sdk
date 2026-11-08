@@ -3,27 +3,27 @@
 
 #include <psptypes.h>
 
-
 // Not much of a difference when past 4Kb
-#define MSCACHE_BUFSIZE_MIN (4  *1024)
-#define MSCACHE_BUFSIZE_MED (8  *1024)
+#define MSCACHE_BUFSIZE_MIN (4 * 1024)
+#define MSCACHE_BUFSIZE_MED (8 * 1024)
 #define MSCACHE_BUFSIZE_MAX (16 * 1024)
 
 // Note 1: highmem can't be used (at all) in VSH or POPS
-// Note 2: DEFAULT_USE and AUTO_USE becomes FORCE_MAX on homebrew with MEMSIZE=1, and FORCE_16 with MEMSIZE=2
-// Note 3: only AUTO_USE loads user plugins in highmem
+// Note 2: DEFAULT_USE and AUTO_USE becomes FORCE_MAX on homebrew with MEMSIZE=1, and FORCE_16 with
+// MEMSIZE=2 Note 3: only AUTO_USE loads user plugins in highmem
 enum {
-	HIGHMEM_FORCE_OFF, // no highmem at all
-	HIGHMEM_DEFAULT_USE, // default cfw behavior: only force highmem on homebrew with MEMSIZE>0 in param.sfo
-	HIGHMEM_AUTO_USE, // automatically uses high or not, or how to use it
-	HIGHMEM_FORCE_16, // force use 16MB of extra ram
-	HIGHMEM_FORCE_MAX, // force max possible highmem
+    HIGHMEM_FORCE_OFF, // no highmem at all
+    HIGHMEM_DEFAULT_USE, // default cfw behavior: only force highmem on homebrew with MEMSIZE>0 in
+                         // param.sfo
+    HIGHMEM_AUTO_USE, // automatically uses high or not, or how to use it
+    HIGHMEM_FORCE_16, // force use 16MB of extra ram
+    HIGHMEM_FORCE_MAX, // force max possible highmem
 };
 
 /**
  * These functions are only available in SE-C and later,
  * and they are not in HEN
-*/
+ */
 enum fakeregion {
     FAKE_REGION_DISABLED = 0,
     FAKE_REGION_JAPAN = 1,
@@ -41,34 +41,53 @@ enum fakeregion {
     FAKE_REGION_DEBUG_TYPE_II = 13,
 };
 
-enum SEUmdModes
-{
+enum SEUmdModes {
+    /** No ISO/CISO driver. */
     MODE_UMD = 0,
-    MODE_OE_LEGACY, // iso/dax driver from OE, not available anymore, will default to inferno
-    MODE_MARCH33,  // iso/cso driver from M33
-    MODE_NP9660, // PBP driver, if Galaxy is not available for iso/cso support (i.e. ARK-4) it will default to inferno
+    /** OE ISO/DAX driver
+     *
+     * Originally available on OE CFW. If not available, it will default to another ISO/CISO driver.
+     */
+    MODE_OE_LEGACY,
+    /** March33 ISO/CSO driver from M33 CFW. */
+    MODE_MARCH33,
+    /** Sony PBP driver.
+     *
+     * If Galaxy Controller is not available for ISO/CISO support (e.g. ARK-4/5) if will default to
+     * another ISO/CISO driver.
+     */
+    MODE_NP9660,
+    /** Inferno ISO/CISO driver. */
     MODE_INFERNO,
+    /** (L)ME ISO/CISO driver.
+     *
+     * Originally available on (L)ME CFW based on March33. If not available, it will default to
+     * another ISO/CISO driver.
+     */
     MODE_ME,
+    /** Virtual VSH UMDemu mount.
+     *
+     * A CFW will use the ISO/CISO driver it defaults.
+     */
     MODE_VSHUMD,
+    /** Updater mode. No ISO/CISO driver. */
     MODE_UPDATERUMD,
+    /** Recovery Menu mode. No ISO/CISO driver. */
     MODE_RECOVERY,
 };
 
-enum swap_xo
-{
+enum swap_xo {
     XO_CURRENT_O_PRIMARY = 0,
     XO_CURRENT_X_PRIMARY = 1
 };
 
-enum convert_battery
-{
-    NORMAL_TO_PANDORA    = 0,
-    PANDORA_TO_NORMAL    = 1,
-    UNSUPPORTED        	= 2,
+enum convert_battery {
+    NORMAL_TO_PANDORA = 0,
+    PANDORA_TO_NORMAL = 1,
+    UNSUPPORTED = 2,
 };
 
-enum umdregion
-{
+enum umdregion {
     // UMD regions
     UMD_REGION_DEFAULT,
     UMD_REGION_AMERICA,
@@ -76,239 +95,240 @@ enum umdregion
     UMD_REGION_JAPAN,
 };
 
-enum cpubus_clocks
-{
-	CPU_BUS_CLOCK_DEFAULT,
-	CPU_BUS_CLOCK_133,
-	CPU_BUS_CLOCK_222,
-	CPU_BUS_CLOCK_333,
-	// these are overclock values
-	CPU_BUS_CLOCK_383,
-	CPU_BUS_CLOCK_403,
-	CPU_BUS_CLOCK_423,
-	CPU_BUS_CLOCK_443,
-	CPU_BUS_CLOCK_CUSTOM,
+enum cpubus_clocks {
+    CPU_BUS_CLOCK_DEFAULT,
+    CPU_BUS_CLOCK_133,
+    CPU_BUS_CLOCK_222,
+    CPU_BUS_CLOCK_333,
+    // these are overclock values
+    CPU_BUS_CLOCK_383,
+    CPU_BUS_CLOCK_403,
+    CPU_BUS_CLOCK_423,
+    CPU_BUS_CLOCK_443,
+    CPU_BUS_CLOCK_CUSTOM,
 };
 
 // M33's SEConfig
 #define SECONFIG_MAGIC_M33 0x47434553
-typedef struct SEConfigM33
-{
-	int magic; /* 0x47434553 *///ABEC
-	int hidecorrupt;//abf0
-	int	skiplogo;//
-	int umdactivatedplaincheck;//hide mac addr
-	int gamekernel150;
-	int executebootbin;//datac00
-	int startupprog;
-	int umdmode;
-	int useisofsonumdinserted;
-	int	vshcpuspeed; //dataAC10
-	int	vshbusspeed;
-	int	umdisocpuspeed;
-	int	umdisobusspeed;
-	int fakeregion;//dataAC20
-	int freeumdregion;//executeopnssmp
-	int	hardresetHB; //data
-	int usbdevice;
-	int novshmenu;//dataAC30
-	int usbcharge;
-	int netupdate;
-	int hidepng;
-	int plugvsh;//
-	int pluggame;
-	int plugpop;
-	int versiontxt;
-	int fastms;//
-	int uncc;
-	int unccc;
-	int nuc;
+typedef struct SEConfigM33 {
+    int magic; /* 0x47434553 */ // ABEC
+    int hidecorrupt; // abf0
+    int skiplogo; //
+    int umdactivatedplaincheck; // hide mac addr
+    int gamekernel150;
+    int executebootbin; // datac00
+    int startupprog;
+    int umdmode;
+    int useisofsonumdinserted;
+    int vshcpuspeed; // dataAC10
+    int vshbusspeed;
+    int umdisocpuspeed;
+    int umdisobusspeed;
+    int fakeregion; // dataAC20
+    int freeumdregion; // executeopnssmp
+    int hardresetHB; // data
+    int usbdevice;
+    int novshmenu; // dataAC30
+    int usbcharge;
+    int netupdate;
+    int hidepng;
+    int plugvsh; //
+    int pluggame;
+    int plugpop;
+    int versiontxt;
+    int fastms; //
+    int uncc;
+    int unccc;
+    int nuc;
 } SEConfigM33;
 
 // Binary compatible with M33
 #define SECONFIG_MAGIC_LME 0x4143454D
-typedef struct
-{
-	int magic;
-	int hidecorrupt;
-	int	skiplogo;
-	int hidemac;
+typedef struct {
+    int magic;
+    int hidecorrupt;
+    int skiplogo;
+    int hidemac;
 
-	int gamekernel150;
-	int skipgameboot;//executebootbinGameboot skip
-	int startupprog;//UmdVideoPatch
-	int umdmode;
+    int gamekernel150;
+    int skipgameboot; // executebootbinGameboot skip
+    int startupprog; // UmdVideoPatch
+    int umdmode;
 
-	int execute_pboot;
-	int	vshcpuspeed;
-	int	vshbusspeed; 
-	int	umdisocpuspeed; 
+    int execute_pboot;
+    int vshcpuspeed;
+    int vshbusspeed;
+    int umdisocpuspeed;
 
-	int	umdisobusspeed; 
-	int fakeregion;
-	int executeopnssmp;//freeumdregionexecute OPNSSMP
-	int	usbprotect;
+    int umdisobusspeed;
+    int fakeregion;
+    int executeopnssmp; // freeumdregionexecute OPNSSMP
+    int usbprotect;
 
-	int usbdevice;
-	int novshmenu;
-	int usbcharge;
-	int netupdate;
+    int usbdevice;
+    int novshmenu;
+    int usbcharge;
+    int netupdate;
 
-	int hidepng;
-	int plugvsh;
-	int pluggame;
-	int plugpop;
+    int hidepng;
+    int plugvsh;
+    int pluggame;
+    int plugpop;
 
-	int versiontxt;
-	int fastms;
+    int versiontxt;
+    int fastms;
 
-	int iso_cache;
-	int iso_cache_num;
-	int iso_cache_policy;
-	int iso_cache_total_size;
-	int usenodrm;
-	int hidecfwdirs;
-	int high_memory;
+    int iso_cache;
+    int iso_cache_num;
+    int iso_cache_policy;
+    int iso_cache_total_size;
+    int usenodrm;
+    int hidecfwdirs;
+    int high_memory;
 
-	int reserved[3];
+    int reserved[3];
 } SEConfigLME;
 
 // PRO's SEConfig
-#define SECONFIG_MAGIC_PRO ((((sctrlHENGetVersion() & 0xF)<<16) | sctrlHENGetMinorVersion()) + 0x47434554)
-typedef struct SEConfigPRO
-{
-	int magic; // depends on pro version, calculated at runtime with above formula
-	s16 umdmode;
-	s16 vshcpuspeed;
-	s16 vshbusspeed;
-	s16 umdisocpuspeed;
-	s16 umdisobusspeed;
-	s16 fakeregion;
-	s16 usbdevice;
-	s16 usbcharge;
-	s16 machidden;
-	s16 skipgameboot;
-	s16 hidepic;
-	s16 plugvsh;
-	s16 pluggame;
-	s16 plugpop;
-	s16 flashprot;
-	s16 skiplogo;
-	s16 useversion;
-	s16 useownupdate;
-	s16 usenodrm;
-	s16 hibblock;
-	s16 noanalog;
-	s16 oldplugin;
-	s16 htmlviewer_custom_save_location;
-	s16 hide_cfw_dirs;
-	s16 chn_iso;
-	s16 msspeed;
-	s16 slimcolor;
-	s16 iso_cache;
-	s16 iso_cache_total_size; // in MB
-	s16 iso_cache_num;
-	s16 iso_cache_policy;
-	s16 usbversion;
-	s16 language; /* -1 as autodetect */
-	s16 retail_high_memory;
-	s16 macspoofer;
+#define SECONFIG_MAGIC_PRO \
+    ((((sctrlHENGetVersion() & 0xF) << 16) | sctrlHENGetMinorVersion()) + 0x47434554)
+typedef struct SEConfigPRO {
+    int magic; // depends on pro version, calculated at runtime with above formula
+    s16 umdmode;
+    s16 vshcpuspeed;
+    s16 vshbusspeed;
+    s16 umdisocpuspeed;
+    s16 umdisobusspeed;
+    s16 fakeregion;
+    s16 usbdevice;
+    s16 usbcharge;
+    s16 machidden;
+    s16 skipgameboot;
+    s16 hidepic;
+    s16 plugvsh;
+    s16 pluggame;
+    s16 plugpop;
+    s16 flashprot;
+    s16 skiplogo;
+    s16 useversion;
+    s16 useownupdate;
+    s16 usenodrm;
+    s16 hibblock;
+    s16 noanalog;
+    s16 oldplugin;
+    s16 htmlviewer_custom_save_location;
+    s16 hide_cfw_dirs;
+    s16 chn_iso;
+    s16 msspeed;
+    s16 slimcolor;
+    s16 iso_cache;
+    s16 iso_cache_total_size; // in MB
+    s16 iso_cache_num;
+    s16 iso_cache_policy;
+    s16 usbversion;
+    s16 language; /* -1 as autodetect */
+    s16 retail_high_memory;
+    s16 macspoofer;
 } SEConfigPRO;
 
 // Adrenaline's SEConfig
 #define SECONFIG_MAGIC_EPI1 0x192EFC3C
 #define SECONFIG_MAGIC_EPI2 0x17BEB6AA
 typedef struct {
-	int magic[2];
-	/** 0 - Disabled, 1 - Enabled */
-	u8 hide_corrupt;
-	/** 0 - Disabled, 1 - Enabled */
-	u8	skip_logo;
-	/** 0 - Disabled, 1 - Enabled */
-	u8 startup_program;
-	/** One of `IsoUmdMode` */
-	u8 umd_mode;
-	/** One of `CpuBusSpeed` */
-	u8	vsh_cpu_speed;
-	/** One of `CpuBusSpeed` */
-	u8	app_cpu_speed;
-	/** One of `FakeRegionOptions` */
-	u8 fake_region;
-	/** 0 - Disabled, 1 - Enabled */
-	u8 skip_game_boot_logo;
-	/** 0 - Disabled, 1 - Enabled */
-	u8 hide_mac_addr;
-	/** 0 - Disabled, 1 - Enabled */
-	u8 hide_dlcs;
-	/** One of `HidePicsOpt` */
-	u8 hide_pic0pic1;
-	/** One of `ExtendedColorsConf` */
-	u8 extended_colors;
-	/** 0 - Disabled, 1 - Enabled */
-	u8 use_sony_psposk;
-	/** 0 - Use, 1 - Do not use */
-	u8 no_nodrm_engine;
-	/** 0 - Use, 1 - Do not use */
-	u8 no_xmb_plugins;
-	/** 0 - Use, 1 - Do not use */
-	u8 no_game_plugins;
-	/** 0 - Use, 1 - Do not use */
-	u8 no_pops_plugins;
-	/** Control the high memory. One of `HighMemoryConf` */
-	u8 high_memory;
-	/** 0 - Disabled, 1 - Enabled */
-	u8 execute_boot_bin;
-	/** One of `RecoveryColor` */
-	u8 recovery_color;
-	/** 0 - show CFW items on XMB, 1 - Hide CFW items on XMB */
-	u8 no_xmb_cfw_items;
-	/** Inferno cache type. One of `InfernoCacheConf` */
-	u8 iso_cache;
-	/** Inferno cache partition 2 or 11 (automatic) */
-	u8 iso_cache_partition;
-	/** Inferno cache size (in KB) for each cache item. One of `IsoCacheSizeConf` */
-	u8 iso_cache_size;
-	/** Number of inferno cache items. One of `IsoCacheNumberConf` */
-	u8 iso_cache_num;
-	/** Simulate UMD seek time. Zero - Off, `>0` - seek time factor, i.e. value that will be multiplied on amount of bytes to be read */
-	u8 umd_seek;
-	/** Simulate UMD read time. Zero - Off, `>0` - read time factor, i.e. value that will be multiplied on amount of bytes to be read */
+    int magic[2];
+    /** 0 - Disabled, 1 - Enabled */
+    u8 hide_corrupt;
+    /** 0 - Disabled, 1 - Enabled */
+    u8 skip_logo;
+    /** 0 - Disabled, 1 - Enabled */
+    u8 startup_program;
+    /** One of `IsoUmdMode` */
+    u8 umd_mode;
+    /** One of `CpuBusSpeed` */
+    u8 vsh_cpu_speed;
+    /** One of `CpuBusSpeed` */
+    u8 app_cpu_speed;
+    /** One of `FakeRegionOptions` */
+    u8 fake_region;
+    /** 0 - Disabled, 1 - Enabled */
+    u8 skip_game_boot_logo;
+    /** 0 - Disabled, 1 - Enabled */
+    u8 hide_mac_addr;
+    /** 0 - Disabled, 1 - Enabled */
+    u8 hide_dlcs;
+    /** One of `HidePicsOpt` */
+    u8 hide_pic0pic1;
+    /** One of `ExtendedColorsConf` */
+    u8 extended_colors;
+    /** 0 - Disabled, 1 - Enabled */
+    u8 use_sony_psposk;
+    /** 0 - Use, 1 - Do not use */
+    u8 no_nodrm_engine;
+    /** 0 - Use, 1 - Do not use */
+    u8 no_xmb_plugins;
+    /** 0 - Use, 1 - Do not use */
+    u8 no_game_plugins;
+    /** 0 - Use, 1 - Do not use */
+    u8 no_pops_plugins;
+    /** Control the high memory. One of `HighMemoryConf` */
+    u8 high_memory;
+    /** 0 - Disabled, 1 - Enabled */
+    u8 execute_boot_bin;
+    /** One of `RecoveryColor` */
+    u8 recovery_color;
+    /** 0 - show CFW items on XMB, 1 - Hide CFW items on XMB */
+    u8 no_xmb_cfw_items;
+    /** Inferno cache type. One of `InfernoCacheConf` */
+    u8 iso_cache;
+    /** Inferno cache partition 2 or 11 (automatic) */
+    u8 iso_cache_partition;
+    /** Inferno cache size (in KB) for each cache item. One of `IsoCacheSizeConf` */
+    u8 iso_cache_size;
+    /** Number of inferno cache items. One of `IsoCacheNumberConf` */
+    u8 iso_cache_num;
+    /** Simulate UMD seek time. Zero - Off, `>0` - seek time factor, i.e. value that will be
+     * multiplied on amount of bytes to be read */
+    u8 umd_seek;
+    /** Simulate UMD read time. Zero - Off, `>0` - read time factor, i.e. value that will be
+     * multiplied on amount of bytes to be read */
     u8 umd_speed;
-	/** The strategy used to simulate the UMD seek/read time. One of `SimUmdStrategy` */
-	u8 umd_sim_strat;
-	/** Cache `ms0:`. 0 - Use cache, 1 - do not use cache. */
+    /** The strategy used to simulate the UMD seek/read time. One of `SimUmdStrategy` */
+    u8 umd_sim_strat;
+    /** Cache `ms0:`. 0 - Use cache, 1 - do not use cache. */
     u8 no_ms_cache;
-	/** Use `ge_2.prx` instead of `ge.prx`. 0 - Off, 1 - On. */
-	u8 use_ge2;
-	/** Use `kermit_me_wrapper_2.prx` instead of `kermit_me_wrapper.prx`. 0- Off, 1 = On. */
-	u8 use_me2;
-	/** Hide CFW files from games. 0 - Hide, 1 - Do not hide */
-	u8 no_hide_cfw_files;
-	/** Fakes the maximum amount of free memory for games. One of `FakeMaxFreeMemOpt`  */
-	u8 fake_max_free_mem;
-	/** Control wether to do tty redirection. 0 - Off, 1 - On. */
-	u8 tty_redirection;
-	/** VSH Menu. 0 - Modern, 1 - Classic */
-	u8 vsh_menu;
-	/** Plugin Loaded RAM Partition during PSP game. One of `PluginRamMode`. */
-	u8 psp_game_plugin_ram;
+    /** Use `ge_2.prx` instead of `ge.prx`. 0 - Off, 1 - On. */
+    u8 use_ge2;
+    /** Use `kermit_me_wrapper_2.prx` instead of `kermit_me_wrapper.prx`. 0- Off, 1 = On. */
+    u8 use_me2;
+    /** Hide CFW files from games. 0 - Hide, 1 - Do not hide */
+    u8 no_hide_cfw_files;
+    /** Fakes the maximum amount of free memory for games. One of `FakeMaxFreeMemOpt`  */
+    u8 fake_max_free_mem;
+    /** Control wether to do tty redirection. 0 - Off, 1 - On. */
+    u8 tty_redirection;
+    /** VSH Menu. 0 - Modern, 1 - Classic */
+    u8 vsh_menu;
+    /** Plugin Loaded RAM Partition during PSP game. One of `PluginRamMode`. */
+    u8 psp_game_plugin_ram;
 } SEConfigEPI;
 typedef SEConfigEPI SEConfigADR;
-#define IS_ADR_SECONFIG(config) ((((SEConfigEPI*)config)->magic[0] == SECONFIG_MAGIC_EPI1) && (((SEConfigADR*)config)->magic[1] == SECONFIG_MAGIC_EPI2))
+#define IS_ADR_SECONFIG(config)                                 \
+    ((((SEConfigEPI *)config)->magic[0] == SECONFIG_MAGIC_EPI1) \
+     && (((SEConfigADR *)config)->magic[1] == SECONFIG_MAGIC_EPI2))
 
 // ARK's SEConfig
 typedef struct SEConfigARK {
     u32 magic; // ARK_CONFIG_MAGIC
     u16 iso_cache_size_kb; // in KB, automatic
     u16 iso_cache_num; // number of cache slots
-	u16 custom_cpu_clock;
-	u16 custom_bus_clock;
+    u16 custom_cpu_clock;
+    u16 custom_bus_clock;
     u8 iso_cache_partition;
     u8 iso_cache_type; // 0 = no cache, 1 = LRU, 2 = RR
     u8 umdseek;
     u8 umdspeed;
     u8 cpubus_clock;
-	u8 overclock_table; // 0=auto, 1=early, 2=later
+    u8 overclock_table; // 0=auto, 1=early, 2=later
     u8 disable_pause;
     u8 hidedlc;
     u8 umdregion;
@@ -328,7 +348,7 @@ typedef struct SEConfigARK {
     u8 noumd;
     u8 deadef;
     u8 noanalog;
-	u8 vitamute;
+    u8 vitamute;
     u8 wpa2; // patch to use wpa2
     u8 high_memory_use;
     u8 custom_update;
@@ -343,24 +363,23 @@ typedef struct SEConfigARK150 {
     u8 noumd;
     u8 msspeed;
     u8 noled;
-	u8 vitamute;
-	u16 custom_cpu_clock;
-	u16 custom_bus_clock;
+    u8 vitamute;
+    u16 custom_cpu_clock;
+    u16 custom_bus_clock;
 } SEConfigARK150;
-
 
 // Forward declaration
 typedef union {
-    SEConfigM33    m33;
-    SEConfigPRO    pro;
-	SEConfigLME    lme;
-    SEConfigEPI    adr;
-    SEConfigARK    ark;
-	SEConfigARK150 ark150;
+    SEConfigM33 m33;
+    SEConfigPRO pro;
+    SEConfigLME lme;
+    SEConfigEPI adr;
+    SEConfigARK ark;
+    SEConfigARK150 ark150;
 } SEConfig;
 
 #ifdef __cplusplus
-extern "C"{
+extern "C" {
 #endif /* __cplusplus */
 
 /**
@@ -370,8 +389,11 @@ extern "C"{
  *
  * 3.03 OE-A: 0x00000500
  *
- * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be available.
-*/
+ * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be
+ * available.
+ *
+ * @note Available on M33, LME, PRO, ARK and Epinephrine.
+ */
 int sctrlSEGetVersion();
 
 /**
@@ -384,20 +406,27 @@ int sctrlSEGetVersion();
  *
  * @return `0` on success.
  *
- * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be available.
-*/
+ * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be
+ * available.
+ *
+ * @note Available on M33, LME, PRO, ARK and Epinephrine.
+ */
 int sctrlSEGetConfig(SEConfig *config);
 
 /**
  * Gets the SE configuration
  *
- * @param[out] config A pointer to a `AdrenalineConfig` structure that receives the SE configuration.
+ * @param[out] config A pointer to a `AdrenalineConfig` structure that receives the SE
+ * configuration.
  * @param size The size of the structure.
  *
  * @return `0` on success.
  *
- * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be available.
-*/
+ * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be
+ * available.
+ *
+ * @note Available on M33, LME, PRO, ARK and Epinephrine.
+ */
 int sctrlSEGetConfigEx(SEConfig *config, int size);
 
 /**
@@ -406,24 +435,32 @@ int sctrlSEGetConfigEx(SEConfig *config, int size);
  * This function can corrupt the configuration in flash, use
  * `sctrlSESetConfigEx` instead.
  *
- * @param[in] config A pointer to a `AdrenalineConfig` structure that has the SE configuration to set.
+ * @param[in] config A pointer to a `AdrenalineConfig` structure that has the SE configuration to
+ * set.
  *
- * @return `0` on success.
+ * @return `0` on success. `< 0` on error.
  *
- * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be available.
-*/
+ * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be
+ * available.
+ *
+ * @note Available on M33, LME, PRO, ARK and Epinephrine.
+ */
 int sctrlSESetConfig(SEConfig *config);
 
 /**
  * Sets the SE configuration.
  *
- * @param[in] config A pointer to a `AdrenalineConfig` structure that has the SE configuration to set.
+ * @param[in] config A pointer to a `AdrenalineConfig` structure that has the SE configuration to
+ * set.
  * @param size The size of the structure.
  *
- * @return `0` on success.
+ * @return `0` on success. `< 0` on error.
  *
- * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be available.
-*/
+ * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be
+ * available.
+ *
+ * @note Available on M33, LME, PRO, ARK and Epinephrine.
+ */
 int sctrlSESetConfigEx(SEConfig *config, int size);
 
 /**
@@ -434,36 +471,44 @@ int sctrlSESetConfigEx(SEConfig *config, int size);
  * @param[in] config A pointer to a `SEConfig` structure that has the SE configuration to set.
  *
  * @attention Requires linking to `pspsystemctrl_kernel` stub to be available.
-*/
-void sctrlSEApplyConfig(SEConfig *conf);
+ *
+ * @note Available on LME, ARK and Epinephrine (>= v8.0.0).
+ */
+void sctrlSEApplyConfig(SEConfig *config);
 
 /**
  * Immediately sets the SE configuration in memory without saving to flash.
  *
  * @param[in] config A pointer to a `SEConfig` structure that has the SE configuration to set.
  *
- * @return `0` on success, and `-1` on error.
+ * @returns `0` on success, and `-1` on error.
  *
  * @attention Requires linking to `pspsystemctrl_kernel` stub to be available.
-*/
-int sctrlSEApplyConfigEX(SEConfig *conf, int size);
+ *
+ * @note Available on Epinephrine (>= v8.0.0).
+ */
+int sctrlSEApplyConfigEX(SEConfig *config, int size);
 
 /**
  * Reset SEConfig to default values.
- * 
- * @param pointer to SEConfig structure.
- * 
- * @return 0 on success, <0 on error
+ *
+ * @param config to SEConfig structure.
+ *
+ * @returns `0` on success, `< 0` on error.
+ *
+ * @note Available on LME and Epinephrine (>= v8.1.0).
  */
 int sctrlSERstConfig(SEConfig *config);
 
 /**
  * Reset SEConfig to default values.
- * 
- * @param pointer to SEConfig structure.
+ *
+ * @param config to SEConfig structure.
  * @param size of SEConfig.
- * 
- * @return 0 on success, <0 on error
+ *
+ * @returns `0` on success, `< 0` on error.
+ *
+ * @note Available on LME and Epinephrine (>= v8.1.0).
  */
 int sctrlSERstConfigEx(SEConfig *config, int size);
 
@@ -473,8 +518,10 @@ int sctrlSERstConfigEx(SEConfig *config, int size);
  * @returns A pointer to the internal `SEConfig`.
  *
  * @attention Requires linking to `pspsystemctrl_kernel` stub to be available.
-*/
-SEConfig* sctrlSEGetConfigInternal();
+ *
+ * @note Available on ARK (>= v5.0.0) and Epinephrine (>= v8.0.0).
+ */
+SEConfig *sctrlSEGetConfigInternal();
 
 /**
  * Initiates the emulation of a disc from an ISO9660/CSO file.
@@ -508,8 +555,11 @@ SEConfig* sctrlSEGetConfigInternal();
  *        sctrlSEMountUmdFromFile("ms0:/ISO/mydisc.iso", 0, config.useisofsonumdinserted);
  * }
  *
- * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be available.
-*/
+ * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be
+ * available.
+ *
+ * @note Available on M33, LME, ARK and Epinephrine.
+ */
 int sctrlSEMountUmdFromFile(char *file, int noumd, int isofs);
 
 /**
@@ -517,8 +567,11 @@ int sctrlSEMountUmdFromFile(char *file, int noumd, int isofs);
  *
  * @return `0` on success.
  *
- * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be available.
-*/
+ * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be
+ * available.
+ *
+ * @note Available on M33, LME, ARK and Epinephrine.
+ */
 int sctrlSEUmountUmd(void);
 
 /**
@@ -526,8 +579,11 @@ int sctrlSEUmountUmd(void);
  *
  * @param out Non-zero for disc out, `0` otherwise.
  *
- * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be available.
-*/
+ * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be
+ * available.
+ *
+ * @note Available on M33, LME, ARK and Epinephrine.
+ */
 void sctrlSESetDiscOut(int out);
 
 /**
@@ -535,8 +591,11 @@ void sctrlSESetDiscOut(int out);
  *
  * @param type The disctype. One or more of `PspUmdTypes`.
  *
- * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be available.
-*/
+ * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be
+ * available.
+ *
+ * @note Available on M33, LME, PRO, ARK and Epinephrine.
+ */
 void sctrlSESetDiscType(int type);
 
 /**
@@ -544,8 +603,12 @@ void sctrlSESetDiscType(int type);
  *
  * @return The ISO disctype. One or more of `PspUmdTypes`.
  *
- * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be available.
-*/
+ * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be
+ * available.
+ *
+ * @note Available on LME, PRO, ARK and Epinephrine. LME only has available on
+ * `pspsystemctrl_kernel`.
+ */
 int sctrlSEGetDiscType(void);
 
 /**
@@ -553,33 +616,58 @@ int sctrlSEGetDiscType(void);
  *
  * @return The current UMD file.
  *
- * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be available.
-*/
+ * @attention Requires linking to `pspsystemctrl_kernel` stubs to be available.
+ *
+ * @note Available on M33, LME, PRO, ARK and Epinephrine.
+ */
 char *sctrlSEGetUmdFile(void);
 char *GetUmdFile(void);
 
+/**
+ * Gets the current UMD file.
+ *
+ * @param[in] input If not `NULL`, a UMD filename to set.
+ *
+ * @return The current UMD file.
+ *
+ * @attention Requires linking to `pspsystemctrl_kernel` stubs to be available.
+ *
+ * @note Available on M33, LME, PRO, ARK and Epinephrine (>= v8.1.0).
+ */
 char *sctrlSEGetUmdFileEx(char *input);
 
 /**
- * Sets the current UMD file (kernel only).
+ * Sets the current UMD file.
  *
  * @param[in] file The UMD file.
  *
- * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be available.
-*/
+ * @attention Requires linking to `pspsystemctrl_kernel` stubs to be available.
+ *
+ * @note Available on M33, LME, PRO, ARK and Epinephrine.
+ */
 void sctrlSESetUmdFile(const char *file);
 void SetUmdFile(const char *file);
 
-void sctrlSESetUmdFileEx(const char *umd, char *input);
-
+/**
+ * Sets the current UMD file and copy the previous to `output`.
+ *
+ * @param[in] file The UMD file
+ * @param[out] output The output buffer for the previously set UMD file. Or NULL to be ignored.
+ *
+ * @note Available on M33, LME, PRO, ARK and Epinephrine (>= v8.1.0).
+ */
+void sctrlSESetUmdFileEx(const char *umd, char *output);
 
 /**
  * Sets the boot config file for next reboot
  *
  * @param index - The index identifying the file. One of `SEUmdModes`.
  *
- * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be available.
-*/
+ * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be
+ * available.
+ *
+ * @note Available on M33, LME, PRO, ARK and Epinephrine.
+ */
 void sctrlSESetBootConfFileIndex(int index);
 
 /**
@@ -587,15 +675,19 @@ void sctrlSESetBootConfFileIndex(int index);
  *
  * @return The index identifying the file. One of `SEUmdModes`.
  *
- * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be available.
-*/
+ * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be
+ * available.
+ *
+ * @note Available on PRO, ARK and Epinephrine (>= v8.0.0).
+ */
 unsigned int sctrlSEGetBootConfFileIndex(void);
-
 
 /**
  * Initialize oe_malloc.
- * 
+ *
  * @attention not implemented by ARK-4 onwards
+ *
+ * @note Available on PRO and ARK (<= 3).
  */
 int oe_mallocinit();
 
@@ -605,9 +697,11 @@ int oe_mallocinit();
  * @param size The amount of bytes to allocate.
  *
  * @return A pointer to allocated buffer, or NULL on error.
+ *
+ * @note Available on M33, LME, PRO, ARK and Epinephrine.
  */
-void * oe_malloc(unsigned int size);
-void * sctrlKernelMalloc(unsigned int size);
+void *oe_malloc(unsigned int size);
+void *sctrlKernelMalloc(unsigned int size);
 
 /**
  * Helper function to allocate aligned memory on P1 (user memory).
@@ -616,16 +710,20 @@ void * sctrlKernelMalloc(unsigned int size);
  * @param size The amount of bytes to allocate.
  *
  * @return A pointer to allocated buffer, or `NULL` on error.
+ *
+ * @note Available on ARK (>= v5.0.0) and Epinephrine (>= v8.0.0).
  */
-void * oe_memalign(unsigned int align, unsigned int size);
+void *oe_memalign(unsigned int align, unsigned int size);
 
 /**
  * Deallocate memory allocated by oe_malloc.
  *
  * @param[in] ptr A pointer to the allocated memory.
+ *
+ * @note Available on M33, LME, PRO, ARK and Epinephrine.
  */
-void oe_free(void * p);
-void sctrlKernelFree(void * p);
+void oe_free(void *p);
+void sctrlKernelFree(void *p);
 
 #ifdef __cplusplus
 }

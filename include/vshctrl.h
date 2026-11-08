@@ -18,11 +18,19 @@
 
 
 /**
- * This api is for vsh menu, xmb control or any other vsh/xmb plugin.
+ * This API is for VSH menu, XMB control or any other VSH/XMB plugin.
  *
  * Note: when referring to CSO, other compressed formats (ZSO, JSO, DAX) also apply.
 */
 
+/**
+ * The control handler for the VSH menu.
+ */
+typedef int (*VSHMENU_CTRL_HANDLER)(SceCtrlData *ctrl_data, int count);
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
  * Helper function to allocate memory on P2 (user memory).
@@ -30,9 +38,12 @@
  * @param size The amount of bytes to allocate.
  *
  * @return A pointer to allocated buffer, or `NULL` on error.
+ *
+ * @attention Requires linking to `pspsysc_user` stub to be available.
+ *
+ * @note Available on ARK and Epinephrine (>= v8.0.0).
  */
 void* user_malloc(size_t size);
-
 
 /**
  * Helper function to allocate aligned memory on P2 (user memory).
@@ -41,6 +52,10 @@ void* user_malloc(size_t size);
  * @param size The amount of bytes to allocate.
  *
  * @return A pointer to allocated buffer, or `NULL` on error.
+ *
+ * @attention Requires linking to `pspsysc_user` stub to be available.
+ *
+ * @note Available on ARK and Epinephrine (>= v8.0.0).
  */
 void* user_memalign(unsigned int align, unsigned int size);
 
@@ -48,6 +63,10 @@ void* user_memalign(unsigned int align, unsigned int size);
  * Deallocate memory allocated by user_malloc.
  *
  * @param ptr A pointer to the allocated memory.
+ *
+ * @attention Requires linking to `pspsysc_user` stub to be available.
+ *
+ * @note Available on ARK and Epinephrine (>= v8.0.0).
  */
 void user_free(void* ptr);
 
@@ -63,18 +82,22 @@ void user_free(void* ptr);
  * @returns `0` on success, `< 0` on error.
  *
  * @attention Requires linking to `pspvshctrl` stub to be available.
+ *
+ * @note Available on M33, LME, PRO, ARK and Epinephrine.
  */
-int vctrlVSHRegisterVshMenu(int (* ctrl)(SceCtrlData *, int));
+int vctrlVSHRegisterVshMenu(VSHMENU_CTRL_HANDLER ctrl);
 
 
 /**
  * Register VSH Menu drawing function.
- * 
+ *
  * @param[in] vshmenu_draw the function that will draw the vshmenu onto screen
- * 
+ *
  * @returns `0` on success, `< 0` on error.
  *
  * @attention Requires linking to `pspvshctrl` stub to be available.
+ *
+ * @note Available on ARK (>= v5.0.0) and Epinephrine (>= v8.0.0).
  */
 int vctrlVSHRegisterVshGuMenu(void (*vshmenu_draw)(void* frame));
 
@@ -94,6 +117,8 @@ int vctrlVSHRegisterVshGuMenu(void (*vshmenu_draw)(void* frame));
  * @returns `0` on success, `< 0` on error.
  *
  * @attention Requires linking to `pspvshctrl` stub to be available.
+ *
+ * @note Available on M33, LME, PRO, ARK and Epinephrine.
  */
 int vctrlVSHExitVSHMenu(SEConfig *conf, char *videoiso, int disctype);
 
@@ -110,6 +135,8 @@ int vctrlVSHExitVSHMenuEx(SEConfig *g_conf, int g_size, char *videoiso, int disc
  * @returns `0` on success, `< 0` on error.
  *
  * @attention Requires linking to `pspvshctrl` stub to be available.
+ *
+ * @note Available on PRO, ARK and Epinephrine (>= v8.0.0).
  */
 int vctrlVSHUpdateConfig(SEConfig *config);
 
@@ -122,6 +149,8 @@ int vctrlVSHUpdateConfig(SEConfig *config);
  * @returns The disc type on success, `< 0` on error.
  *
  * @attention Requires linking to `pspvshctrl` stub to be available.
+ *
+ * @note Available on PRO, ARK and Epinephrine (>= v8.0.0).
  */
 int vshDetectDiscType(const char *path);
 
@@ -132,6 +161,8 @@ int vshDetectDiscType(const char *path);
  * @returns boolean.
  *
  * @attention Requires linking to `pspvshctrl` stub to be available.
+ *
+ * @note Available on ARK (>= v5.0.0).
  */
 int vshCtrlHibernationExists();
 
@@ -141,6 +172,8 @@ int vshCtrlHibernationExists();
  * @returns `0` on success, `< 0` on error.
  *
  * @attention Requires linking to `pspvshctrl` stub to be available.
+ *
+ * @note Available on PRO and ARK.
  */
 int vshCtrlDeleteHibernation();
 
@@ -153,6 +186,8 @@ int vshCtrlDeleteHibernation();
  * @returns `0` on success, `< 0` on error.
  *
  * @attention Requires linking to `pspvshctrl` stub to be available.
+ *
+ * @note Available on ARK.
  */
 int isoOpen(const char *path);
 
@@ -168,6 +203,8 @@ int isoOpen(const char *path);
  * @returns amount of actual bytes read into buffer, < 0 on error.
  *
  * @attention Requires linking to `pspvshctrl` stub to be available.
+ *
+ *  @note Available on ARK.
  */
 int isoRead(void *buffer, u32 lba, int offset, u32 size);
 
@@ -176,6 +213,8 @@ int isoRead(void *buffer, u32 lba, int offset, u32 size);
  * Closes the currently opened ISO, if there was one.
  *
  * @attention Requires linking to `pspvshctrl` stub to be available.
+ *
+ *  @note Available on ARK.
  */
 void isoClose();
 
@@ -192,6 +231,8 @@ void isoClose();
  * @returns 0 on success, < 0 on error.
  *
  * @attention Requires linking to `pspvshctrl` stub to be available.
+ *
+ *  @note Available on ARK.
  */
 int isoGetFileInfo(const char * path, u32 *filesize, u32 *lba);
 
@@ -204,6 +245,8 @@ int isoGetFileInfo(const char * path, u32 *filesize, u32 *lba);
  * @returns total number of sectors in the currently opened ISO file.
  *
  * @attention Requires linking to `pspvshctrl` stub to be available.
+ *
+ * @note Available on ARK.
  */
 int isoGetTotalSectorSize();
 
@@ -216,6 +259,8 @@ int isoGetTotalSectorSize();
  * @returns boolean - 1 if patched, 0 if unpatched.
  *
  * @attention Requires linking to `pspvshctrl` stub to be available.
+ *
+ * @note Available on ARK.
  */
 int has_prometheus_module(const char *isopath);
 
@@ -228,6 +273,8 @@ int has_prometheus_module(const char *isopath);
  * @returns boolean - 1 if update available, 0 if unavailable.
  *
  * @attention Requires linking to `pspvshctrl` stub to be available.
+ *
+ * @note Available on ARK.
  */
 int has_update_file(const char *isopath, char* update_file);
 
@@ -243,6 +290,8 @@ int has_update_file(const char *isopath, char* update_file);
  * @return `0` if registry not found, `1` otherwise.
  *
  * @attention Requires linking to `pspvshctrl` stub to be available.
+ *
+ * @note Available on ARK and Epinephrine (>= v8.0.0).
  */
 int vctrlGetRegistryValue(const char *dir, const char *name, u32 *val);
 
@@ -257,18 +306,32 @@ int vctrlGetRegistryValue(const char *dir, const char *name, u32 *val);
  * @return `0` if registry not found, `1` value was set.
  *
  * @attention Requires linking to `pspvshctrl` stub to be available.
+ *
+ * @note Available on ARK and Epinephrine (>= v8.0.0).
  */
 int vctrlSetRegistryValue(const char *dir, const char *name, u32 val);
 
 /**
  * Set recovery flag for next reboot.
+ *
+ * @attention Requires linking to `pspvshctrl` stub to be available.
+ *
+ * @note Available on LME, ARK (>= 5.3.0) and Epinephrine (>= 8.1.0).
  */
 void vctrlVSHSetRecovery(void);
 
 /**
  * Set VSH CPU/BUS speed.
+ *
+ * @attention Requires linking to `pspvshctrl` stub to be available.
+ *
+ * @note Available on LME, ARK (>= 5.3.0) and Epinephrine (>= 8.1.0).
  */
 void vctrlVSHSetSpeed(int cpu, int bus );
 
-#endif
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+
+#endif /* __VSHCTRL_H__ */
 

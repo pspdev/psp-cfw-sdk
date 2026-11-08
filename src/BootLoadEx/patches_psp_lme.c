@@ -79,41 +79,13 @@ static void patch_bootconf_lme_runlevels(char *buffer)
     }
 }
 
-int patch_bootconf_lme_isotope(char *buffer, int length)
+int patch_bootconf_lme_iso(char *buffer, int length, const char* driver)
 {
     int result = length;
     int newsize;
 
     patch_bootconf_lme_runlevels(buffer);
-    RemovePrx(buffer, "/kd/np9660.prx", UMDEMU_RUNLEVEL);
-    newsize = AddPRX(buffer, "/kd/np9660.prx", "/kd/isotope.prx", UMDEMU_RUNLEVEL | GAME_RUNLEVEL);
-    
-    if (newsize > 0) result = newsize;
-
-    return result;
-}
-
-int patch_bootconf_lme_inferno(char *buffer, int length)
-{
-    int result = length;
-    int newsize;
-
-    patch_bootconf_lme_runlevels(buffer);
-    RemovePrx(buffer, "/kd/np9660.prx", UMDEMU_RUNLEVEL);
-    newsize = AddPRX(buffer, "/kd/np9660.prx", "/kd/inferno.prx", UMDEMU_RUNLEVEL | GAME_RUNLEVEL);
-    
-    if (newsize > 0) result = newsize;
-
-    return result;
-}
-
-int patch_bootconf_lme_np9660(char *buffer, int length)
-{
-    int result = length;
-    int newsize;
-
-    patch_bootconf_lme_runlevels(buffer);
-    newsize = AddPRX(buffer, "/kd/np9660.prx", "/kd/pulsar.prx", UMDEMU_RUNLEVEL | GAME_RUNLEVEL);
+    newsize = AddPRX(buffer, "/kd/np9660.prx", driver, UMDEMU_RUNLEVEL | GAME_RUNLEVEL);
     
     if (newsize > 0) result = newsize;
 
@@ -129,16 +101,19 @@ int UnpackBootConfigLMEPSP(char *buffer, int length)
         RebootexConfigLME *rebootex_param = (void *)REBOOTEX_CONFIG;
         switch (rebootex_param->reboot_index){
             case MODE_NP9660:
-                newsize = patch_bootconf_lme_np9660(buffer, result);
+                newsize = patch_bootconf_lme_iso(buffer, result, "/kd/pulsar.prx");
                 if (newsize > 0) result = newsize;
                 break;
             case MODE_MARCH33:
+                newsize = patch_bootconf_lme_iso(buffer, result, "/kd/dax9660.prx");
+                if (newsize > 0) result = newsize;
+                break;
             case MODE_ME:
-                newsize = patch_bootconf_lme_isotope(buffer, result);
+                newsize = patch_bootconf_lme_iso(buffer, result, "/kd/isotope.prx");
                 if (newsize > 0) result = newsize;
                 break;
             case MODE_INFERNO:
-                newsize = patch_bootconf_lme_inferno(buffer, result);
+                newsize = patch_bootconf_lme_iso(buffer, result, "/kd/inferno.prx");
                 if (newsize > 0) result = newsize;
                 break;
             case MODE_RECOVERY:

@@ -1,21 +1,21 @@
 /*
-	Unified UMDemu ISO driver API
-	Copyright (C) 2016-2018, TheFloW
-	Copyright (C) 2024-2025, isage
-	Copyright (C) 2025, GrayJack
+    Unified UMDemu ISO driver API
+    Copyright (C) 2016-2018, TheFloW
+    Copyright (C) 2024-2025, isage
+    Copyright (C) 2025, GrayJack
 
-	This program is free software: you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation, either version 3 of the License, or
-	(at your option) any later version.
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-	This program is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-	You should have received a copy of the GNU General Public License
-	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 /**
@@ -36,12 +36,12 @@
 #define MAX_ISO_PATH_SIZE 256
 
 enum UmdDelayStrategy {
-	UMD_DELAY_STRAT_PER_FD = 0,
-	UMD_DELAY_STRAT_GLOBAL = 1,
+    UMD_DELAY_STRAT_PER_FD = 0,
+    UMD_DELAY_STRAT_GLOBAL = 1,
 };
 
 #ifdef __cplusplus
-extern "C"{
+extern "C" {
 #endif /* __cplusplus */
 
 /**
@@ -54,17 +54,23 @@ extern "C"{
  * @return The amount of bytes read, `< 0` on error.
  *
  * @attention Requires linking to `pspisoctrl_driver` stub to be available.
+ *
+ * @note Available on ARK (>= 5.2.0) and Epinephrine (>= 8.0.0).
  */
 int isoReadUmdFile(u32 offset, void *buf, u32 size);
 
 /**
  * Sets UMD speed simulation.
  *
- * @param seek The seek delay factor. `0` to disable, `> 0` to enable, the higher the value the slower the seek time.
- * @param speed The read speed delay factor. `0` to disable, `> 0` to enable, the higher the value the slower the read time.
+ * @param seek The seek delay factor. `0` to disable, `> 0` to enable, the higher the value the
+ * slower the seek time.
+ * @param speed The read speed delay factor. `0` to disable, `> 0` to enable, the higher the value
+ * the slower the read time.
  * @param strategy The delay strategy to use. One of `UmdDelayStrategy`.
  *
  * @attention Requires linking to `pspisoctrl_driver` stub to be available.
+ *
+ * @note Available on ARK (>= 5.2.0) and Epinephrine (>= 8.0.0).
  */
 void isoSetUmdDelay(int seek, int speed, int strategy);
 
@@ -76,6 +82,8 @@ void isoSetUmdDelay(int seek, int speed, int strategy);
  * @return `0` if getting the Title ID fails, `1` if succeeded.
  *
  * @attention Requires linking to `pspisoctrl_driver` stub to be available.
+ *
+ * @note Available on ARK (>= 5.2.0) and Epinephrine (>= 8.0.0).
  */
 int isoGetTitleId(char title_id[10]);
 
@@ -87,6 +95,8 @@ int isoGetTitleId(char title_id[10]);
  * @return `0` on success, `< 0` on error.
  *
  * @attention Requires linking to `pspisoctrl_driver` stub to be available.
+ *
+ * @note Available on ARK (>= 5.2.0) and Epinephrine (>= 8.0.0).
  */
 int isoSetUmdFile(const char *path);
 
@@ -99,6 +109,8 @@ int isoSetUmdFile(const char *path);
  * @return `0` on success, `< 0` on error.
  *
  * @attention Requires linking to `pspisoctrl_driver` stub to be available.
+ *
+ * @note Available on ARK (>= 5.2.0) and Epinephrine (>= 8.1.0).
  */
 int isoGetUmdFile(char *path_buf, SceSize path_size);
 
@@ -108,6 +120,8 @@ int isoGetUmdFile(char *path_buf, SceSize path_size);
  * @return `< 0` on error.
  *
  * @attention Requires linking to `pspisoctrl_driver` stub to be available.
+ *
+ * @note Available on ARK (>= 5.2.0) and Epinephrine (>= 8.1.0).
  */
 int isoReopenUmdFile(void);
 
@@ -123,9 +137,10 @@ int isoReopenUmdFile(void);
  * @return `0` on success, `< 0` on error.
  *
  * @attention Requires linking to `pspisoctrl_driver` stub to be available.
+ *
+ * @note Available on ARK (>= 5.2.0) and Epinephrine (>= 8.1.0).
  */
 int isoSwapUmdFile(const char *new_file_path, char *previous, SceSize previous_size);
-
 
 #ifdef __cplusplus
 }

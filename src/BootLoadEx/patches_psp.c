@@ -4,8 +4,9 @@
 #include <cfwmacros.h>
 #include <systemctrl.h>
 #include <systemctrl_se.h>
-#include <bootloadex.h>
 #include <pspbtcnf.h>
+
+#include "bootloadex.h"
 
 
 // Time Machine module
@@ -127,7 +128,7 @@ int _sceBootLfatOpen(char * filename) {
                 memcpy(&path[strlen(path) - 4], "_dc.bin", 8);
             }
         }
-        
+
         return ble_config->extra_io.psp_io.FatOpen(path);
 
 	} else {

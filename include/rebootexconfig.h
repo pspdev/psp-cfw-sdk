@@ -90,7 +90,7 @@ typedef RebootexConfigEPI RebootexConfigADR;
 // L/ME
 typedef struct RebootexConfigLME {
     char    file[REBOOTEX_FILELEN_MAX_LME];//0
-    u32     config[0x70/4];//0x50
+    u8      config[152];//0x50
     int     reboot_index;//0xc0
     int     mem2;
     int     mem9;

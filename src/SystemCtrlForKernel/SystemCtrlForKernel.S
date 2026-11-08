@@ -315,10 +315,10 @@
     IMPORT_FUNC "SystemCtrlForKernel",0xE8A11ABE,sctrlHENSetSystemBootedHandler
 #endif
 #ifdef F_SystemCtrlForKernel_0103
-    IMPORT_FUNC "SystemCtrlForKernel",0x8E426F09,sctrlSERstConfig
+    IMPORT_FUNC "SystemCtrlForKernel",0x32414F2A,sctrlSERstConfig
 #endif
 #ifdef F_SystemCtrlForKernel_0104
-    IMPORT_FUNC "SystemCtrlForKernel",0x32414F2A,sctrlSERstConfigEx
+    IMPORT_FUNC "SystemCtrlForKernel",0x649D290E,sctrlSERstConfigEx
 #endif
 #ifdef F_SystemCtrlForKernel_0105
     IMPORT_FUNC "SystemCtrlForKernel",0x260CA420,isofs_init

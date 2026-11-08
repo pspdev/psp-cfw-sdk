@@ -61,13 +61,32 @@ int patch_bootconf_lme_recovery(char *buffer, int length)
     return result;
 }
 
+static void patch_bootconf_lme_runlevels(char *buffer)
+{
+    _btcnf_header *header = (_btcnf_header *)buffer;
+
+    if (header->signature != BTCNF_MAGIC || header->nmodules <= 0) {
+        return;
+    }
+
+    _btcnf_module *module = (_btcnf_module *)(buffer + header->modulestart);
+    for (int i = 0; i < header->nmodules; i++) {
+        if (module[i].flags & UMDEMU_RUNLEVEL) {
+            module[i].flags |= GAME_RUNLEVEL;
+        } else {
+            module[i].flags &= ~GAME_RUNLEVEL;
+        }
+    }
+}
+
 int patch_bootconf_lme_isotope(char *buffer, int length)
 {
     int result = length;
     int newsize;
 
+    patch_bootconf_lme_runlevels(buffer);
     RemovePrx(buffer, "/kd/np9660.prx", UMDEMU_RUNLEVEL);
-    newsize = AddPRX(buffer, "/kd/np9660.prx", "/kd/isotope.prx", UMDEMU_RUNLEVEL);
+    newsize = AddPRX(buffer, "/kd/np9660.prx", "/kd/isotope.prx", UMDEMU_RUNLEVEL | GAME_RUNLEVEL);
     
     if (newsize > 0) result = newsize;
 
@@ -79,8 +98,9 @@ int patch_bootconf_lme_inferno(char *buffer, int length)
     int result = length;
     int newsize;
 
+    patch_bootconf_lme_runlevels(buffer);
     RemovePrx(buffer, "/kd/np9660.prx", UMDEMU_RUNLEVEL);
-    newsize = AddPRX(buffer, "/kd/np9660.prx", "/kd/inferno.prx", UMDEMU_RUNLEVEL);
+    newsize = AddPRX(buffer, "/kd/np9660.prx", "/kd/inferno.prx", UMDEMU_RUNLEVEL | GAME_RUNLEVEL);
     
     if (newsize > 0) result = newsize;
 
@@ -92,7 +112,8 @@ int patch_bootconf_lme_np9660(char *buffer, int length)
     int result = length;
     int newsize;
 
-    newsize = AddPRX(buffer, "/kd/np9660.prx", "/kd/pulsar.prx", UMDEMU_RUNLEVEL);
+    patch_bootconf_lme_runlevels(buffer);
+    newsize = AddPRX(buffer, "/kd/np9660.prx", "/kd/pulsar.prx", UMDEMU_RUNLEVEL | GAME_RUNLEVEL);
     
     if (newsize > 0) result = newsize;
 
@@ -107,20 +128,20 @@ int UnpackBootConfigLMEPSP(char *buffer, int length)
     if (ble_config->boot_type == TYPE_REBOOTEX) {
         RebootexConfigLME *rebootex_param = (void *)REBOOTEX_CONFIG;
         switch (rebootex_param->reboot_index){
-            case 2://NP9660
+            case MODE_NP9660:
                 newsize = patch_bootconf_lme_np9660(buffer, result);
                 if (newsize > 0) result = newsize;
                 break;
-            case 1://M33
-            case 3://ME	
+            case MODE_MARCH33:
+            case MODE_ME:
                 newsize = patch_bootconf_lme_isotope(buffer, result);
                 if (newsize > 0) result = newsize;
                 break;
-            case 5://Inferno
+            case MODE_INFERNO:
                 newsize = patch_bootconf_lme_inferno(buffer, result);
                 if (newsize > 0) result = newsize;
                 break;
-            case 4: // recovery
+            case MODE_RECOVERY:
                 lme_recovery_mode = 1;
                 break;
         }

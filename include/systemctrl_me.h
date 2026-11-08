@@ -8,24 +8,6 @@
 #include <pspinit.h>
 #include <psploadcore.h>
 
-enum BootLoadFlags
-{
-	BOOTLOAD_VSH = 1,
-	BOOTLOAD_GAME = 2,
-	BOOTLOAD_UPDATER = 4,
-	BOOTLOAD_POPS = 8,
-	BOOTLOAD_UMDEMU = 64, /* for original NP9660 */
-};
-
-enum MEUmdModes
-{
-	ME_MODE_UMD = 0,
-	ME_MODE_OE_LEGACY = 1,
-	ME_MODE_MARCH33 = 2,
-	ME_MODE_NP9660 = 3,
-	ME_MODE_ME = 4,
-	ME_MODE_INFERNO = 5,
-};
 
 enum InfernoCachePolicy
 {

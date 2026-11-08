@@ -246,8 +246,8 @@
     IMPORT_FUNC "SystemCtrlForUser",0xE8A11ABE,sctrlHENSetSystemBootedHandler
 #endif
 #ifdef F_SystemCtrlForUser_0080
-    IMPORT_FUNC "SystemCtrlForUser",0x8E426F09,sctrlSERstConfig
+    IMPORT_FUNC "SystemCtrlForUser",0x32414F2A,sctrlSERstConfig
 #endif
 #ifdef F_SystemCtrlForUser_0081
-    IMPORT_FUNC "SystemCtrlForUser",0x32414F2A,sctrlSERstConfigEx
+    IMPORT_FUNC "SystemCtrlForUser",0x649D290E,sctrlSERstConfigEx
 #endif

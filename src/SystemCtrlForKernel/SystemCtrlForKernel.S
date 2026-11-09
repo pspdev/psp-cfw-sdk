@@ -344,3 +344,6 @@
 #ifdef F_SystemCtrlForKernel_0112
     IMPORT_FUNC "SystemCtrlForKernel",0x7E6F2BBA,isofs_fastinit
 #endif
+#ifdef F_SystemCtrlForKernel_0113
+    IMPORT_FUNC "SystemCtrlForKernel",0x22A45DB7,sctrlHENIsTestingTool
+#endif

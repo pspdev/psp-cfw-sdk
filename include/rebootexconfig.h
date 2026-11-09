@@ -19,6 +19,7 @@
 #define _REBOOTCONFIG_H_
 
 #include <pspsdk.h>
+#include <systemctrl_se.h>
 
 #define REBOOTEX_MAX_SIZE 0x5000
 
@@ -33,6 +34,7 @@
 
 // L/ME
 #define REBOOTEX_FILELEN_MAX_LME 0x50
+#define REBOOTEX_FILELEN_MAX_M33 0x50
 
 // PROCFW Reboot Configuration Magic
 #define REBOOTEX_CONFIG_MAGIC_PRO 0xC01DB15D
@@ -87,6 +89,25 @@ typedef struct RebootexConfigEPI {
 } RebootexConfigEPI;
 typedef RebootexConfigEPI RebootexConfigADR;
 
+/** Legacy M33-3.90 release, here more for knowledge preservation. */
+typedef struct RebootexConfigM33_390 {
+    char    iso_filename[REBOOTEX_FILELEN_MAX_M33];
+    u8 config[112];
+    int     iso_mode;
+    int     ram2;
+    int     ram9;
+    int     booted150;
+} RebootexConfigM33_390;
+
+typedef struct RebootexConfigM33 {
+    char    iso_filename[REBOOTEX_FILELEN_MAX_M33];
+    SEConfigM33 config;
+    int     iso_mode;
+    int     ram2;
+    int     ram9;
+    int     booted150;
+} RebootexConfigM33;
+
 // L/ME
 typedef struct RebootexConfigLME {
     char    file[REBOOTEX_FILELEN_MAX_LME];//0
@@ -119,6 +140,7 @@ typedef struct RebootexConfigPRO {
 } RebootexConfigPRO;
 
 typedef union {
+    RebootexConfigM33 m33;
     RebootexConfigLME lme;
     RebootexConfigPRO pro;
     RebootexConfigARK ark;

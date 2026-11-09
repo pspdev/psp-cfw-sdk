@@ -4,7 +4,7 @@ include(../build-tools/CreateStubLib.cmake)
 
 function(add_sdk_library name)
    add_library(${name} STATIC)
-  
+
    target_compile_options(${name} PRIVATE -std=c99 -Wall -Os -G0 -fno-pic)
    target_include_directories(${name} PUBLIC ${SDK_INCLUDE_DIR})
 
@@ -50,3 +50,4 @@ add_subdirectory(pspKbootiUpdate)
 add_subdirectory(pspPSAR)
 add_subdirectory(tinyfont)
 add_subdirectory(libpspnodrm_helper)
+add_subdirectory(NidResolver)

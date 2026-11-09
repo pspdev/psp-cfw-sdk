@@ -45,6 +45,7 @@ all:
 	$(MAKE) -C src/idstorage_ms
 	$(MAKE) -C src/libpspnodrm_helper
 	$(MAKE) -C src/libpspdownloader
+	$(MAKE) -C src/NidResolver
 	mkdir -p libs
 	mkdir -p include/iplsdk
 	cp src/pre-built/*.a libs/
@@ -149,3 +150,4 @@ clean:
 	$(MAKE) -C src/idstorage_ms clean
 	$(MAKE) -C src/libpspnodrm_helper clean
 	$(MAKE) -C src/libpspdownloader clean
+	$(MAKE) -C src/NidResolver clean

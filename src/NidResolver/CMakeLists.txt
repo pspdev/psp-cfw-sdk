@@ -1,0 +1,1 @@
+add_stub_lib(nidresolver NidResolverForKernel.S NidResolverForKernel)

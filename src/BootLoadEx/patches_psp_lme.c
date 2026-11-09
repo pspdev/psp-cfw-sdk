@@ -99,6 +99,12 @@ int UnpackBootConfigLMEPSP(char *buffer, int length)
 
     if (ble_config->boot_type == TYPE_REBOOTEX) {
         RebootexConfigLME *rebootex_param = (void *)REBOOTEX_CONFIG;
+        
+        ble_config->rtm_mod.before = rebootex_param->on_reboot_after;
+        ble_config->rtm_mod.buffer = rebootex_param->on_reboot_buf;
+        ble_config->rtm_mod.size = rebootex_param->on_reboot_size;
+        ble_config->rtm_mod.flags = rebootex_param->on_reboot_flag;
+
         switch (rebootex_param->reboot_index){
             case MODE_NP9660:
                 newsize = patch_bootconf_lme_iso(buffer, result, "/kd/pulsar.prx");

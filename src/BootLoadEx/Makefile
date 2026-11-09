@@ -12,6 +12,7 @@ C_OBJS = \
 	patches_psp_ark.o \
 	patches_psp_pro.o \
 	patches_psp_lme.o \
+	patches_psp_m33.o \
 
 
 OBJS = $(C_OBJS)

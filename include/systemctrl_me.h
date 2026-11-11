@@ -37,8 +37,6 @@ int sctrlSERstMiniConfig(VshConfig *config); // Reset Config
 int sctrlSEGetMiniConfig(VshConfig *config);
 int sctrlSESetMiniConfig(VshConfig *config);
 
-void SetSpeed(int cpu, int bus);
-
 //int sctrlKernelUncompress(u8 *dest, int destLen, const u8 *source, int sourceLen);
 
 int sctrlIsHomebrewsRunLevel(void);

@@ -1381,6 +1381,19 @@ MDEC_HANDLER sctrlHENRegisterMDecryptHandler(MDEC_HANDLER func);
  */
 void sctrlHENRegisterLLEHandler(LLE_HANDLER func);
 
+/**
+ * Sets the speed for the cpu and bus.
+ *
+ * @param cpu The cpu speed.
+ * @param bus The bus speed.
+ *
+ * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be
+ * available.
+ *
+ * @note Available on M33, LME, PRO, and Epinephrine.
+ */
+void SetSpeed(int cpu, int bus);
+
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */

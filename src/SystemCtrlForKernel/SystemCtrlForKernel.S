@@ -33,7 +33,7 @@
 	IMPORT_FUNC  "SystemCtrlForKernel",0xF988C1DC,sctrlHENPatchSyscall
 #endif
 #ifdef F_SystemCtrlForKernel_0009
-	IMPORT_FUNC  "SystemCtrlForKernel",0x826668E9,sctrlHENPatchSyscall
+	IMPORT_FUNC_WITH_ALIAS  "SystemCtrlForKernel",0x826668E9,sctrlHENPatchSyscall,PatchSyscall
 #endif
 #ifdef F_SystemCtrlForKernel_0010
 	IMPORT_FUNC  "SystemCtrlForKernel",0x02BFCB5F,sctrlHENPatchSyscall
@@ -346,4 +346,7 @@
 #endif
 #ifdef F_SystemCtrlForKernel_0113
     IMPORT_FUNC "SystemCtrlForKernel",0x22A45DB7,sctrlHENIsTestingTool
+#endif
+#ifdef F_SystemCtrlForKernel_0114
+    IMPORT_FUNC "SystemCtrlForKernel",0x98012538,SetSpeed
 #endif

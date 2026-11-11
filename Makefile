@@ -95,6 +95,7 @@ all:
 	cp src/libpspnodrm_helper/*.a libs
 	cp src/libpspdownloader/*.a libs
 	cp src/libpspdownloader/pspdownloader.h include
+	cp src/NidResolver/*.a libs
 
 install: all
 	cp -r include/* $(PSPSDK)/include/

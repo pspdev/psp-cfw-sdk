@@ -15,7 +15,7 @@ void BtcnfPathHandlerLME(char* path){
     path[9] = 'j'; // pspbtjnf
 }
 
-int patch_bootconf_lme_recovery(char *buffer, int length)
+static int patch_bootconf_lme_recovery(char *buffer, int length)
 {
     int result = length;
     int newsize;
@@ -79,7 +79,7 @@ static void patch_bootconf_lme_runlevels(char *buffer)
     }
 }
 
-int patch_bootconf_lme_iso(char *buffer, int length, const char* driver)
+static int patch_bootconf_lme_iso(char *buffer, int length, const char* driver)
 {
     int result = length;
     int newsize;

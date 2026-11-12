@@ -23,7 +23,7 @@
 int pro_recovery_mode = 0;
 
 // pspbtcnf patches
-int patch_bootconf_vsh(char *buffer, int length)
+static int patch_bootconf_vsh(char *buffer, int length)
 {
     int newsize, result;
 
@@ -35,7 +35,7 @@ int patch_bootconf_vsh(char *buffer, int length)
     return result;
 }
 
-int patch_bootconf_pops(char *buffer, int length)
+static int patch_bootconf_pops(char *buffer, int length)
 {
     int newsize, result;
 
@@ -47,18 +47,7 @@ int patch_bootconf_pops(char *buffer, int length)
     return result;
 }
 
-struct add_module {
-    char *prxname;
-    char *insertbefore;
-    u32 flags;
-};
-
-struct del_module {
-    char *prxname;
-    u32 flags;
-};
-
-static struct add_module np9660_add_mods[] = {
+static struct BtcnfModuleAdd np9660_add_mods[] = {
 	{ "/kd/mgr.prx", "/kd/amctrl.prx", GAME_RUNLEVEL },
 	{ "/kd/npdrm.prx", "/kd/iofilemgr_dnas.prx", GAME_RUNLEVEL },
 	{ PATH_GALAXY+sizeof(FLASH0_PATH)-2, "/kd/np9660.prx", UMDEMU_RUNLEVEL },
@@ -67,7 +56,7 @@ static struct add_module np9660_add_mods[] = {
 	{ "/kd/isofs.prx", "/kd/utility.prx", GAME_RUNLEVEL },
 };
 
-static struct del_module np9660_del_mods[] = {
+static struct BtcnfModuleDel np9660_del_mods[] = {
 	{ "/kd/mediaman.prx", GAME_RUNLEVEL },
 	{ "/kd/ata.prx", GAME_RUNLEVEL },
 	{ "/kd/umdman.prx", GAME_RUNLEVEL },
@@ -75,7 +64,7 @@ static struct del_module np9660_del_mods[] = {
 	{ "/kd/umd9660.prx", GAME_RUNLEVEL },
 };
 
-int patch_bootconf_np9660(char *buffer, int length)
+static int patch_bootconf_np9660(char *buffer, int length)
 {
 	int newsize, result, ret;
 
@@ -94,14 +83,14 @@ int patch_bootconf_np9660(char *buffer, int length)
 	return result;
 }
 
-static struct add_module march33_add_mods[] = {
+static struct BtcnfModuleAdd march33_add_mods[] = {
 	{ "/kd/mgr.prx", "/kd/amctrl.prx", GAME_RUNLEVEL },
 	{ PATH_MARCH33+sizeof(FLASH0_PATH)-2, "/kd/utility.prx", GAME_RUNLEVEL },
 	{ PATH_MARCH33+sizeof(FLASH0_PATH)-2, "/kd/isofs.prx", UMDEMU_RUNLEVEL },
 	{ "/kd/isofs.prx", "/kd/utility.prx", GAME_RUNLEVEL },
 };
 
-static struct del_module march33_del_mods[] = {
+static struct BtcnfModuleDel march33_del_mods[] = {
 	{ "/kd/mediaman.prx", GAME_RUNLEVEL },
 	{ "/kd/ata.prx", GAME_RUNLEVEL },
 	{ "/kd/umdman.prx", GAME_RUNLEVEL },
@@ -110,7 +99,7 @@ static struct del_module march33_del_mods[] = {
 	{ "/kd/np9660.prx", UMDEMU_RUNLEVEL },
 };
 
-int patch_bootconf_march33(char *buffer, int length)
+static int patch_bootconf_march33(char *buffer, int length)
 {
 	int newsize, result, ret;
 
@@ -129,14 +118,14 @@ int patch_bootconf_march33(char *buffer, int length)
 	return result;
 }
 
-static struct add_module inferno_add_mods[] = {
+static struct BtcnfModuleAdd inferno_add_mods[] = {
     { "/kd/mgr.prx", "/kd/amctrl.prx", GAME_RUNLEVEL },
     { PATH_INFERNO+sizeof(FLASH0_PATH)-2, "/kd/utility.prx", GAME_RUNLEVEL },
     { PATH_INFERNO+sizeof(FLASH0_PATH)-2, "/kd/isofs.prx", UMDEMU_RUNLEVEL },
     { "/kd/isofs.prx", "/kd/utility.prx", GAME_RUNLEVEL },
 };
 
-static struct del_module inferno_del_mods[] = {
+static struct BtcnfModuleDel inferno_del_mods[] = {
     { "/kd/mediaman.prx", GAME_RUNLEVEL },
     { "/kd/ata.prx", GAME_RUNLEVEL },
     { "/kd/umdman.prx", GAME_RUNLEVEL },
@@ -145,7 +134,7 @@ static struct del_module inferno_del_mods[] = {
     { "/kd/np9660.prx", UMDEMU_RUNLEVEL },
 };
 
-int patch_bootconf_inferno(char *buffer, int length)
+static int patch_bootconf_inferno(char *buffer, int length)
 {
     int newsize, result;
 
@@ -164,19 +153,19 @@ int patch_bootconf_inferno(char *buffer, int length)
     return result;
 }
 
-static struct add_module vshumd_add_mods[] = {
+static struct BtcnfModuleAdd vshumd_add_mods[] = {
     { "/kd/isofs.prx", "/kd/utility.prx", VSH_RUNLEVEL },
     { PATH_INFERNO+sizeof(FLASH0_PATH)-2, "/kd/chnnlsv.prx", VSH_RUNLEVEL },
 };
 
-static struct del_module vshumd_del_mods[] = {
+static struct BtcnfModuleDel vshumd_del_mods[] = {
     { "/kd/mediaman.prx", VSH_RUNLEVEL },
     { "/kd/ata.prx", VSH_RUNLEVEL },
     { "/kd/umdman.prx", VSH_RUNLEVEL },
     { "/kd/umd9660.prx", VSH_RUNLEVEL },
 };
 
-int patch_bootconf_vshumd(char *buffer, int length)
+static int patch_bootconf_vshumd(char *buffer, int length)
 {
     int newsize, result;
 
@@ -195,19 +184,19 @@ int patch_bootconf_vshumd(char *buffer, int length)
     return result;
 }
 
-static struct add_module updaterumd_add_mods[] = {
+static struct BtcnfModuleAdd updaterumd_add_mods[] = {
     { "/kd/isofs.prx", "/kd/utility.prx", UPDATER_RUNLEVEL },
     { PATH_INFERNO+sizeof(FLASH0_PATH)-2, "/kd/chnnlsv.prx", UPDATER_RUNLEVEL },
 };
 
-static struct del_module updaterumd_del_mods[] = {
+static struct BtcnfModuleDel updaterumd_del_mods[] = {
     { "/kd/mediaman.prx", UPDATER_RUNLEVEL },
     { "/kd/ata.prx", UPDATER_RUNLEVEL },
     { "/kd/umdman.prx", UPDATER_RUNLEVEL },
     { "/kd/umd9660.prx", UPDATER_RUNLEVEL },
 };
 
-int patch_bootconf_updaterumd(char *buffer, int length)
+static int patch_bootconf_updaterumd(char *buffer, int length)
 {
     int newsize, result;
 

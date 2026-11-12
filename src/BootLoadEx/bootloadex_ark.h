@@ -11,8 +11,6 @@ typedef struct{
 } ArkFlashFile;
 
 // ARK specific functions
-extern RebootexConfigARK* reboot_conf;
-extern ARKConfig* ark_config;
 void initArkRebootConfig(BootLoadExConfig*);
 int UnpackBootConfigArkPSP(char *buffer, int length);
 int findArkFlashFile(BootFile* file, const char* path);

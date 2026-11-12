@@ -7,7 +7,6 @@
 #include <systemctrl.h>
 #include <systemctrl_se.h>
 
-RebootexConfigM33 *reboot_conf = (RebootexConfigM33 *)REBOOTEX_CONFIG;
 
 // ARK files
 #define PATH_SYSTEMCTRL FLASH0_PATH "kd/m33_systemctrl.prx"
@@ -20,7 +19,7 @@ RebootexConfigM33 *reboot_conf = (RebootexConfigM33 *)REBOOTEX_CONFIG;
 
 // pspbtcnf patches
 
-int patch_bootconf_vsh(char *buffer, int length) {
+static int patch_bootconf_vsh(char *buffer, int length) {
 
     int newsize, result;
 
@@ -35,7 +34,7 @@ int patch_bootconf_vsh(char *buffer, int length) {
     return result;
 }
 
-int patch_bootconf_pops(char *buffer, int length) {
+static int patch_bootconf_pops(char *buffer, int length) {
     int newsize, result;
 
     result = length;
@@ -50,25 +49,14 @@ int patch_bootconf_pops(char *buffer, int length) {
     return result;
 }
 
-struct add_module {
-    char *prxname;
-    char *insertbefore;
-    u32 flags;
-};
-
-struct del_module {
-    char *prxname;
-    u32 flags;
-};
-
-static struct add_module march33_add_mods[] = {
+static struct BtcnfModuleAdd march33_add_mods[] = {
     {                         "/kd/mgr.prx",  "/kd/amctrl.prx",   GAME_RUNLEVEL},
     {PATH_MARCH33 + sizeof(FLASH0_PATH) - 2, "/kd/utility.prx",   GAME_RUNLEVEL},
     {PATH_MARCH33 + sizeof(FLASH0_PATH) - 2,   "/kd/isofs.prx", UMDEMU_RUNLEVEL},
     {                       "/kd/isofs.prx", "/kd/utility.prx",   GAME_RUNLEVEL},
 };
 
-static struct del_module march33_del_mods[] = {
+static struct BtcnfModuleDel march33_del_mods[] = {
     {"/kd/mediaman.prx",   GAME_RUNLEVEL},
     {     "/kd/ata.prx",   GAME_RUNLEVEL},
     {  "/kd/umdman.prx",   GAME_RUNLEVEL},
@@ -79,7 +67,7 @@ static struct del_module march33_del_mods[] = {
 
 u8 g_recovery_mode = 0;
 
-int patch_bootconf_march33(char *buffer, int length) {
+static int patch_bootconf_march33(char *buffer, int length) {
     int newsize, result;
 
     result = length;
@@ -102,19 +90,19 @@ int patch_bootconf_march33(char *buffer, int length) {
     return result;
 }
 
-static struct add_module vshumd_add_mods[] = {
+static struct BtcnfModuleAdd vshumd_add_mods[] = {
     {                       "/kd/isofs.prx", "/kd/utility.prx", VSH_RUNLEVEL},
     {PATH_MARCH33 + sizeof(FLASH0_PATH) - 2, "/kd/chnnlsv.prx", VSH_RUNLEVEL},
 };
 
-static struct del_module vshumd_del_mods[] = {
+static struct BtcnfModuleDel vshumd_del_mods[] = {
     {"/kd/mediaman.prx", VSH_RUNLEVEL},
     {     "/kd/ata.prx", VSH_RUNLEVEL},
     {  "/kd/umdman.prx", VSH_RUNLEVEL},
     { "/kd/umd9660.prx", VSH_RUNLEVEL},
 };
 
-int patch_bootconf_vshumd(char *buffer, int length) {
+static int patch_bootconf_vshumd(char *buffer, int length) {
     int newsize, result;
 
     result = length;
@@ -137,19 +125,19 @@ int patch_bootconf_vshumd(char *buffer, int length) {
     return result;
 }
 
-static struct add_module updaterumd_add_mods[] = {
+static struct BtcnfModuleAdd updaterumd_add_mods[] = {
     {                       "/kd/isofs.prx", "/kd/utility.prx", UPDATER_RUNLEVEL},
     {PATH_MARCH33 + sizeof(FLASH0_PATH) - 2, "/kd/chnnlsv.prx", UPDATER_RUNLEVEL},
 };
 
-static struct del_module updaterumd_del_mods[] = {
+static struct BtcnfModuleDel updaterumd_del_mods[] = {
     {"/kd/mediaman.prx", UPDATER_RUNLEVEL},
     {     "/kd/ata.prx", UPDATER_RUNLEVEL},
     {  "/kd/umdman.prx", UPDATER_RUNLEVEL},
     { "/kd/umd9660.prx", UPDATER_RUNLEVEL},
 };
 
-int patch_bootconf_updaterumd(char *buffer, int length) {
+static int patch_bootconf_updaterumd(char *buffer, int length) {
     int newsize, result;
 
     result = length;
@@ -208,6 +196,7 @@ int UnpackBootConfigM33PSP(char *buffer, int length) {
 
     // initialize ARK reboot config
     if (ble_config->boot_type == TYPE_REBOOTEX) {
+        RebootexConfigM33 *reboot_conf = (RebootexConfigM33 *)REBOOTEX_CONFIG;
         // copy rtm module information
         // memcpy(&ble_config->rtm_mod, &reboot_conf->rtm_mod, sizeof(ble_config->rtm_mod));
 
@@ -225,10 +214,8 @@ int UnpackBootConfigM33PSP(char *buffer, int length) {
                 reboot_conf->iso_mode = MODE_MARCH33;
             }
         }
-    }
 
-    // Configure boot mode
-    if (ble_config->boot_type == TYPE_REBOOTEX) {
+        // Configure boot mode
         switch (reboot_conf->iso_mode) {
             case MODE_ME:
             case MODE_INFERNO:

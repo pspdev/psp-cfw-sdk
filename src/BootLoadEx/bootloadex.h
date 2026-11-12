@@ -62,6 +62,17 @@ typedef struct {
     int (*UnpackBootConfig)(char*, int);
 } BootLoadExConfig;
 
+struct BtcnfModuleAdd {
+    char *prxname;
+    char *insertbefore;
+    u32 flags;
+};
+
+struct BtcnfModuleDel {
+    char *prxname;
+    u32 flags;
+};
+
 #define OE_TAG_PRO 0xC01DB15D
 #define OE_TAG_LME 0xC6BA41D3
 

@@ -9,10 +9,9 @@
 #include <bootloadex_ark.h>
 #include <rebootexconfig.h>
 
-RebootexConfigARK* reboot_conf = (RebootexConfigARK*)REBOOTEX_CONFIG;
-ARKConfig* ark_config = (ARKConfig*)ARK_CONFIG;
 
 void initArkRebootConfig(BootLoadExConfig* ble_config) {
+    RebootexConfigARK* reboot_conf = (RebootexConfigARK*)REBOOTEX_CONFIG;
     if (ble_config->boot_type == TYPE_REBOOTEX && IS_ARK_CONFIG(reboot_conf)) {
         // copy rtm module information
         memcpy(&ble_config->rtm_mod, &reboot_conf->rtm_mod, sizeof(ble_config->rtm_mod));

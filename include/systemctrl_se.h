@@ -65,15 +65,24 @@ enum SEUmdModes {
      * another ISO/CISO driver.
      */
     MODE_ME,
+};
+
+enum BootModes {
+    BOOT_MODE_NORMAL = 0,
+    BOOT_MODE_OE_LEGACY,
+    BOOT_MODE_MARCH33,
+    BOOT_MODE_NP9660,
+    BOOT_MODE_INFERNO,
+    BOOT_MODE_ME,
     /** Virtual VSH UMDemu mount.
      *
      * A CFW will use the ISO/CISO driver it defaults.
      */
-    MODE_VSHUMD,
+    BOOT_MODE_VSHUMD,
     /** Updater mode. No ISO/CISO driver. */
-    MODE_UPDATERUMD,
+    BOOT_MODE_UPDATERUMD,
     /** Recovery Menu mode. No ISO/CISO driver. */
-    MODE_RECOVERY,
+    BOOT_MODE_RECOVERY,
 };
 
 enum swap_xo {
@@ -231,6 +240,32 @@ typedef struct SEConfigPRO {
     s16 macspoofer;
 } SEConfigPRO;
 
+// TN-CEF's SEConfig (Adrenaline-7)
+#define SECONFIG_MAGIC_TNCEF_1 0x31483943
+#define SECONFIG_MAGIC_TNCEF_2 0x334F4E33
+typedef struct {
+	int magic[2];
+	int hidecorrupt;
+	int	skiplogo;
+	int startupprog;
+	int umdmode;
+	int	vshcpuspeed;
+	int	umdisocpuspeed;
+	int fakeregion;
+	int skipgameboot;
+	int hidemacaddr;
+	int hidedlcs;
+	int hidepic0pic1;
+	int useextendedcolors;
+	int usesonypsposk;
+	int notusenodrmengine;
+	int notusexmbplugins;
+	int notusegameplugins;
+	int notusepopsplugins;
+	int forcehighmemory;
+	int executebootbin;
+} SEConfigTNCEF;
+
 // Adrenaline's SEConfig
 #define SECONFIG_MAGIC_EPI1 0x192EFC3C
 #define SECONFIG_MAGIC_EPI2 0x17BEB6AA
@@ -376,6 +411,7 @@ typedef union {
     SEConfigEPI adr;
     SEConfigARK ark;
     SEConfigARK150 ark150;
+    SEConfigTNCEF tncef;
 } SEConfig;
 
 #ifdef __cplusplus

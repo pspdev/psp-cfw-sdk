@@ -89,6 +89,20 @@ typedef struct RebootexConfigEPI {
 } RebootexConfigEPI;
 typedef RebootexConfigEPI RebootexConfigADR;
 
+typedef struct RebootexConfigTNCEF {
+	int bootfileindex;
+
+	char *module_after;
+	void *buf;
+	int size;
+	int flags;
+
+	u32 ram2;
+	u32 ram11;
+
+	char umdfilename[256];
+} RebootexConfigTNCEF;
+
 /** Legacy M33-3.90 release, here more for knowledge preservation. */
 typedef struct RebootexConfigM33_390 {
     char    iso_filename[REBOOTEX_FILELEN_MAX_M33];

@@ -122,7 +122,7 @@ int UnpackBootConfigLMEPSP(char *buffer, int length)
                 newsize = patch_bootconf_lme_iso(buffer, result, "/kd/inferno.prx");
                 if (newsize > 0) result = newsize;
                 break;
-            case MODE_RECOVERY:
+            case BOOT_MODE_RECOVERY:
                 lme_recovery_mode = 1;
                 break;
         }

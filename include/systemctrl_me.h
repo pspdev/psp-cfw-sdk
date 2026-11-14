@@ -28,11 +28,6 @@ typedef struct{
 
 void* sctrlKernelGetPartition(int pid);
 
-#define FindProc sctrlHENFindFunction
-
-
-#define PatchSyscall sctrlHENPatchSyscall
-
 int sctrlSERstMiniConfig(VshConfig *config); // Reset Config
 int sctrlSEGetMiniConfig(VshConfig *config);
 int sctrlSESetMiniConfig(VshConfig *config);

@@ -201,7 +201,7 @@ int UnpackBootConfigM33PSP(char *buffer, int length) {
         // memcpy(&ble_config->rtm_mod, &reboot_conf->rtm_mod, sizeof(ble_config->rtm_mod));
 
         // fix MODE_NP9660 (Galaxy driver no longer exists, redirect to either inferno or normal)
-        if (reboot_conf->iso_mode == MODE_VSHUMD || reboot_conf->iso_mode == MODE_UPDATERUMD) {
+        if (reboot_conf->iso_mode == BOOT_MODE_VSHUMD || reboot_conf->iso_mode == BOOT_MODE_UPDATERUMD) {
             reboot_conf->iso_mode = MODE_UMD;
         } else if (reboot_conf->iso_mode == MODE_OE_LEGACY || reboot_conf->iso_mode == MODE_ME
                    || reboot_conf->iso_mode == MODE_INFERNO) {
@@ -227,7 +227,7 @@ int UnpackBootConfigM33PSP(char *buffer, int length) {
                     result = newsize;
                 }
                 break;
-            case MODE_RECOVERY:
+            case BOOT_MODE_RECOVERY:
                 g_recovery_mode = 1;
                 break;
             default:

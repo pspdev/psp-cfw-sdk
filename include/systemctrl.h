@@ -29,6 +29,10 @@
 
 #include <rebootexconfig.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
 // game id is 9 bytes long
 #define GAME_ID_MINIMUM_BUFFER_SIZE 10
 
@@ -111,14 +115,15 @@ typedef int (*MDEC_HANDLER)(
     u32 blacklistsize, u32 type, u8 *xor_key1, u8 *xor_key2
 );
 
+#define SetSpeed sctrlHENSetSpeed
+#define FindProc sctrlHENFindFunction
+#define FindFunction sctrlHENFindFunction
+#define PatchSyscall sctrlHENPatchSyscall
+
 /**
  * Custom "link lib entry" handler.
  */
 typedef int (*LLE_HANDLER)(SceLibraryStubTable *lib_stub_table);
-
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
 
 // patch helper functions
 /**
@@ -1380,19 +1385,6 @@ MDEC_HANDLER sctrlHENRegisterMDecryptHandler(MDEC_HANDLER func);
  * @note Available on M33, LME, PRO, ARK and Epinephrine (>= v8.0.0).
  */
 void sctrlHENRegisterLLEHandler(LLE_HANDLER func);
-
-/**
- * Sets the speed for the cpu and bus.
- *
- * @param cpu The cpu speed.
- * @param bus The bus speed.
- *
- * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be
- * available.
- *
- * @note Available on M33, LME, PRO, and Epinephrine.
- */
-void SetSpeed(int cpu, int bus);
 
 #ifdef __cplusplus
 }

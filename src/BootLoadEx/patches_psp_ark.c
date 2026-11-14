@@ -188,11 +188,11 @@ int UnpackBootConfigArkPSP(char *buffer, int length)
         switch(reboot_conf->iso_mode) {
             default:
                 break;
-            case MODE_VSHUMD:
+            case BOOT_MODE_VSHUMD:
                 newsize = patch_bootconf_vshumd(buffer, result);
                 if (newsize > 0) result = newsize;
                 break;
-            case MODE_UPDATERUMD:
+            case BOOT_MODE_UPDATERUMD:
                 newsize = patch_bootconf_updaterumd(buffer, result);
                 if (newsize > 0) result = newsize;
                 break;

@@ -249,11 +249,11 @@ int UnpackBootConfigPROPSP(char *buffer, int length)
         ble_config->rtm_mod.flags = reboot_conf->insert_module_flags;
         
         switch(reboot_conf->iso_mode) {
-            case MODE_VSHUMD:
+            case BOOT_MODE_VSHUMD:
                 newsize = patch_bootconf_vshumd(buffer, result);
                 if (newsize > 0) result = newsize;
                 break;
-            case MODE_UPDATERUMD:
+            case BOOT_MODE_UPDATERUMD:
                 newsize = patch_bootconf_updaterumd(buffer, result);
                 if (newsize > 0) result = newsize;
                 break;

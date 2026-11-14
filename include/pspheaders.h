@@ -14,6 +14,39 @@ typedef struct
 
 typedef struct
 {
+	u32		signature;  // 0
+	u16		attribute; // 4  modinfo
+	u16		comp_attribute; // 6
+	u8		module_ver_lo;	// 8
+	u8		module_ver_hi;	// 9
+	char	modname[28]; // 0A
+	u8		version; // 26
+	u8		nsegments; // 27
+	int		elf_size; // 28
+	int		psp_size; // 2C
+	u32		entry;	// 30
+	u32		modinfo_offset; // 34
+	int		bss_size; // 38
+	u16		seg_align[4]; // 3C
+	u32		seg_address[4]; // 44
+	int		seg_size[4]; // 54
+	u32		reserved[5]; // 64
+	u32		devkitversion; // 78
+	u32		decrypt_mode; // 7C 
+	u8		key_data0[0x30]; // 80
+	int		comp_size; // B0
+	int		_80;	// B4
+	int		reserved2[2];	// B8
+	u8		key_data1[0x10]; // C0
+	u32		tag; // D0
+	u8		scheck[0x58]; // D4
+	u32		key_data2; // 12C
+	u32		oe_tag; // 130
+	u8		key_data3[0x1C]; // 134
+} __attribute__((packed)) PSP_Header;
+
+typedef struct
+{
     u32 signature;          //0
     u16 mod_attribute;      //4
     u16 comp_attribute;     //6
@@ -46,37 +79,6 @@ typedef struct
     u8 sha1_hash[0x14];     //0x12C
     u8 key_data4[0x10]; //0x140
 } PSP_Header2; //0x150
-
-
-typedef struct
-{
-    u32                signature;  // 0
-    PspModuleInfo   mod_info; //4
-    u8                version; // 26
-    u8                nsegments; // 27
-    int                elf_size; // 28
-    int                psp_size; // 2C
-    u32                entry;    // 30
-    u32                modinfo_offset; // 34
-    int                bss_size; // 38
-    u16                seg_align[4]; // 3C
-    u32                seg_address[4]; // 44
-    int                seg_size[4]; // 54
-    u32                reserved[5]; // 64
-    u32                devkitversion; // 78
-    u32                decrypt_mode; // 7C
-    u8                key_data0[0x30]; // 80
-    int                comp_size; // B0
-    int                _80;    // B4
-    int                reserved2[2];    // B8
-    u8                key_data1[0x10]; // C0
-    u32                tag; // D0
-    u8                scheck[0x58]; // D4
-    u32                key_data2; // 12C
-    u32                oe_tag; // 130
-    u8                key_data3[0x1C]; // 134
-} __attribute__((packed)) PSP_Header;
-
 
 typedef struct
 {
@@ -114,5 +116,31 @@ typedef struct
     u8 sha1_hash[0x14]; //12C
     u8 key_data4[0x10]; //140
 } PSP_HEADER, *LPPSP_HEADER;
+
+typedef struct
+{
+	int signature;
+	int version;
+	u32 offset_key_table;
+	u32 offset_values_table;
+	u32 num_entries; 
+} PSFHeader;
+
+typedef struct
+{
+	u16 label_off;
+	char rfu001;
+	char data_type;
+	int datafield_used;
+	int datafield_size;
+	int data_off;
+} PSFSection;
+
+/*PBP header*/
+typedef struct { 
+   u32 signature; //0
+   u32 version; //4
+   u32 offset[8]; //8[0],0xc[1],0x10[2],0x14[3],0x18[4],0x1c[5],0x20[6]
+} PBP_Header; 
 
 #endif

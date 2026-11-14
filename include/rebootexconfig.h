@@ -72,7 +72,7 @@ typedef struct RebootexConfigARK {
     } last_played;
 } RebootexConfigARK;
 
-typedef struct RebootexConfigEPI {
+typedef struct RebootexConfigTNCEF {
     int bootfileindex;
     u8 iso_disc_type;
 
@@ -86,22 +86,9 @@ typedef struct RebootexConfigEPI {
 
     char umdfilename[256];
     char title_id[10];
-} RebootexConfigEPI;
-typedef RebootexConfigEPI RebootexConfigADR;
-
-typedef struct RebootexConfigTNCEF {
-	int bootfileindex;
-
-	char *module_after;
-	void *buf;
-	int size;
-	int flags;
-
-	u32 ram2;
-	u32 ram11;
-
-	char umdfilename[256];
 } RebootexConfigTNCEF;
+typedef RebootexConfigTNCEF RebootexConfigADR;
+typedef RebootexConfigTNCEF RebootexConfigEPI;
 
 /** Legacy M33-3.90 release, here more for knowledge preservation. */
 typedef struct RebootexConfigM33_390 {

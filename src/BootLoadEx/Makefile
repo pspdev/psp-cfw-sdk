@@ -5,6 +5,7 @@ C_OBJS = \
 	bootloadex.o \
 	scanner.o \
 	pspbtcnf.o \
+	vitaflash.o \
 	patches_psp.o \
 	patches_vita.o \
 	bootloadex_ark.o \

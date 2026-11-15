@@ -5,7 +5,7 @@
 #include <systemctrl.h>
 #include <systemctrl_se.h>
 #include <pspbtcnf.h>
-#include <bootloadex.h>
+#include "bootloadex.h"
 #include <bootloadex_ark.h>
 #include <rebootexconfig.h>
 

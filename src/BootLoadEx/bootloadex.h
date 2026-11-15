@@ -30,6 +30,30 @@ typedef struct {
 } BootFileList;
 #define BOOT_FILE_LIST_ADDR 0x08800100
 
+typedef struct{
+    u8 filesize[4];
+    char namelen;
+    char name[1];
+} ExtraFlashFile;
+
+// Vita Buffered RAM flash0 Filesystem Structure
+typedef struct VitaFlashBufferFile
+{
+    char * name;
+    void * content;
+    unsigned int size;
+} VitaFlashBufferFile;
+
+struct BtcnfModuleAdd {
+    char *prxname;
+    char *insertbefore;
+    u32 flags;
+};
+
+struct BtcnfModuleDel {
+    char *prxname;
+    u32 flags;
+};
 
 typedef struct {
     BootType boot_type;
@@ -62,16 +86,6 @@ typedef struct {
     int (*UnpackBootConfig)(char*, int);
 } BootLoadExConfig;
 
-struct BtcnfModuleAdd {
-    char *prxname;
-    char *insertbefore;
-    u32 flags;
-};
-
-struct BtcnfModuleDel {
-    char *prxname;
-    u32 flags;
-};
 
 #define OE_TAG_PRO 0xC01DB15D
 #define OE_TAG_LME 0xC6BA41D3
@@ -80,6 +94,8 @@ struct BtcnfModuleDel {
 #define PATH_FATMS_HELPER FLASH0_PATH "kd/_fatmshlp.prx"
 #define PATH_FATMS_371 FLASH0_PATH "kd/_fatms371.prx"
 
+#define VITA_FLASH_EXTRA 0x8BA00000 // extra flash ramfs on vita
+#define MAX_FLASH0_SIZE 0x40000 // max size of FLASH0 package
 
 extern int psp_model;
 extern u32 reboot_end;

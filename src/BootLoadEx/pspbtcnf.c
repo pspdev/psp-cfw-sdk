@@ -1,6 +1,6 @@
 #include <string.h>
 
-#include <bootloadex.h>
+#include "bootloadex.h"
 #include <pspbtcnf.h>
 
 // Non-standard strcpy, using the standard version doesn't work for some reason (???)

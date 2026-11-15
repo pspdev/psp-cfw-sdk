@@ -2,10 +2,9 @@
 #include <pspsysmem_kernel.h>
 
 #include <cfwmacros.h>
-#include <bootloadex.h>
-#include <pspbtcnf.h>
 #include <systemctrl_ark.h>
 
+#include "bootloadex.h"
 
 int (*pspemuLfatOpen)(BootFile* filename, u32 a1, u32 a2, u32 a3, u32 t0) = NULL;
 int (*SetMemoryPartitionTable)(void *sysmem_config, SceSysmemPartTable *table) = NULL;
@@ -14,14 +13,6 @@ int (*SetMemoryPartitionTable)(void *sysmem_config, SceSysmemPartTable *table) =
 int loadcoreModuleStartVita(unsigned int args, void* argp, int (* start)(SceSize, void *)) {
     patchLoadCore((u32)start);
     return start(args, argp);
-}
-
-void relocateFlashFile(BootFile* file){
-    static u8* curbuf = (u8*)PTR_ALIGN_64(VITA_FLASH_ARK+MAX_FLASH0_SIZE);
-    memcpy((void *)curbuf, file->buffer, file->size);
-    file->buffer = (void *)curbuf;
-    curbuf += file->size + 64;
-    curbuf = PTR_ALIGN_64(curbuf);
 }
 
 int _pspemuLfatOpen(BootFile* file, u32 a1, u32 a2, u32 a3, u32 t0)

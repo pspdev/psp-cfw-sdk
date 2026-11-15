@@ -21,7 +21,7 @@
 #include <cfwmacros.h>
 #include <systemctrl.h>
 #include <systemctrl_se.h>
-#include <bootloadex.h>
+#include "bootloadex.h"
 #include <rebootexconfig.h>
 #include <systemctrl_ark.h>
 

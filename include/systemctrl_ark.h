@@ -29,9 +29,7 @@ extern "C" {
 #define ARK_CONFIG 0x08800010 // ARK Runtime configuration backup address
 #define ARK_CONFIG_150 0x08800150 // ARK-150 Runtime configuration backup address
 #define ARK_CONFIG_MAGIC 0xB00B1E55 // generic magic number
-#define VITA_FLASH_ARK 0x8BA00000 // ark's flash ramfs on vita
 #define ARK_BIN_MAX_SIZE 0x8000 // max size of ARK4.BIN
-#define MAX_FLASH0_SIZE 0x40000 // max size of FLASH0.ARK
 #define FAKE_UID 0x0B00B500
 
 // Paths and other global strings

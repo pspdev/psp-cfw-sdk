@@ -73,18 +73,28 @@ typedef struct RebootexConfigARK {
 } RebootexConfigARK;
 
 typedef struct RebootexConfigTNCEF {
+    /** The boot mode. One of `BootModes`. */
     int bootfileindex;
+    /** Custom set of the Disc Type of the ISO to use on reboot. Bit or'ed of `pspUmdTypes`. */
     u8 iso_disc_type;
 
+    /** The module that will go after the custom module to load. */
     char *module_after;
+    /** The custom module module to be added before `module_after`. */
     void *buf;
+    /** The size of the custom module in `buf`. */
     int size;
+    /** The module flags for the custom module in `buf`. */
     int flags;
 
+    /** The size of the partition 2 of the RAM. */
     u32 ram2;
+    /** The size of the partition 11 of the RAM. */
     u32 ram11;
 
+    /** The ISO filename to be used on reboot. */
     char umdfilename[256];
+    /** The ISO title ID of the last launched title. */
     char title_id[10];
 } RebootexConfigTNCEF;
 typedef RebootexConfigTNCEF RebootexConfigADR;

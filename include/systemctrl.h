@@ -54,6 +54,7 @@ enum {
     PSP_GO = PSP_5000,
     PSP_GO2 = PSP_6000,
     PSP_STREET = PSP_11000,
+    PSP_VITA = 11, // PS Vita
 };
 
 enum BootLoadFlags {
@@ -236,7 +237,7 @@ u32 sctrlFindImportByNID(SceModule *pMod, const char *library, u32 nid);
  * @attention Requires linking to `pspsystemctrl_user` or `pspsystemctrl_kernel` stubs to be
  * available.
  *
- * @note Available on LME, ARK and Epinephrine (>= v8.0.0).
+ * @note Available on LME, ARK, TN-V2 and Epinephrine (>= v8.0.0).
  */
 int sctrlHookImportByNID(SceModule *mod, const char *library, u32 nid, void *func);
 
@@ -1187,7 +1188,7 @@ void sctrlHENLoadModuleOnReboot(char *relmod, void *buf, int size, int flags);
  *
  * @attention Requires linking to `pspsystemctrl_kernel` stub to be available.
  *
- * @note Available on M33, PRO, ARK and Epinephrine (>= v8.1.0).
+ * @note Available on M33, PRO, ARK, TN-V2 and Epinephrine (>= v8.1.0).
  */
 void sctrlHENSetRebootexOverride(void *rebootex, u32 size);
 

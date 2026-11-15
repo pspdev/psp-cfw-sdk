@@ -6,7 +6,7 @@ function(add_sdk_library name)
    add_library(${name} STATIC)
 
    target_compile_options(${name} PRIVATE -std=c99 -Wall -Os -G0 -fno-pic)
-   target_include_directories(${name} PUBLIC ${SDK_INCLUDE_DIR})
+   target_include_directories(${name} BEFORE PUBLIC ${SDK_INCLUDE_DIR})
 
    add_dependencies(${name} CopyPrebuiltSdkLibs)
 

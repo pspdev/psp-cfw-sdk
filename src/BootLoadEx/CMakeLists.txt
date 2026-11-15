@@ -2,9 +2,10 @@ add_sdk_library(bootloadex)
 
 target_sources(bootloadex PRIVATE
 	crt0.S
-	bootloadex.c
 	scanner.c
 	pspbtcnf.c
+	vitaflash.c
+	bootloadex.c
 	patches_psp.c
 	patches_vita.c
 	bootloadex_ark.c

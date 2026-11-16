@@ -1,5 +1,8 @@
 build/**
 include/iplsdk/**
+include/libpspexploit.h
+include/tinyfont.h
+include/bootloadex*.h
 libs/**
 *.o
 lib*.a

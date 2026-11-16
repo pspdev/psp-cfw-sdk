@@ -11,9 +11,9 @@ function(add_sdk_library name)
    add_dependencies(${name} CopyPrebuiltSdkLibs)
 
    add_custom_command(TARGET ${name} POST_BUILD
-      COMMAND cp "$<TARGET_FILE:${name}>" "${SDK_LIBS_DIR}/"
+      COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:${name}>" "${SDK_LIBS_DIR}/"
       COMMENT "Copying $<TARGET_FILE_NAME:${name}> to libs/"
-)
+   )
 endfunction()
 
 add_subdirectory(AdrenalineCtrl)

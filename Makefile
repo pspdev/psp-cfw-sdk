@@ -5,6 +5,7 @@ PSPDEV = $(shell psp-config --pspdev-path)
 CFWSDK = $(PSPDEV)/share/psp-cfw-sdk
 
 all:
+	$(MAKE) -C src/optimized-allegrex
 	$(MAKE) -C src/KUBridge
 	$(MAKE) -C src/SystemCtrlForUser
 	$(MAKE) -C src/SystemCtrlForKernel
@@ -49,6 +50,8 @@ all:
 	mkdir -p libs
 	mkdir -p include/iplsdk
 	cp src/pre-built/*.a libs/
+	cp src/optimized-allegrex/include/*.h include
+	cp src/optimized-allegrex/*.a libs
 	cp src/KUBridge/*.a libs/
 	cp src/SystemCtrlForUser/*.a libs
 	cp src/SystemCtrlForKernel/*.a libs

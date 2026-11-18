@@ -5,7 +5,6 @@ PSPDEV = $(shell psp-config --pspdev-path)
 CFWSDK = $(PSPDEV)/share/psp-cfw-sdk
 
 all:
-	$(MAKE) -C src/optimized-allegrex
 	$(MAKE) -C src/KUBridge
 	$(MAKE) -C src/SystemCtrlForUser
 	$(MAKE) -C src/SystemCtrlForKernel
@@ -47,6 +46,7 @@ all:
 	$(MAKE) -C src/libpspnodrm_helper
 	$(MAKE) -C src/libpspdownloader
 	$(MAKE) -C src/NidResolver
+	$(MAKE) -C src/optimized-allegrex
 	mkdir -p libs
 	mkdir -p include/iplsdk
 	cp src/pre-built/*.a libs/
@@ -114,6 +114,7 @@ clean:
 	rm -f  include/popsdisplay.h
 	rm -f  include/pspdownloader.h
 	rm -f  include/bootloadex*.h
+	rm -f  include/optimized-allegrex.h
 	$(MAKE) -C src/KUBridge clean
 	$(MAKE) -C src/SystemCtrlForUser clean
 	$(MAKE) -C src/SystemCtrlForKernel clean
@@ -155,3 +156,5 @@ clean:
 	$(MAKE) -C src/libpspnodrm_helper clean
 	$(MAKE) -C src/libpspdownloader clean
 	$(MAKE) -C src/NidResolver clean
+	$(MAKE) -C src/optimized-allegrex clean
+	

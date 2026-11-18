@@ -95,7 +95,7 @@ typedef struct {
 #define PATH_FATMS_371 FLASH0_PATH "kd/_fatms371.prx"
 
 #define VITA_FLASH_EXTRA 0x8BA00000 // extra flash ramfs on vita
-#define MAX_FLASH0_SIZE 0x40000 // max size of FLASH0 package
+#define MAX_FLASH0_SIZE 0x50000 // max size of FLASH0 package
 
 extern int psp_model;
 extern u32 reboot_end;

@@ -21,7 +21,7 @@ int vitaFlashOpenExtra(BootFile* file, const char* path) {
     return -1;
 }
 
-void relocateFlashFile(BootFile* file){
+void vitaFlashRelocateFile(BootFile* file){
     static u8* curbuf = (u8*)PTR_ALIGN_64(VITA_FLASH_EXTRA+MAX_FLASH0_SIZE);
     memcpy((void *)curbuf, file->buffer, file->size);
     file->buffer = (void *)curbuf;

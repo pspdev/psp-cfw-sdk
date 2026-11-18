@@ -33,7 +33,7 @@ int _pspemuLfatOpen(BootFile* file, u32 a1, u32 a2, u32 a3, u32 t0)
 	} else if (strcmp(file->name, REBOOT_MODULE) == 0){
         file->buffer = ble_config->rtm_mod.buffer;
         file->size = ble_config->rtm_mod.size;
-        relocateFlashFile(file);
+        vitaFlashRelocateFile(file);
         ble_config->rtm_mod.buffer = NULL;
         ble_config->rtm_mod.size = 0;
         return 0;

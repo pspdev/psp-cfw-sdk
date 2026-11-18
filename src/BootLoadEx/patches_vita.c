@@ -45,8 +45,7 @@ int _pspemuLfatOpen(BootFile* file, u32 a1, u32 a2, u32 a3, u32 t0)
 
 int UnpackBootConfigVita(char **p_buffer, int length) {
 
-    int result = length;
-    int newsize;
+    int result = 0;
     char *buffer;
 
     result = (*UnpackBootConfig)(*p_buffer, length);
@@ -55,18 +54,12 @@ int UnpackBootConfigVita(char **p_buffer, int length) {
     *p_buffer = buffer;
 
     if (ble_config->UnpackBootConfig) {
-        newsize = ble_config->UnpackBootConfig(buffer, length);
-        if (newsize > 0) {
-			result = newsize;
-		}
+        ble_config->UnpackBootConfig(buffer, length);
     }
 
     if (ble_config->boot_type == TYPE_REBOOTEX && ble_config->rtm_mod.before && ble_config->rtm_mod.buffer && ble_config->rtm_mod.size) {
         //add reboot prx entry
-        newsize = AddPRX(buffer, ble_config->rtm_mod.before, REBOOT_MODULE, ble_config->rtm_mod.flags);
-        if (newsize > 0) {
-			result = newsize;
-		}
+        AddPRX(buffer, ble_config->rtm_mod.before, REBOOT_MODULE, ble_config->rtm_mod.flags);
     }
 
     return result;

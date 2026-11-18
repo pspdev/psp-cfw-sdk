@@ -11,6 +11,11 @@ on:
       - 'Dockerfile'
       - '**/README.md'
       - 'docs/**'
+  push:
+    branches: [ main ]
+    paths:
+      - '**Makefile'
+      - '**CMakeLists.txt'
 
 env:
   PSPDEV: "/usr/local/pspdev"

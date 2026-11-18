@@ -6,14 +6,14 @@ function(add_sdk_library name)
    add_library(${name} STATIC)
 
    target_compile_options(${name} PRIVATE -std=c99 -Wall -Os -G0 -fno-pic)
-   target_include_directories(${name} PUBLIC ${SDK_INCLUDE_DIR})
+   target_include_directories(${name} BEFORE PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${SDK_INCLUDE_DIR})
 
    add_dependencies(${name} CopyPrebuiltSdkLibs)
 
    add_custom_command(TARGET ${name} POST_BUILD
-      COMMAND cp "$<TARGET_FILE:${name}>" "${SDK_LIBS_DIR}/"
+      COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:${name}>" "${SDK_LIBS_DIR}/"
       COMMENT "Copying $<TARGET_FILE_NAME:${name}> to libs/"
-)
+   )
 endfunction()
 
 add_subdirectory(AdrenalineCtrl)
@@ -51,3 +51,4 @@ add_subdirectory(pspPSAR)
 add_subdirectory(tinyfont)
 add_subdirectory(libpspnodrm_helper)
 add_subdirectory(NidResolver)
+add_subdirectory(optimized-allegrex)

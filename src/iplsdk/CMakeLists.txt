@@ -46,9 +46,11 @@ target_sources(iplsdk PRIVATE
 target_compile_options(iplsdk PRIVATE -fdata-sections -ffunction-sections -Wl,--gc-sections)
 target_link_libraries(iplsdk PUBLIC ansic)
 
+file(GLOB HEADER_FILES CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h")
+
 add_custom_command(TARGET iplsdk POST_BUILD
    COMMAND ${CMAKE_COMMAND} -E make_directory "${SDK_INCLUDE_DIR}/iplsdk"
-   COMMAND cp "$<TARGET_FILE:iplsdk>" "${SDK_LIBS_DIR}/"
-   COMMAND cp "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h" "${SDK_INCLUDE_DIR}/iplsdk/"
+   COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:iplsdk>" "${SDK_LIBS_DIR}/"
+   COMMAND ${CMAKE_COMMAND} -E copy ${HEADER_FILES} "${SDK_INCLUDE_DIR}/iplsdk/"
    COMMENT "Copying lib and headers"
 )

@@ -41,6 +41,9 @@ enum fakeregion {
     FAKE_REGION_DEBUG_TYPE_II = 13,
 };
 
+/**
+ * Represents the possible UMD modes.
+ */
 enum SEUmdModes {
     /** No ISO/CISO driver. */
     MODE_UMD = 0,
@@ -67,12 +70,41 @@ enum SEUmdModes {
     MODE_ME,
 };
 
+/**
+ * Represents the boot mode the system will use on reboot.
+ */
 enum BootModes {
+    /** No ISO/CISO driver. The usual boot mode of OFW. */
     BOOT_MODE_NORMAL = 0,
+    /** OE ISO/DAX driver boot mode.
+     *
+     * Originally available on OE CFW. If the ISO driver is not available,
+     * it will default to another ISO/CISO driver boot mode.
+     */
     BOOT_MODE_OE_LEGACY,
+    /** March33 ISO/CISO driver boot mode.
+     *
+     * Originally available on M33 CFW. If the ISO driver is not available,
+     * it will default to another ISO/CISO driver boot mode.
+     */
     BOOT_MODE_MARCH33,
+    /** Sony PBP driver with ISO/CISO support boot mode.
+     *
+     * If Galaxy Controller is not available for ISO/CISO support
+     * (e.g. ARK-4/5) if will default to another ISO/CISO driver boot mode.
+     */
     BOOT_MODE_NP9660,
+    /** Inferno ISO/CISO driver boot mode.
+     *
+     * Originally available on PRO CFW. If the ISO driver is not available,
+     * it will default to another ISO/CISO driver boot mode.
+     */
     BOOT_MODE_INFERNO,
+    /** Minimal Edition ISO/CISO driver boot mode.
+     *
+     * Originally available on (L)ME CFW. If the ISO driver is not available,
+     * it will default to another ISO/CISO driver boot mode.
+     */
     BOOT_MODE_ME,
     /** Virtual VSH UMDemu mount.
      *

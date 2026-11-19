@@ -7,6 +7,5 @@
 // ARK specific functions
 void initArkRebootConfig(BootLoadExConfig*);
 int UnpackBootConfigArkPSP(char *buffer, int length);
-int vitaFlashOpenExtra(BootFile* file, const char* path);
 
 #endif

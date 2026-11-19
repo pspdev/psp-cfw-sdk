@@ -156,6 +156,7 @@ int patch_bootconf_timemachine(char *buffer, int length);
 
 // Vita specific functions
 void patchBootVita();
+int vitaFlashOpenExtra(BootFile* file, const char* path);
 void vitaFlashRelocateFile(BootFile* file);
 
 void flushCache();

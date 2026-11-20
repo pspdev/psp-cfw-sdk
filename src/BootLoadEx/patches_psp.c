@@ -117,15 +117,21 @@ int _sceBootLfatOpen(char * filename) {
         return 0;
     }
 
-    if (ble_config->boot_storage == MS_BOOT) {
+    if (ble_config->boot_storage == MS_BOOT && ble_config->extra_io.psp_io.use_tm >= 0)
+    {
         char path[128];
-        strcpy(path, ble_config->extra_io.psp_io.tm_path);
-        strcat(path, filename);
-        if (is_btcnf && ble_config->extra_io.psp_io.use_dc >= 0) {
-            if (ble_config->extra_io.psp_io.use_dc > 0
-                || ble_config->boot_type == TYPE_PAYLOADEX)
-            {
-                memcpy(&path[strlen(path) - 4], "_dc.bin", 8);
+        if (strcmp(filename, "/tmctrl.prx") == 0) {
+            strcpy(path, "/TM/tmctrl.prx");
+        }
+        else {
+            strcpy(path, ble_config->extra_io.psp_io.tm_path);
+            strcat(path, filename);
+            if (is_btcnf && ble_config->extra_io.psp_io.use_dc >= 0) {
+                if (ble_config->extra_io.psp_io.use_dc > 0
+                    || ble_config->boot_type == TYPE_PAYLOADEX)
+                {
+                    memcpy(&path[strlen(path) - 4], "_dc.bin", 8);
+                }
             }
         }
 
@@ -221,7 +227,8 @@ int UnpackBootConfigPSP(char **p_buffer, int length) {
 		}
     }
 
-    if (ble_config->boot_storage == MS_BOOT) {
+    if (ble_config->boot_storage == MS_BOOT && ble_config->extra_io.psp_io.use_tm >= 0)
+    {
         newsize = patch_bootconf_timemachine(buffer, length);
         if (newsize > 0) {
 			result = newsize;

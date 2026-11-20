@@ -198,7 +198,7 @@ void net_disconnect(void)
 /* Download url into local file at outPath using sceHttp */
 int download_file(char *url, char *outPath)
 {
-    int result;
+    int result =0;
     int templateId = -1, connectionId = -1, requestId = -1, netconnect = -1;
     //SceUChar *buf = NULL;
 	u8 buf[READ_CHUNK];
@@ -310,5 +310,6 @@ cleanup:
     if (connectionId >= 0) sceHttpDeleteConnection(connectionId);
     if (templateId >= 0) sceHttpDeleteTemplate(templateId);
     sceHttpEnd();
+	net_disconnect();
     return result;
 }

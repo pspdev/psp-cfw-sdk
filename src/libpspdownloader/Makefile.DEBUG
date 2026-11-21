@@ -2,7 +2,7 @@ CC = psp-gcc
 AR = psp-ar
 CFLAGS = -O2 -G0 -DDEBUG
 
-OBJS = libpspdownloader.o
+OBJS = libpspdownloader_debug.o
 
 INC = /usr/local/pspdev/psp/sdk/include
 

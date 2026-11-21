@@ -53,6 +53,19 @@ u32 UnpackBootConfigArg = 0;
 // rtm module flag
 int rebootmodule_open = 0;
 
+#define LOADCORE_DEFAULT_SCAN_SIZE 0x8000
+static u32 loadcore_scan_size = LOADCORE_DEFAULT_SCAN_SIZE;
+
+static const struct {
+    u32 decrypt;
+    u32 check;
+    u32 scan_size;
+} memlmd_nids[] = {
+    { 0xEF73E85B, 0x6192F715, 0x8000 }, // 6.60/6.61
+    { 0xE42AFE2E, 0x3F2AC9C6, 0x8000 }, // 6.39
+    { 0xCA560AA6, 0x2E208358, 0x9000 }, // 6.20
+};
+
 
 // Invalidate Instruction and Data Cache
 void flushCache(void) {
@@ -114,7 +127,7 @@ int CheckExecFilePatched(unsigned char * addr, void * arg2) {
 void unPatchLoadCorePRXDecrypt() {
     u32 decrypt_call = JAL(PRXDecryptPatched);
     u32 text_addr = loadcore_text;
-    u32 top_addr = text_addr+0x8000;
+    u32 top_addr = text_addr+loadcore_scan_size;
 
     for (u32 addr = text_addr; addr<top_addr; addr+=4) {
         if (VREAD32(addr) == decrypt_call) {
@@ -127,7 +140,7 @@ void unPatchLoadCorePRXDecrypt() {
 void unPatchLoadCoreCheckExec() {
     u32 check_call = JAL(CheckExecFilePatched);
     u32 text_addr = loadcore_text;
-    u32 top_addr = text_addr+0x8000;
+    u32 top_addr = text_addr+loadcore_scan_size;
 
     for (u32 addr = text_addr; addr<top_addr; addr+=4) {
         if (VREAD32(addr) == check_call) {
@@ -139,13 +152,26 @@ void unPatchLoadCoreCheckExec() {
 
 void patchLoadCore(u32 module_start) {
 
-    // Calculate Text Address and size
-    u32 text_addr = module_start-0xAF8; // this calculation is exact, but due to dynamic patching it doesn't matter anymore
-    u32 top_addr = text_addr+0x8000; // read 32KB at most (more than enough to scan loadcore)
+    // Start near the beginning of loadcore; the entry point varies by firmware.
+    u32 text_addr = module_start-0xAF8;
+    u32 top_addr = text_addr+LOADCORE_DEFAULT_SCAN_SIZE;
 
-    // Fetch Original Decrypt Function Stub
-    origPRXDecrypt = (void *)FindImportRange("memlmd", 0xEF73E85B, text_addr, top_addr);
-    origCheckExecFile = (void *)FindImportRange("memlmd", 0x6192F715, text_addr, top_addr);
+    // The imports identify the firmware's memlmd NID set without a version check.
+    origPRXDecrypt = NULL;
+    origCheckExecFile = NULL;
+    loadcore_scan_size = LOADCORE_DEFAULT_SCAN_SIZE;
+    for (unsigned int i = 0; i < NELEMS(memlmd_nids); i++) {
+        top_addr = text_addr + memlmd_nids[i].scan_size;
+        u32 decrypt = FindImportRange("memlmd", memlmd_nids[i].decrypt, text_addr, top_addr);
+        u32 check = FindImportRange("memlmd", memlmd_nids[i].check, text_addr, top_addr);
+        if (decrypt || check) {
+            loadcore_scan_size = memlmd_nids[i].scan_size;
+            origPRXDecrypt = (void *)decrypt;
+            origCheckExecFile = (void *)check;
+            break;
+        }
+    }
+    top_addr = text_addr + loadcore_scan_size;
 
     u32 decrypt_call = JAL(origPRXDecrypt);
     u32 check_call = JAL(origCheckExecFile);
@@ -155,10 +181,10 @@ void patchLoadCore(u32 module_start) {
     // Hook Signcheck Function Calls
     for (u32 addr = text_addr; addr<top_addr; addr+=4) {
         u32 data = VREAD32(addr);
-        if (data == decrypt_call) {
+        if (origPRXDecrypt && data == decrypt_call) {
 			MAKE_CALL(addr, PRXDecryptPatched);
 
-		} else if (data == check_call) {
+		} else if (origCheckExecFile && data == check_call) {
 			MAKE_CALL(addr, CheckExecFilePatched);
 
 		} else if (!devkit_patched && data == 0x24040015) {

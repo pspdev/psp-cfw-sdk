@@ -245,10 +245,13 @@ void patchBootPSP() {
 
     // make sure we read as little ram as possible
     int patches = (ble_config->boot_storage == MS_BOOT) ? 10 : 9;
+    int open_patched = 0;
+    int nand_patched = 0;
+    int reboot_check2_patched = 0;
 
     for (u32 addr = REBOOT_TEXT; addr<reboot_end && patches; addr+=4) {
         u32 data = VREAD32(addr);
-        if (data == 0x8E840000 || data == 0x8EA40000) { // FatOpen
+        if (!open_patched && (data == 0x8E840000 || data == 0x8EA40000) && IS_JAL(VREAD32(addr-4))) { // FatOpen
             if (ble_config->boot_storage == MS_BOOT) {
                 int found = 0;
                 for (int i=8; !found; i+=4) {
@@ -260,6 +263,7 @@ void patchBootPSP() {
             }
             sceBootLfatOpen = (void*)K_EXTRACT_CALL(addr-4);
 			MAKE_CALL(addr-4, _sceBootLfatOpen);
+            open_patched = 1;
             patches--;
 
 		} else if ((data == VREAD32(addr+4)) && (data & 0xFC000000) == 0xAC000000) { // Patch ~PSP header check
@@ -303,14 +307,16 @@ void patchBootPSP() {
 			MAKE_NOP(a); // Killing Branch Check bltz/bltzl ...
             patches--;
 
-		} else if (data == 0x27BDFFE0 && VREAD32(addr+4) == 0x3C028861 && ble_config->boot_storage == MS_BOOT) { // nand enc
+		} else if (!nand_patched && data == 0x27BDFFE0 && VREAD32(addr+4) == 0x3C028861 && ble_config->boot_storage == MS_BOOT) { // nand enc
             MAKE_DUMMY_FUNCTION_RETURN_0(addr);
+            nand_patched = 1;
             patches--;
 
 		} else {
             if (ble_config->boot_type == TYPE_REBOOTEX) {
-                if (data == 0x34650001) { // rebootexcheck2
+                if (!reboot_check2_patched && data == 0x34650001) { // rebootexcheck2
 					MAKE_NOP(addr-4); // Killing Branch Check bltz ...
+                    reboot_check2_patched = 1;
                     patches--;
 
 				} else if (data == 0x00903021 && VREAD32(addr+4) == 0x00D6282B) { // rebootexcheck3 and rebootexcheck4
